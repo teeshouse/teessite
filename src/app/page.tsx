@@ -1,8 +1,8 @@
-﻿import type { Metadata } from "next"
+import type { Metadata } from "next"
 import Link from "next/link"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
-import { Leaf, Heart, Users, Sprout, ArrowRight } from "lucide-react"
+import { Leaf, Heart, Users, Sprout, ArrowRight, Salad, Smile, HandHeart, Sparkles } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "Tees House Inc. | Empowering Communities in Northwest Florida"
@@ -15,10 +15,10 @@ const featureCards = [
 ]
 
 const impactStats = [
-  { value: "500+", label: "Meals Provided", icon: "ðŸ¥—" },
-  { value: "150+", label: "Youth Reached",  icon: "ðŸŒ±" },
-  { value: "80+",  label: "Volunteers",     icon: "ðŸ¤" },
-  { value: "5+",   label: "Programs",       icon: "ðŸŽ¨" }
+  { value: "500+", label: "Meals Provided", Icon: Salad },
+  { value: "150+", label: "Youth Reached",  Icon: Smile },
+  { value: "80+",  label: "Volunteers",     Icon: HandHeart },
+  { value: "5+",   label: "Programs",       Icon: Sparkles }
 ]
 
 export default function HomePage() {
@@ -42,8 +42,8 @@ export default function HomePage() {
               through food access, youth development, and creative expression.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/donate"    className="btn-amber text-base px-8 py-4">Donate Today</Link>
-              <Link href="/about"     className="btn-outline-white text-base px-8 py-4">Learn Our Story</Link>
+              <Link href="/donate" className="btn-amber text-base px-8 py-4">Donate Today</Link>
+              <Link href="/about"  className="btn-outline-white text-base px-8 py-4">Learn Our Story</Link>
             </div>
           </div>
           <div className="absolute bottom-0 left-0 right-0">
@@ -97,7 +97,9 @@ export default function HomePage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {impactStats.map((stat) => (
                 <div key={stat.label} className="text-center">
-                  <div className="text-4xl mb-2">{stat.icon}</div>
+                  <div className="flex justify-center mb-3">
+                    <stat.Icon className="w-10 h-10 text-green-light" />
+                  </div>
                   <div className="font-display text-4xl font-bold text-amber mb-1">{stat.value}</div>
                   <div className="text-green-light text-sm">{stat.label}</div>
                 </div>
@@ -126,12 +128,14 @@ export default function HomePage() {
               </div>
               <div className="bg-green-light rounded-card p-8 space-y-4">
                 {[
-                  { emoji: "ðŸŒ»", title: "Community Gardens",     desc: "Growing food and teaching self-sufficiency" },
-                  { emoji: "ðŸŽ­", title: "Creative Arts & Youth", desc: "Art, drama, and poetry for youth expression" },
-                  { emoji: "ðŸ¤", title: "Community Outreach",    desc: "Food, resources, and education for all" }
+                  { title: "Community Gardens",     desc: "Growing food and teaching self-sufficiency",    Icon: Sprout },
+                  { title: "Creative Arts & Youth", desc: "Art, drama, and poetry for youth expression",   Icon: Sparkles },
+                  { title: "Community Outreach",    desc: "Food, resources, and education for all",        Icon: HandHeart }
                 ].map((item) => (
                   <div key={item.title} className="flex items-start gap-4">
-                    <span className="text-2xl shrink-0">{item.emoji}</span>
+                    <div className="p-2 bg-white rounded-lg shrink-0">
+                      <item.Icon className="w-5 h-5 text-green-mid" />
+                    </div>
                     <div>
                       <h3 className="text-green-dark text-base mb-1">{item.title}</h3>
                       <p className="text-gray-muted text-sm">{item.desc}</p>
