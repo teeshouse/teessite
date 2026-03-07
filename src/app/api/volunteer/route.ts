@@ -1,6 +1,4 @@
 import { NextRequest, NextResponse } from "next/server"
-import { submitVolunteerApplication } from "@/lib/supabase"
-import { sendVolunteerNotification } from "@/lib/resend"
 
 export async function POST(req: NextRequest) {
   try {
@@ -12,19 +10,18 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
     }
 
-    await submitVolunteerApplication({
-      name, email, phone,
-      role_interest: roles,
-      availability: `Days: ${days?.join(", ")} | Times: ${times?.join(", ")}`,
-      message: `Skills: ${skills}\n\nBackground check: ${backgroundCheck}\n\nEmergency: ${emergencyName} (${emergencyRelation}) ${emergencyPhone}\n\nNotes: ${notes}`
-    })
+    const availability = `Days: ${days?.join(", ")} | Times: ${times?.join(", ")}`
+    const message = `Skills: ${skills}\n\nBackground check: ${backgroundCheck}\n\nEmergency: ${emergencyName} (${emergencyRelation}) ${emergencyPhone}\n\nNotes: ${notes}`
 
-    await sendVolunteerNotification({
-      name, email,
-      role_interest: roles,
-      availability: `Days: ${days?.join(", ")} | Times: ${times?.join(", ")}`,
-      message: notes
-    })
+    if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+      const { submitVolunteerApplication } = await import("@/lib/supabase")
+      await submitVolunteerApplication({ name, email, phone, role_interest: roles, availability, message })
+    }
+
+    if (process.env.RESEND_API_KEY) {
+      const { sendVolunteerNotification } = await import("@/lib/resend")
+      await sendVolunteerNotification({ name, email, role_interest: roles, availability, message: notes })
+    }
 
     return NextResponse.json({ success: true })
   } catch (error) {
