@@ -1,0 +1,47 @@
+﻿@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,600;0,700;1,400&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { @apply font-sans text-gray-body bg-white antialiased; }
+  h1,h2,h3,h4,h5,h6 { @apply font-display; }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 bg-green-dark text-white font-semibold
+           px-6 py-3 rounded-lg hover:bg-green-mid transition-all duration-200 shadow-card
+           focus:outline-none focus:ring-2 focus:ring-green-mid focus:ring-offset-2;
+  }
+  .btn-amber {
+    @apply inline-flex items-center justify-center gap-2 bg-amber text-white font-semibold
+           px-6 py-3 rounded-lg hover:bg-amber-dark transition-all duration-200
+           focus:outline-none focus:ring-2 focus:ring-amber focus:ring-offset-2;
+  }
+  .btn-outline-white {
+    @apply inline-flex items-center justify-center gap-2 border-2 border-white text-white
+           font-semibold px-6 py-3 rounded-lg hover:bg-white hover:text-green-dark transition-all duration-200;
+  }
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 border-2 border-green-dark text-green-dark
+           font-semibold px-6 py-3 rounded-lg hover:bg-green-dark hover:text-white transition-all duration-200;
+  }
+  .card {
+    @apply bg-white rounded-card shadow-card hover:shadow-card-hover transition-all duration-300;
+  }
+  .section-padding    { @apply py-section px-4 md:px-8; }
+  .section-padding-sm { @apply py-section-sm px-4 md:px-8; }
+  .container-max      { @apply max-w-6xl mx-auto; }
+  .form-input {
+    @apply w-full px-4 py-3 rounded-lg border border-gray-border text-gray-body bg-white
+           focus:outline-none focus:ring-2 focus:ring-green-mid focus:border-transparent
+           placeholder:text-gray-muted transition-all duration-200;
+  }
+  .form-label         { @apply block text-sm font-semibold text-gray-body mb-1; }
+  .badge-current      { @apply inline-block px-3 py-1 rounded-full text-xs font-semibold bg-green-light text-green-dark; }
+  .badge-past         { @apply inline-block px-3 py-1 rounded-full text-xs font-semibold bg-gray-light text-gray-muted; }
+  .badge-upcoming     { @apply inline-block px-3 py-1 rounded-full text-xs font-semibold bg-amber-light text-amber-dark; }
+}
