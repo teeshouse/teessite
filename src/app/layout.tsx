@@ -8,7 +8,21 @@ export const metadata: Metadata = {
     template: "%s | Tee's House Inc."
   },
   description: "Tee's House Inc. is a Pensacola-based nonprofit empowering communities through food access, youth development, mental health support, and creative expression.",
-  openGraph: { type: "website", locale: "en_US", url: "https://www.teeshouse.org", siteName: "Tee's House Inc." }
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://www.teeshouse.org",
+    siteName: "Tee's House Inc."
+  },
+  icons: {
+    icon: [
+      { url: "https://www.teeshouse.org/wp-content/uploads/2024/12/cropped-file.png", type: "image/png" }
+    ],
+    apple: [
+      { url: "https://www.teeshouse.org/wp-content/uploads/2024/12/cropped-file.png", type: "image/png" }
+    ],
+    shortcut: "https://www.teeshouse.org/wp-content/uploads/2024/12/cropped-file.png"
+  }
 }
 
 const sd = {
