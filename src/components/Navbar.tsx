@@ -25,8 +25,7 @@ export default function Navbar() {
           <Image
             src="https://www.teeshouse.org/wp-content/uploads/2024/12/cropped-file.png"
             alt="Tee's House"
-            width={40}
-            height={40}
+            width={72} height={72}
             className="rounded-md"
           />
           <span className="font-display font-bold text-xl text-white">Tee&apos;s House</span>
