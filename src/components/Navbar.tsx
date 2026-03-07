@@ -1,8 +1,9 @@
-﻿"use client"
+"use client"
 import { useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Menu, X, Leaf } from "lucide-react"
+import { Menu, X } from "lucide-react"
 
 const navLinks = [
   { label: "Home",         href: "/" },
@@ -20,9 +21,15 @@ export default function Navbar() {
   return (
     <nav className="bg-green-dark text-white sticky top-0 z-50 shadow-md">
       <div className="container-max flex items-center justify-between h-16 px-4 md:px-8">
-        <Link href="/" className="flex items-center gap-2 font-display font-bold text-xl hover:text-amber transition-colors">
-          <Leaf className="w-6 h-6 text-amber" />
-          <span>Tees House</span>
+        <Link href="/" className="flex items-center gap-2 hover:opacity-90 transition-opacity">
+          <Image
+            src="https://www.teeshouse.org/wp-content/uploads/2024/12/cropped-file.png"
+            alt="Tee's House"
+            width={40}
+            height={40}
+            className="rounded-md"
+          />
+          <span className="font-display font-bold text-xl text-white">Tee&apos;s House</span>
         </Link>
         <div className="hidden lg:flex items-center gap-1">
           {navLinks.map(link => (

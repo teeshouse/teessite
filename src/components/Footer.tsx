@@ -1,5 +1,6 @@
-﻿import Link from "next/link"
-import { Leaf, Mail, Phone, MapPin, Facebook, Instagram } from "lucide-react"
+import Link from "next/link"
+import Image from "next/image"
+import { Mail, Phone, MapPin, Facebook, Instagram } from "lucide-react"
 
 const footerLinks = [
   { label: "About Us",     href: "/about" },
@@ -16,8 +17,15 @@ export default function Footer() {
       <div className="container-max section-padding-sm">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           <div>
-            <div className="flex items-center gap-2 font-display font-bold text-xl mb-3">
-              <Leaf className="w-6 h-6 text-amber" /><span>Tees House Inc.</span>
+            <div className="flex items-center gap-2 mb-3">
+              <Image
+                src="https://www.teeshouse.org/wp-content/uploads/2024/12/cropped-file.png"
+                alt="Tee's House"
+                width={36}
+                height={36}
+                className="rounded-md"
+              />
+              <span className="font-display font-bold text-xl">Tee&apos;s House Inc.</span>
             </div>
             <p className="text-green-light text-sm leading-relaxed">
               Empowering minds, nourishing bodies, and building futures in Northwest Florida.
@@ -68,8 +76,8 @@ export default function Footer() {
           </div>
         </div>
         <div className="border-t border-green-mid mt-10 pt-6 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-green-light">
-          <p>2025 Tees House Inc. All rights reserved.</p>
-          <p className="text-center">Tees House Inc. is a registered 501(c)(3) nonprofit. Donations are tax-deductible to the extent permitted by law.</p>
+          <p>2025 Tee&apos;s House Inc. All rights reserved.</p>
+          <p className="text-center">Tee&apos;s House Inc. is a registered 501(c)(3) nonprofit. Donations are tax-deductible to the extent permitted by law.</p>
           <div className="flex gap-4">
             <Link href="/privacy" className="hover:text-amber transition-colors">Privacy Policy</Link>
             <Link href="/terms"   className="hover:text-amber transition-colors">Terms</Link>

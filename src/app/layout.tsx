@@ -1,19 +1,19 @@
-﻿import type { Metadata } from "next"
+import type { Metadata } from "next"
 import "./globals.css"
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.teeshouse.org"),
   title: {
-    default: "Tees House Inc. | Empowering Communities in Northwest Florida",
-    template: "%s | Tees House Inc."
+    default: "Tee's House Inc. | Empowering Communities in Northwest Florida",
+    template: "%s | Tee's House Inc."
   },
-  description: "Tees House Inc. is a Pensacola-based nonprofit empowering communities through food access, youth development, mental health support, and creative expression.",
-  openGraph: { type: "website", locale: "en_US", url: "https://www.teeshouse.org", siteName: "Tees House Inc." }
+  description: "Tee's House Inc. is a Pensacola-based nonprofit empowering communities through food access, youth development, mental health support, and creative expression.",
+  openGraph: { type: "website", locale: "en_US", url: "https://www.teeshouse.org", siteName: "Tee's House Inc." }
 }
 
 const sd = {
   "@context": "https://schema.org", "@type": "NGO",
-  "name": "Tees House Inc.", "url": "https://www.teeshouse.org",
+  "name": "Tee's House Inc.", "url": "https://www.teeshouse.org",
   "description": "Empowering communities in Northwest Florida.",
   "address": { "@type": "PostalAddress", "addressLocality": "Pensacola", "addressRegion": "FL" },
   "telephone": "850-291-1888", "email": "info@teeshouse.org"
