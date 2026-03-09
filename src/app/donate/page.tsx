@@ -48,9 +48,13 @@ const METHODS: Method[] = [
   {
     id: "cashapp",
     label: "Cash App",
-    desc: "Cashtag coming soon.",
+    desc: "Send to $teeshouseinc on Cash App.",
     Logo: CashAppLogo,
-    action: () => window.open("https://cash.app", "_blank")
+   action: (amount: string) => {
+  const amt = amount.replace("$","").replace("Other","")
+  const url = amt ? `https://cash.app/$teeshouseinc/${amt}` : `https://cash.app/$teeshouseinc`
+  window.open(url, "_blank")
+}
   },
   {
     id: "check",
