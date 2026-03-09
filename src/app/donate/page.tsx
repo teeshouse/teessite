@@ -1,23 +1,71 @@
-import type { Metadata } from "next"
+"use client"
+import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
-import { Heart, Sprout, Leaf, Users, Sun, ArrowRight, ExternalLink } from "lucide-react"
-
-export const metadata: Metadata = {
-  title: "Giving Back | Tee's House Inc.",
-  description: "Support Tee's House Inc. through donations, food drives, or becoming a monthly sustainer."
-}
+import { Heart, Sprout, Leaf, Sun, Users, ArrowRight, ExternalLink, Mail, ChevronDown } from "lucide-react"
 
 const impacts = [
-  { Icon: Sprout, title: "Fight Food Insecurity",    desc: "Support urban farming and fresh food access for families in need." },
-  { Icon: Leaf,   title: "Empower Through Learning", desc: "Fund hands-on education and creative expression programs." },
-  { Icon: Sun,    title: "Promote Mental Well-Being", desc: "Sustain nature-based and holistic wellness programs." },
-  { Icon: Users,  title: "Build Community",           desc: "Strengthen connections from the ground up in Northwest Florida." }
+  { Icon: Sprout, title: "Fight Food Insecurity",     desc: "Support urban farming and fresh food access for families in need." },
+  { Icon: Leaf,   title: "Empower Through Learning",  desc: "Fund hands-on education and creative expression programs." },
+  { Icon: Sun,    title: "Promote Mental Well-Being",  desc: "Sustain nature-based and holistic wellness programs." },
+  { Icon: Users,  title: "Build Community",            desc: "Strengthen connections from the ground up in Northwest Florida." }
+]
+
+const AMOUNTS = ["$10", "$25", "$50", "$100", "$250", "Other"]
+
+const METHODS = [
+  {
+    id: "paypal",
+    label: "PayPal",
+    color: "#003087",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg",
+    desc: "Donate securely via PayPal â€” all major cards accepted.",
+    action: (amount: string) => {
+      const url = "https://www.paypal.com/donate/?hosted_button_id=V7PVDP6M5SAY2"
+      window.open(url, "_blank")
+    }
+  },
+  {
+    id: "venmo",
+    label: "Venmo",
+    color: "#008CFF",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/2/20/Venmo_logo_blue.svg",
+    desc: "Send via Venmo to @TeesHouseInc.",
+    action: (amount: string) => {
+      const amt = amount.replace("$","").replace("Other","")
+      const url = amt
+        ? `https://venmo.com/TeesHouseInc?txn=pay&amount=${amt}&note=Donation+to+Tees+House`
+        : `https://venmo.com/TeesHouseInc`
+      window.open(url, "_blank")
+    }
+  },
+  {
+    id: "cashapp",
+    label: "Cash App",
+    color: "#00D64F",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/c/c7/Cash_App_logo.svg",
+    desc: "Send via Cash App â€” cashtag coming soon.",
+    action: () => window.open("https://cash.app", "_blank")
+  },
+  {
+    id: "check",
+    label: "Check by Mail",
+    color: "#2D5016",
+    logo: null,
+    desc: "Make checks payable to Tee's House Inc.",
+    action: () => {}
+  }
 ]
 
 export default function DonatePage() {
+  const [selectedAmount, setSelectedAmount] = useState("$25")
+  const [selectedMethod, setSelectedMethod] = useState<string | null>(null)
+  const [open, setOpen] = useState(false)
+
+  const method = METHODS.find(m => m.id === selectedMethod)
+
   return (
     <>
       <Navbar />
@@ -37,9 +85,122 @@ export default function DonatePage() {
             <span className="text-amber font-semibold text-sm uppercase tracking-widest">Support the Mission</span>
             <h1 className="text-white mt-3 mb-4 text-4xl md:text-5xl">Sow the Seeds of Change</h1>
             <p className="text-green-light text-lg max-w-2xl mx-auto leading-relaxed">
-              At Tee&apos;s House, we believe community transformation begins with nourishment â€”
-              of the mind, the body, and the spirit.
+              Every dollar planted at Tee&apos;s House grows into food, education, and hope for our community.
             </p>
+          </div>
+        </section>
+
+        {/* Donation Widget */}
+        <section className="section-padding bg-green-light">
+          <div className="container-max max-w-2xl">
+            <div className="card p-8">
+              <h2 className="text-green-dark text-center mb-2">Make a Donation</h2>
+              <p className="text-gray-muted text-center text-sm mb-8">
+                Tee&apos;s House Inc. is a registered 501(c)(3) nonprofit. Your donation is tax-deductible.
+              </p>
+
+              {/* Amount selector */}
+              <div className="mb-6">
+                <p className="form-label mb-3">Select an Amount</p>
+                <div className="grid grid-cols-3 gap-3">
+                  {AMOUNTS.map(amt => (
+                    <button key={amt} onClick={() => setSelectedAmount(amt)}
+                      className={`py-3 rounded-lg text-sm font-semibold border-2 transition-all
+                        ${selectedAmount === amt
+                          ? "bg-green-dark text-white border-green-dark"
+                          : "bg-white text-gray-body border-gray-border hover:border-green-mid"}`}>
+                      {amt}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Payment method dropdown */}
+              <div className="mb-6">
+                <p className="form-label mb-3">Choose Payment Method</p>
+                <div className="relative">
+                  <button onClick={() => setOpen(!open)}
+                    className="w-full flex items-center justify-between px-4 py-3 bg-white border-2 border-gray-border rounded-lg hover:border-green-mid transition-colors text-left">
+                    {method ? (
+                      <span className="flex items-center gap-3">
+                        {method.logo ? (
+                          <img src={method.logo} alt={method.label} className="h-5 w-auto" />
+                        ) : (
+                          <Mail className="w-5 h-5 text-green-mid" />
+                        )}
+                        <span className="font-medium text-gray-body">{method.label}</span>
+                      </span>
+                    ) : (
+                      <span className="text-gray-400">Select a payment method...</span>
+                    )}
+                    <ChevronDown className={`w-5 h-5 text-gray-400 transition-transform ${open ? "rotate-180" : ""}`} />
+                  </button>
+
+                  {open && (
+                    <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-border rounded-lg shadow-card z-20 overflow-hidden">
+                      {METHODS.map(m => (
+                        <button key={m.id} onClick={() => { setSelectedMethod(m.id); setOpen(false) }}
+                          className={`w-full flex items-center gap-3 px-4 py-3 hover:bg-green-light transition-colors text-left
+                            ${selectedMethod === m.id ? "bg-green-light" : ""}`}>
+                          {m.logo ? (
+                            <img src={m.logo} alt={m.label} className="h-5 w-auto" />
+                          ) : (
+                            <Mail className="w-5 h-5 text-green-mid" />
+                          )}
+                          <div>
+                            <p className="text-sm font-medium text-gray-body">{m.label}</p>
+                            <p className="text-xs text-gray-muted">{m.desc}</p>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Check by mail details */}
+              {selectedMethod === "check" && (
+                <div className="mb-6 p-5 bg-green-light rounded-lg border border-green-mid">
+                  <p className="text-sm font-semibold text-green-dark mb-2">Make check payable to:</p>
+                  <p className="text-sm text-gray-body font-medium">Tee&apos;s House Inc.</p>
+                  <p className="text-sm text-gray-muted mt-1">
+                    7823 Bay Meadows Dr<br />
+                    Pensacola, FL 32507
+                  </p>
+                  <p className="text-xs text-gray-muted mt-3 italic">
+                    Please include your name and email address on the memo line for your tax receipt.
+                  </p>
+                </div>
+              )}
+
+              {/* Donate button */}
+              {selectedMethod && selectedMethod !== "check" && (
+                <button
+                  onClick={() => method?.action(selectedAmount)}
+                  className="btn-amber w-full justify-center text-base py-4 mb-4">
+                  Donate {selectedAmount !== "Other" ? selectedAmount : ""} via {method?.label}
+                  <ExternalLink className="w-4 h-4" />
+                </button>
+              )}
+
+              {!selectedMethod && (
+                <button disabled
+                  className="w-full py-4 rounded-lg bg-gray-200 text-gray-400 font-semibold cursor-not-allowed text-base mb-4">
+                  Select a payment method above
+                </button>
+              )}
+
+              <p className="text-center text-xs text-gray-muted">
+                Questions? Email{" "}
+                <a href="mailto:info@teeshouse.org" className="text-green-mid hover:underline">
+                  info@teeshouse.org
+                </a>{" "}
+                or call{" "}
+                <a href="tel:8502911888" className="text-green-mid hover:underline">
+                  850.291.1888
+                </a>
+              </p>
+            </div>
           </div>
         </section>
 
@@ -61,81 +222,46 @@ export default function DonatePage() {
                 </div>
               ))}
             </div>
-            <p className="text-center text-gray-muted mt-8 font-display italic text-lg">
-              Whether it is $5 or $500, your contribution plants the seeds for growth, healing, and empowerment.
-            </p>
           </div>
         </section>
 
-        {/* Ways to Give */}
+        {/* Other ways to give */}
         <section className="section-padding bg-green-light">
           <div className="container-max">
-            <div className="text-center mb-12">
-              <span className="text-amber font-semibold text-sm uppercase tracking-widest">How to Help</span>
-              <h2 className="text-green-dark mt-3">Ways to Give</h2>
+            <div className="text-center mb-10">
+              <span className="text-amber font-semibold text-sm uppercase tracking-widest">More Ways to Help</span>
+              <h2 className="text-green-dark mt-3">Beyond Donations</h2>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="card p-8 flex flex-col">
-                <h3 className="text-green-dark text-xl mb-3">Make a Donation</h3>
-                <p className="text-gray-muted text-sm leading-relaxed mb-6 flex-1">
-                  Give online through PayPal Giving Fund â€” 100% of your donation goes directly to
-                  Tee&apos;s House with zero platform fees.
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+              <div className="card p-7">
+                <h3 className="text-green-dark text-lg mb-2">Donate Food</h3>
+                <p className="text-gray-muted text-sm leading-relaxed mb-4">
+                  Fresh produce and non-perishables are always welcome. Contact us to arrange a drop-off or food drive.
                 </p>
-                <a href="https://www.paypal.com/fundraiser/hub" target="_blank" rel="noopener noreferrer"
-                  className="btn-amber justify-center inline-flex">
-                  Donate via PayPal Giving Fund <ExternalLink className="w-4 h-4" />
-                </a>
-              </div>
-              <div className="card p-8 flex flex-col">
-                <h3 className="text-green-dark text-xl mb-3">Donate Food</h3>
-                <p className="text-gray-muted text-sm leading-relaxed mb-6 flex-1">
-                  Fresh produce, non-perishables, and healthy food items are always welcome.
-                  Drop off at our Pensacola location or coordinate a food drive.
-                </p>
-                <Link href="/contact" className="btn-primary justify-center">
-                  Contact Us to Arrange <ArrowRight className="w-4 h-4" />
+                <Link href="/contact" className="btn-primary text-sm">
+                  Contact Us <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
-              <div className="card p-8 flex flex-col">
-                <h3 className="text-green-dark text-xl mb-3">Give Your Time</h3>
-                <p className="text-gray-muted text-sm leading-relaxed mb-6 flex-1">
-                  Volunteer your skills and energy. From gardening to event support,
-                  there is a role for every heart.
+              <div className="card p-7">
+                <h3 className="text-green-dark text-lg mb-2">Give Your Time</h3>
+                <p className="text-gray-muted text-sm leading-relaxed mb-4">
+                  Volunteer your skills and energy. From gardening to event support, there is a role for every heart.
                 </p>
-                <Link href="/volunteer" className="btn-primary justify-center">
-                  Volunteer With Us <ArrowRight className="w-4 h-4" />
+                <Link href="/volunteer" className="btn-primary text-sm">
+                  Volunteer <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Monthly CTA */}
-        <section className="section-padding bg-green-dark text-white">
-          <div className="container-max">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              <div>
-                <h2 className="text-white mb-4">Become a Monthly Sustainer</h2>
-                <p className="text-green-light text-lg leading-relaxed mb-4">
-                  Make a recurring gift to keep the mission alive, vibrant, and growing.
-                  Monthly sustainers are the backbone of everything we do.
-                </p>
-                <p className="font-display text-xl italic text-amber mb-8">
-                  Together, let us cultivate a future where every family thrives.
-                </p>
-                <a href="https://www.paypal.com/fundraiser/hub" target="_blank" rel="noopener noreferrer"
-                  className="btn-amber text-base px-8 py-4 inline-flex items-center gap-2">
-                  Donate via PayPal Giving Fund <ExternalLink className="w-4 h-4" />
-                </a>
-              </div>
-              <div className="relative h-72 rounded-card overflow-hidden shadow-card-hover">
-                <Image
-                  src="https://www.teeshouse.org/wp-content/uploads/2025/11/ChatGPT-Image-Nov-2-2025-06_43_51-PM-2.png"
-                  alt="Tee's House community support"
-                  fill className="object-cover"
-                />
-              </div>
-            </div>
+        {/* CTA */}
+        <section className="section-padding-sm bg-green-dark text-white">
+          <div className="container-max text-center px-4">
+            <p className="font-display text-2xl italic text-green-light mb-2">
+              Together, let us cultivate a future where every family thrives.
+            </p>
+            <p className="text-amber text-sm">Tee&apos;s House Inc. &bull; 501(c)(3) Nonprofit &bull; Pensacola, FL</p>
           </div>
         </section>
       </main>
