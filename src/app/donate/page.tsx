@@ -5,7 +5,7 @@ import Image from "next/image"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import { PayPalLogo, VenmoLogo, CashAppLogo } from "@/components/PaymentLogos"
-import { Heart, Sprout, Leaf, Sun, Users, ArrowRight, ExternalLink, Mail, ChevronDown } from "lucide-react"
+import { Heart, Sprout, Leaf, Sun, Users, ArrowRight, ExternalLink, Mail, ChevronDown, CheckCircle } from "lucide-react"
 
 const impacts = [
   { Icon: Sprout, title: "Fight Food Insecurity",    desc: "Support urban farming and fresh food access for families in need." },
@@ -50,11 +50,11 @@ const METHODS: Method[] = [
     label: "Cash App",
     desc: "Send to $teeshouseinc on Cash App.",
     Logo: CashAppLogo,
-   action: (amount: string) => {
-  const amt = amount.replace("$","").replace("Other","")
-  const url = amt ? `https://cash.app/$teeshouseinc/${amt}` : `https://cash.app/$teeshouseinc`
-  window.open(url, "_blank")
-}
+    action: (amount: string) => {
+      const amt = amount.replace("$","").replace("Other","")
+      const url = amt ? `https://cash.app/$teeshouseinc/${amt}` : `https://cash.app/$teeshouseinc`
+      window.open(url, "_blank")
+    }
   },
   {
     id: "check",
@@ -91,18 +91,65 @@ export default function DonatePage() {
             <span className="text-amber font-semibold text-sm uppercase tracking-widest">Support the Mission</span>
             <h1 className="text-white mt-3 mb-4 text-4xl md:text-5xl">Sow the Seeds of Change</h1>
             <p className="text-green-light text-lg max-w-2xl mx-auto leading-relaxed">
-              Every dollar planted at Tee&apos;s House grows into food, education, and hope for our community.
+              At Tee&apos;s House, we believe community transformation begins with nourishment â€”
+              of the mind, the body, and the spirit.
             </p>
+          </div>
+        </section>
+
+        {/* Mission content */}
+        <section className="section-padding bg-white">
+          <div className="container-max">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+              <div>
+                <span className="text-amber font-semibold text-sm uppercase tracking-widest">Why It Matters</span>
+                <h2 className="text-green-dark mt-3 mb-5">Your Gift Changes Lives</h2>
+                <p className="text-gray-muted leading-relaxed mb-5">
+                  Through our unique blend of agriculture, arts, and education, we are building a more resilient,
+                  creative, and self-sustaining future for youth and families in Northwest Florida.
+                </p>
+                <ul className="space-y-3 mb-6">
+                  {[
+                    "Fight food insecurity through urban farming and fresh food access",
+                    "Empower the community through hands-on learning and creative expression",
+                    "Promote mental well-being through nature-based and holistic programs",
+                    "Build a stronger, more connected community from the ground up"
+                  ].map(item => (
+                    <li key={item} className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-green-mid shrink-0 mt-0.5" />
+                      <span className="text-gray-muted text-sm leading-relaxed">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                <p className="font-display italic text-green-dark text-lg">
+                  Whether it&apos;s $5 or $500, your contribution plants the seeds for growth, healing, and empowerment.
+                </p>
+              </div>
+              <div className="relative h-80 rounded-card overflow-hidden shadow-card-hover">
+                <Image
+                  src="https://www.teeshouse.org/wp-content/uploads/2025/11/create-a-graphic-that-focuses-on-agriculture-and-arts-program-8-1024x1024.jpg"
+                  alt="Tee's House programs"
+                  fill className="object-cover"
+                />
+              </div>
+            </div>
           </div>
         </section>
 
         {/* Donation Widget */}
         <section className="section-padding bg-green-light">
           <div className="container-max max-w-2xl">
+            <div className="text-center mb-8">
+              <span className="text-amber font-semibold text-sm uppercase tracking-widest">How Can I Donate?</span>
+              <h2 className="text-green-dark mt-3">Choose Your Way to Give</h2>
+              <p className="text-gray-muted mt-2 text-sm">
+                Make a one-time gift or become a monthly sustainer to keep the mission alive, vibrant, and growing.
+              </p>
+            </div>
+
             <div className="card p-8">
-              <h2 className="text-green-dark text-center mb-2">Make a Donation</h2>
-              <p className="text-gray-muted text-center text-sm mb-8">
-                Tee&apos;s House Inc. is a registered 501(c)(3) nonprofit. Your donation is tax-deductible.
+              <p className="text-center text-xs text-green-mid font-semibold uppercase tracking-widest mb-6">
+                Tee&apos;s House Inc. is a registered 501(c)(3) nonprofit â€” your donation is tax-deductible.
               </p>
 
               {/* Amount selector */}
@@ -203,12 +250,12 @@ export default function DonatePage() {
           </div>
         </section>
 
-        {/* Impact */}
+        {/* Impact cards */}
         <section className="section-padding bg-white">
           <div className="container-max">
             <div className="text-center mb-12">
               <span className="text-amber font-semibold text-sm uppercase tracking-widest">Your Impact</span>
-              <h2 className="text-green-dark mt-3">Your Donation Helps Us</h2>
+              <h2 className="text-green-dark mt-3">Every Dollar Makes a Difference</h2>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
               {impacts.map((item) => (
@@ -235,7 +282,7 @@ export default function DonatePage() {
               <div className="card p-7">
                 <h3 className="text-green-dark text-lg mb-2">Donate Food</h3>
                 <p className="text-gray-muted text-sm leading-relaxed mb-4">
-                  Fresh produce and non-perishables are always welcome.
+                  Fresh produce and non-perishables are always welcome. Contact us to arrange a drop-off or food drive.
                 </p>
                 <Link href="/contact" className="btn-primary text-sm">Contact Us <ArrowRight className="w-4 h-4" /></Link>
               </div>
@@ -250,10 +297,11 @@ export default function DonatePage() {
           </div>
         </section>
 
+        {/* CTA */}
         <section className="section-padding-sm bg-green-dark text-white">
           <div className="container-max text-center px-4">
-            <p className="font-display text-2xl italic text-green-light mb-2">
-              Together, let us cultivate a future where every family thrives.
+            <p className="font-display text-2xl md:text-3xl italic text-green-light mb-3">
+              Together, let&apos;s cultivate a future where every family thrives.
             </p>
             <p className="text-amber text-sm">Tee&apos;s House Inc. &bull; 501(c)(3) Nonprofit &bull; Pensacola, FL</p>
           </div>
