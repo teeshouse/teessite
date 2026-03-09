@@ -30,7 +30,7 @@ const METHODS: Method[] = [
     label: "PayPal",
     desc: "Donate securely via PayPal â€” all major cards accepted.",
     Logo: PayPalLogo,
-    action: () => window.open("https://www.paypal.com/donate/?hosted_button_id=V7PVDP6M5SAY2", "_blank")
+    action: () => window.open("https://www.paypal.com/donate/?hosted_button_id=XSHDRCQ2L66JW", "_blank")
   },
   {
     id: "venmo",
