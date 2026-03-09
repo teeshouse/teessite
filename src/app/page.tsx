@@ -16,7 +16,7 @@ const featureCards = [
     href: "/donate",
     description: "Time, finances, or food are ways to help our organization and the community.",
     color: "amber",
-    image: "https://www.teeshouse.org/wp-content/uploads/2025/11/ChatGPT-Image-Nov-2-2025-06_43_51-PM-1.png"
+    image: "https://cdn.sanity.io/images/zbeb0ctt/production/58792471f8a4433f2d4367eba2366f9dd5f21914-1024x1024.png"
   },
   {
     icon: Sprout,
@@ -24,7 +24,7 @@ const featureCards = [
     href: "/programs",
     description: "Discover how Tee's House is cultivating creativity, education, and community growth.",
     color: "green",
-    image: "https://www.teeshouse.org/wp-content/uploads/2025/11/ChatGPT-Image-Nov-3-2025-07_20_14-AM.png"
+    image: "https://cdn.sanity.io/images/zbeb0ctt/production/1fc83a1ef9faa8ff2552ba2ae09a1bc44b29a745-1024x1024.png"
   },
   {
     icon: Users,
@@ -32,7 +32,7 @@ const featureCards = [
     href: "/volunteer",
     description: "We welcome all with a sincere heart and a warm smile.",
     color: "amber",
-    image: "https://www.teeshouse.org/wp-content/uploads/2025/11/ChatGPT-Image-Nov-2-2025-06_41_58-PM.png"
+    image: "https://cdn.sanity.io/images/zbeb0ctt/production/c94746e3b73a04a0d2f0f69d628d5c00c2b85f3d-1024x1024.png"
   }
 ]
 
@@ -51,7 +51,7 @@ export default function HomePage() {
         {/* Hero */}
         <section className="relative min-h-[90vh] flex items-center justify-center text-white overflow-hidden">
           <Image
-            src="https://www.teeshouse.org/wp-content/uploads/2025/11/agriculture-and-arts-2.jpg"
+            src="https://cdn.sanity.io/images/zbeb0ctt/production/aa3166c4742d84e1137865a365dcfd41de898dca-2048x2048.jpg"
             alt="Tee's House community agriculture program"
             fill
             className="object-cover"
@@ -170,7 +170,7 @@ export default function HomePage() {
               </div>
               <div className="relative h-80 rounded-card overflow-hidden shadow-card-hover">
                 <Image
-                  src="https://www.teeshouse.org/wp-content/uploads/2025/11/create-a-graphic-that-focuses-on-agriculture-and-arts-program-8-1024x1024.jpg"
+                  src="https://cdn.sanity.io/images/zbeb0ctt/production/bb80acf5b6d60378b6cff558e871c90c27240189-1024x1024.jpg"
                   alt="Tee's House Agriculture and Arts Program"
                   fill
                   className="object-cover"

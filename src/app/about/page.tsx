@@ -24,7 +24,7 @@ export default function AboutPage() {
         {/* Hero with photo */}
         <section className="relative text-white py-28 px-4 overflow-hidden">
           <Image
-            src="https://www.teeshouse.org/wp-content/uploads/2025/11/create-a-graphic-that-focuses-on-agriculture-and-arts-program-2.jpg"
+            src="https://cdn.sanity.io/images/zbeb0ctt/production/9e83c4f80bcfcf915d8313e338c0d7fd2a531f19-2048x2048.jpg"
             alt="Tee's House community"
             fill className="object-cover" priority
           />
@@ -65,7 +65,7 @@ export default function AboutPage() {
               </div>
               <div className="relative h-80 rounded-card overflow-hidden shadow-card-hover">
                 <Image
-                  src="https://www.teeshouse.org/wp-content/uploads/2025/11/create-a-graphic-that-focuses-on-agriculture-and-arts-program-2-1-1024x1024.jpg"
+                  src="https://cdn.sanity.io/images/zbeb0ctt/production/41367ca1929bf2ddd0f8fae7dda827e0a9ddb167-1024x1024.jpg"
                   alt="Tee's House community agriculture and arts"
                   fill className="object-cover"
                 />

@@ -79,7 +79,7 @@ export default function DonatePage() {
         {/* Hero */}
         <section className="relative text-white py-28 px-4 overflow-hidden">
           <Image
-            src="https://www.teeshouse.org/wp-content/uploads/2025/11/ChatGPT-Image-Nov-2-2025-06_43_51-PM-1.png"
+            src="https://cdn.sanity.io/images/zbeb0ctt/production/58792471f8a4433f2d4367eba2366f9dd5f21914-1024x1024.png"
             alt="Tee's House giving back"
             fill className="object-cover" priority
           />
@@ -127,7 +127,7 @@ export default function DonatePage() {
               </div>
               <div className="relative h-80 rounded-card overflow-hidden shadow-card-hover">
                 <Image
-                  src="https://www.teeshouse.org/wp-content/uploads/2025/11/create-a-graphic-that-focuses-on-agriculture-and-arts-program-8-1024x1024.jpg"
+                  src="https://cdn.sanity.io/images/zbeb0ctt/production/bb80acf5b6d60378b6cff558e871c90c27240189-1024x1024.jpg"
                   alt="Tee's House programs"
                   fill className="object-cover"
                 />

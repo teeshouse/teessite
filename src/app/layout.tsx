@@ -16,12 +16,12 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "https://www.teeshouse.org/wp-content/uploads/2024/12/cropped-file.png", type: "image/png" }
+      { url: "https://cdn.sanity.io/images/zbeb0ctt/production/44f842016c7584b95a281fcfdba5ec79a837304b-612x612.png", type: "image/png" }
     ],
     apple: [
-      { url: "https://www.teeshouse.org/wp-content/uploads/2024/12/cropped-file.png", type: "image/png" }
+      { url: "https://cdn.sanity.io/images/zbeb0ctt/production/44f842016c7584b95a281fcfdba5ec79a837304b-612x612.png", type: "image/png" }
     ],
-    shortcut: "https://www.teeshouse.org/wp-content/uploads/2024/12/cropped-file.png"
+    shortcut: "https://cdn.sanity.io/images/zbeb0ctt/production/44f842016c7584b95a281fcfdba5ec79a837304b-612x612.png"
   }
 }
 

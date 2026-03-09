@@ -23,7 +23,7 @@ export default function Footer() {
           <div className="flex flex-col items-center md:items-start text-center md:text-left">
             <div className="flex items-center gap-3 mb-3">
               <Image
-                src="https://www.teeshouse.org/wp-content/uploads/2024/12/cropped-file.png"
+                src="https://cdn.sanity.io/images/zbeb0ctt/production/44f842016c7584b95a281fcfdba5ec79a837304b-612x612.png"
                 alt="Tee's House"
                 width={48}
                 height={48}
