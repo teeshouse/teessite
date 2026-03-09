@@ -4,35 +4,39 @@ import Link from "next/link"
 import Image from "next/image"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
+import { PayPalLogo, VenmoLogo, CashAppLogo } from "@/components/PaymentLogos"
 import { Heart, Sprout, Leaf, Sun, Users, ArrowRight, ExternalLink, Mail, ChevronDown } from "lucide-react"
 
 const impacts = [
-  { Icon: Sprout, title: "Fight Food Insecurity",     desc: "Support urban farming and fresh food access for families in need." },
-  { Icon: Leaf,   title: "Empower Through Learning",  desc: "Fund hands-on education and creative expression programs." },
-  { Icon: Sun,    title: "Promote Mental Well-Being",  desc: "Sustain nature-based and holistic wellness programs." },
-  { Icon: Users,  title: "Build Community",            desc: "Strengthen connections from the ground up in Northwest Florida." }
+  { Icon: Sprout, title: "Fight Food Insecurity",    desc: "Support urban farming and fresh food access for families in need." },
+  { Icon: Leaf,   title: "Empower Through Learning", desc: "Fund hands-on education and creative expression programs." },
+  { Icon: Sun,    title: "Promote Mental Well-Being", desc: "Sustain nature-based and holistic wellness programs." },
+  { Icon: Users,  title: "Build Community",           desc: "Strengthen connections from the ground up in Northwest Florida." }
 ]
 
 const AMOUNTS = ["$10", "$25", "$50", "$100", "$250", "Other"]
 
-const METHODS = [
+type Method = {
+  id: string
+  label: string
+  desc: string
+  Logo: React.ComponentType<{ className?: string }> | null
+  action: (amount: string) => void
+}
+
+const METHODS: Method[] = [
   {
     id: "paypal",
     label: "PayPal",
-    color: "#003087",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg",
     desc: "Donate securely via PayPal â€” all major cards accepted.",
-    action: (amount: string) => {
-      const url = "https://www.paypal.com/donate/?hosted_button_id=V7PVDP6M5SAY2"
-      window.open(url, "_blank")
-    }
+    Logo: PayPalLogo,
+    action: () => window.open("https://www.paypal.com/donate/?hosted_button_id=V7PVDP6M5SAY2", "_blank")
   },
   {
     id: "venmo",
     label: "Venmo",
-    color: "#008CFF",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/2/20/Venmo_logo_blue.svg",
-    desc: "Send via Venmo to @TeesHouseInc.",
+    desc: "Send to @TeesHouseInc on Venmo.",
+    Logo: VenmoLogo,
     action: (amount: string) => {
       const amt = amount.replace("$","").replace("Other","")
       const url = amt
@@ -44,17 +48,15 @@ const METHODS = [
   {
     id: "cashapp",
     label: "Cash App",
-    color: "#00D64F",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/c/c7/Cash_App_logo.svg",
-    desc: "Send via Cash App â€” cashtag coming soon.",
+    desc: "Cashtag coming soon.",
+    Logo: CashAppLogo,
     action: () => window.open("https://cash.app", "_blank")
   },
   {
     id: "check",
     label: "Check by Mail",
-    color: "#2D5016",
-    logo: null,
     desc: "Make checks payable to Tee's House Inc.",
+    Logo: null,
     action: () => {}
   }
 ]
@@ -123,11 +125,9 @@ export default function DonatePage() {
                     className="w-full flex items-center justify-between px-4 py-3 bg-white border-2 border-gray-border rounded-lg hover:border-green-mid transition-colors text-left">
                     {method ? (
                       <span className="flex items-center gap-3">
-                        {method.logo ? (
-                          <img src={method.logo} alt={method.label} className="h-5 w-auto" />
-                        ) : (
-                          <Mail className="w-5 h-5 text-green-mid" />
-                        )}
+                        {method.Logo
+                          ? <method.Logo className="h-6 w-auto" />
+                          : <Mail className="w-5 h-5 text-green-mid" />}
                         <span className="font-medium text-gray-body">{method.label}</span>
                       </span>
                     ) : (
@@ -140,13 +140,13 @@ export default function DonatePage() {
                     <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-border rounded-lg shadow-card z-20 overflow-hidden">
                       {METHODS.map(m => (
                         <button key={m.id} onClick={() => { setSelectedMethod(m.id); setOpen(false) }}
-                          className={`w-full flex items-center gap-3 px-4 py-3 hover:bg-green-light transition-colors text-left
+                          className={`w-full flex items-center gap-4 px-4 py-3 hover:bg-green-light transition-colors text-left
                             ${selectedMethod === m.id ? "bg-green-light" : ""}`}>
-                          {m.logo ? (
-                            <img src={m.logo} alt={m.label} className="h-5 w-auto" />
-                          ) : (
-                            <Mail className="w-5 h-5 text-green-mid" />
-                          )}
+                          <div className="w-16 flex items-center justify-start shrink-0">
+                            {m.Logo
+                              ? <m.Logo className="h-6 w-auto" />
+                              : <Mail className="w-5 h-5 text-green-mid" />}
+                          </div>
                           <div>
                             <p className="text-sm font-medium text-gray-body">{m.label}</p>
                             <p className="text-xs text-gray-muted">{m.desc}</p>
@@ -163,20 +163,19 @@ export default function DonatePage() {
                 <div className="mb-6 p-5 bg-green-light rounded-lg border border-green-mid">
                   <p className="text-sm font-semibold text-green-dark mb-2">Make check payable to:</p>
                   <p className="text-sm text-gray-body font-medium">Tee&apos;s House Inc.</p>
-                  <p className="text-sm text-gray-muted mt-1">
+                  <p className="text-sm text-gray-muted mt-1 leading-relaxed">
                     7823 Bay Meadows Dr<br />
                     Pensacola, FL 32507
                   </p>
                   <p className="text-xs text-gray-muted mt-3 italic">
-                    Please include your name and email address on the memo line for your tax receipt.
+                    Please include your name and email on the memo line for your tax receipt.
                   </p>
                 </div>
               )}
 
               {/* Donate button */}
               {selectedMethod && selectedMethod !== "check" && (
-                <button
-                  onClick={() => method?.action(selectedAmount)}
+                <button onClick={() => method?.action(selectedAmount)}
                   className="btn-amber w-full justify-center text-base py-4 mb-4">
                   Donate {selectedAmount !== "Other" ? selectedAmount : ""} via {method?.label}
                   <ExternalLink className="w-4 h-4" />
@@ -192,13 +191,9 @@ export default function DonatePage() {
 
               <p className="text-center text-xs text-gray-muted">
                 Questions? Email{" "}
-                <a href="mailto:info@teeshouse.org" className="text-green-mid hover:underline">
-                  info@teeshouse.org
-                </a>{" "}
-                or call{" "}
-                <a href="tel:8502911888" className="text-green-mid hover:underline">
-                  850.291.1888
-                </a>
+                <a href="mailto:info@teeshouse.org" className="text-green-mid hover:underline">info@teeshouse.org</a>
+                {" "}or call{" "}
+                <a href="tel:8502911888" className="text-green-mid hover:underline">850.291.1888</a>
               </p>
             </div>
           </div>
@@ -225,7 +220,7 @@ export default function DonatePage() {
           </div>
         </section>
 
-        {/* Other ways to give */}
+        {/* Other ways */}
         <section className="section-padding bg-green-light">
           <div className="container-max">
             <div className="text-center mb-10">
@@ -236,26 +231,21 @@ export default function DonatePage() {
               <div className="card p-7">
                 <h3 className="text-green-dark text-lg mb-2">Donate Food</h3>
                 <p className="text-gray-muted text-sm leading-relaxed mb-4">
-                  Fresh produce and non-perishables are always welcome. Contact us to arrange a drop-off or food drive.
+                  Fresh produce and non-perishables are always welcome.
                 </p>
-                <Link href="/contact" className="btn-primary text-sm">
-                  Contact Us <ArrowRight className="w-4 h-4" />
-                </Link>
+                <Link href="/contact" className="btn-primary text-sm">Contact Us <ArrowRight className="w-4 h-4" /></Link>
               </div>
               <div className="card p-7">
                 <h3 className="text-green-dark text-lg mb-2">Give Your Time</h3>
                 <p className="text-gray-muted text-sm leading-relaxed mb-4">
-                  Volunteer your skills and energy. From gardening to event support, there is a role for every heart.
+                  From gardening to event support, there is a role for every heart.
                 </p>
-                <Link href="/volunteer" className="btn-primary text-sm">
-                  Volunteer <ArrowRight className="w-4 h-4" />
-                </Link>
+                <Link href="/volunteer" className="btn-primary text-sm">Volunteer <ArrowRight className="w-4 h-4" /></Link>
               </div>
             </div>
           </div>
         </section>
 
-        {/* CTA */}
         <section className="section-padding-sm bg-green-dark text-white">
           <div className="container-max text-center px-4">
             <p className="font-display text-2xl italic text-green-light mb-2">
