@@ -3,7 +3,7 @@ import Link from "next/link"
 import Image from "next/image"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
-import { getSiteSettings, getImpactStats } from "@/lib/sanity.fetch"
+import { getSiteSettings, getImpactStats, getTeam } from "@/lib/sanity.fetch"
 import { ArrowRight, Heart, Mail, Phone, MapPin } from "lucide-react"
 
 export const revalidate = 60
@@ -15,27 +15,18 @@ export const metadata: Metadata = {
 
 const CDN = "https://cdn.sanity.io/images/zbeb0ctt/production"
 
-const TEAM = [
-  {
-    name:  "Tierra Smith, M.S.",
-    title: "Founder and Executive Director",
-    bio:   "Known in the community as Big Tee, Tierra brings 12+ years of IT and Cybersecurity experience together with a deep commitment to community wellness. Through Tees House, she leads programs addressing food insecurity, behavioral health, and youth development â€” centering mind, body, and spirit. Tech brain. Service heart. Wellness soul.",
-    linkedin: "https://www.linkedin.com/in/tierra-smith2222/",
-    image: `${CDN}/9e83c4f80bcfcf915d8313e338c0d7fd2a531f19-2048x2048.jpg`
-  }
-]
-
 const FALLBACK_STATS = [
-  { label: "Youth Served",       value: "150+", icon: "kids"       },
-  { label: "Programs Delivered", value: "12",   icon: "programs"   },
-  { label: "Volunteers",         value: "40+",  icon: "volunteers" },
-  { label: "Years of Impact",    value: "5+",   icon: "years"      },
+  { label: "Youth Served",       value: "150+" },
+  { label: "Programs Delivered", value: "12"   },
+  { label: "Volunteers",         value: "40+"  },
+  { label: "Years of Impact",    value: "5+"   },
 ]
 
 export default async function AboutPage() {
-  const [settings, stats] = await Promise.all([
+  const [settings, stats, team] = await Promise.all([
     getSiteSettings(),
-    getImpactStats()
+    getImpactStats(),
+    getTeam()
   ])
 
   const s      = settings || {}
@@ -98,9 +89,9 @@ export default async function AboutPage() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
-                { title: "Community",   desc: "We believe in the power of community to lift every individual. Everything we do is rooted in building stronger connections between people, families, and the natural world." },
-                { title: "Creativity",  desc: "We nurture creative expression as a fundamental human need. Through arts, drama, and hands-on making, youth discover their unique voices and strengths." },
-                { title: "Growth",      desc: "We are committed to continuous growth for the youth we serve and for our organization. We learn, adapt, and improve so that our impact deepens with every season." }
+                { title: "Community",  desc: "We believe in the power of community to lift every individual. Everything we do is rooted in building stronger connections between people, families, and the natural world." },
+                { title: "Creativity", desc: "We nurture creative expression as a fundamental human need. Through arts, drama, and hands-on making, youth discover their unique voices and strengths." },
+                { title: "Growth",     desc: "We are committed to continuous growth for the youth we serve and for our organization. We learn, adapt, and improve so that our impact deepens with every season." }
               ].map((v) => (
                 <div key={v.title} className="card p-8 text-center">
                   <div className="w-12 h-12 bg-amber-light rounded-full flex items-center justify-center mx-auto mb-4">
@@ -132,26 +123,65 @@ export default async function AboutPage() {
           </div>
         </section>
 
-        {/* Team */}
+        {/* Team - pulls from Sanity */}
         <section className="section-padding bg-white">
           <div className="container-max">
             <div className="text-center mb-12">
               <span className="text-amber font-semibold text-sm uppercase tracking-widest">Leadership</span>
               <h2 className="text-green-dark mt-3">Meet Our Team</h2>
             </div>
-            <div className="flex justify-center">
-              {TEAM.map((member) => (
-                <div key={member.name} className="card max-w-sm text-center overflow-hidden">
-                  <div className="relative h-64 overflow-hidden">
-                    <Image src={member.image} alt={member.name} fill className="object-cover" />
+            <div className="flex flex-wrap justify-center gap-8">
+              {team.length > 0 ? team.map((member: any) => (
+                <div key={member._id} className="card max-w-sm text-center overflow-hidden w-full md:w-80">
+                  <div className="relative h-72 overflow-hidden bg-green-light">
+                    {member.photo?.asset?.url ? (
+                      <Image
+                        src={member.photo.asset.url}
+                        alt={member.name} fill className="object-cover object-top"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center">
+                        <span className="text-6xl font-bold text-green-mid opacity-30">
+                          {member.name?.charAt(0)}
+                        </span>
+                      </div>
+                    )}
                   </div>
                   <div className="p-6">
                     <h3 className="text-green-dark text-xl mb-1">{member.name}</h3>
                     <p className="text-amber text-sm font-semibold mb-3">{member.title}</p>
-                    <p className="text-gray-muted text-sm leading-relaxed">{member.bio}</p>
+                    {member.bio?.map((block: any, i: number) => (
+                      <p key={i} className="text-gray-muted text-sm leading-relaxed mb-2">
+                        {block.children?.map((c: any) => c.text).join("")}
+                      </p>
+                    ))}
+                    {member.linkedin && (
+                      <a href={member.linkedin} target="_blank" rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-xs text-green-mid hover:text-amber transition-colors font-semibold mt-2">
+                        View LinkedIn Profile
+                      </a>
+                    )}
                   </div>
                 </div>
-              ))}
+              )) : (
+                // Fallback if Sanity returns empty
+                <div className="card max-w-sm text-center overflow-hidden w-full md:w-80">
+                  <div className="relative h-72 overflow-hidden">
+                    <Image
+                      src={`${CDN}/9e83c4f80bcfcf915d8313e338c0d7fd2a531f19-2048x2048.jpg`}
+                      alt="Tierra Smith" fill className="object-cover object-top"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-green-dark text-xl mb-1">Tierra Smith, M.S.</h3>
+                    <p className="text-amber text-sm font-semibold mb-3">Founder and Executive Director</p>
+                    <p className="text-gray-muted text-sm leading-relaxed">
+                      Known in the community as Big Tee, Tierra brings 12+ years of IT and Cybersecurity
+                      experience together with a deep commitment to community wellness. Tech brain. Service heart. Wellness soul.
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </section>
@@ -164,11 +194,9 @@ export default async function AboutPage() {
                 <span className="text-amber font-semibold text-sm uppercase tracking-widest">Get in Touch</span>
                 <h2 className="text-green-dark mt-3 mb-6">Connect With Us</h2>
                 <div className="flex flex-col gap-4 mb-8">
-                  {(s.phone || "850.291.1888") && (
-                    <a href="tel:8502911888" className="flex items-center gap-3 text-gray-muted hover:text-green-dark transition-colors">
-                      <Phone className="w-5 h-5 text-amber shrink-0" />{s.phone || "850.291.1888"}
-                    </a>
-                  )}
+                  <a href="tel:8502911888" className="flex items-center gap-3 text-gray-muted hover:text-green-dark transition-colors">
+                    <Phone className="w-5 h-5 text-amber shrink-0" />{s.phone || "850.291.1888"}
+                  </a>
                   <a href="mailto:info@teeshouse.org" className="flex items-center gap-3 text-gray-muted hover:text-green-dark transition-colors">
                     <Mail className="w-5 h-5 text-amber shrink-0" />{s.email || "info@teeshouse.org"}
                   </a>
