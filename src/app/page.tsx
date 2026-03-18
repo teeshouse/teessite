@@ -3,14 +3,16 @@ import Link from "next/link"
 import Image from "next/image"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
-import { getSiteSettings, getImpactStats, getFeaturedPrograms, getFeaturedNews } from "@/lib/sanity.fetch"
+import AnimatedCounter from "@/components/AnimatedCounter"
+import ImpactCalculator from "@/components/ImpactCalculator"
+import { getSiteSettings, getImpactStats, getFeaturedPrograms } from "@/lib/sanity.fetch"
 import { ArrowRight, Heart, Users, Sprout, Mail, Phone, MapPin } from "lucide-react"
 
 export const revalidate = 60
 
 export const metadata: Metadata = {
   title: "Tee's House Inc. | Growing Community in Pensacola, FL",
-  description: "Tee's House Inc. is a 501(c)(3) nonprofit cultivating youth development through agriculture, arts, and education in Pensacola, Florida.",
+  description: "Tees House Inc. is a 501(c)(3) nonprofit cultivating youth development through agriculture, arts, and education in Pensacola, Florida.",
 }
 
 const CDN = "https://cdn.sanity.io/images/zbeb0ctt/production"
@@ -22,34 +24,23 @@ const FALLBACK = {
   phone:          "850.291.1888",
   email:          "info@teeshouse.org",
   address:        "7823 Bay Meadows Dr, Pensacola, FL 32507",
-  paypalDonateLink: "https://www.paypal.com/donate/?hosted_button_id=XSHDRCQ2L66JW"
 }
 
 const FALLBACK_STATS = [
-  { label: "Youth Served",       value: "150+", icon: "kids"       },
-  { label: "Programs Delivered", value: "12",   icon: "programs"   },
-  { label: "Volunteers",         value: "40+",  icon: "volunteers" },
-  { label: "Years of Impact",    value: "5+",   icon: "years"      },
+  { label: "Youth Served",       value: "150+" },
+  { label: "Programs Delivered", value: "12"   },
+  { label: "Volunteers",         value: "40+"  },
+  { label: "Years of Impact",    value: "5+"   },
 ]
 
-function StatIcon({ icon }: { icon: string }) {
-  switch (icon) {
-    case "kids":       return <Users className="w-8 h-8 text-amber" />
-    case "programs":   return <Sprout className="w-8 h-8 text-amber" />
-    case "volunteers": return <Heart className="w-8 h-8 text-amber" />
-    default:           return <Sprout className="w-8 h-8 text-amber" />
-  }
-}
-
 export default async function HomePage() {
-  const [settings, stats, programs, news] = await Promise.all([
+  const [settings, stats, programs] = await Promise.all([
     getSiteSettings(),
     getImpactStats(),
-    getFeaturedPrograms(),
-    getFeaturedNews()
+    getFeaturedPrograms()
   ])
 
-  const s     = settings || FALLBACK
+  const s      = settings || FALLBACK
   const iStats = stats?.length > 0 ? stats : FALLBACK_STATS
 
   return (
@@ -60,8 +51,7 @@ export default async function HomePage() {
         <section className="relative min-h-screen flex items-center justify-center text-white overflow-hidden">
           <Image
             src={`${CDN}/aa3166c4742d84e1137865a365dcfd41de898dca-2048x2048.jpg`}
-            alt="Tees House hero"
-            fill className="object-cover" priority
+            alt="Tees House hero" fill className="object-cover" priority
           />
           <div className="absolute inset-0 bg-green-dark/75" />
           <div className="container-max relative z-10 text-center py-24">
@@ -93,7 +83,7 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* Impact Stats */}
+        {/* Animated Impact Stats */}
         <section className="section-padding bg-green-dark">
           <div className="container-max">
             <div className="text-center mb-12">
@@ -102,11 +92,7 @@ export default async function HomePage() {
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {iStats.map((stat: any, i: number) => (
-                <div key={i} className="text-center p-6 rounded-card bg-white/5 border border-white/10">
-                  <StatIcon icon={stat.icon || "years"} />
-                  <div className="text-4xl font-bold text-white mt-3 mb-1">{stat.value}</div>
-                  <div className="text-green-light text-sm">{stat.label}</div>
-                </div>
+                <AnimatedCounter key={i} value={stat.value} label={stat.label} />
               ))}
             </div>
           </div>
@@ -148,6 +134,17 @@ export default async function HomePage() {
           </section>
         )}
 
+        {/* Mini Impact Calculator on homepage */}
+        <section className="section-padding bg-white">
+          <div className="container-max">
+            <div className="text-center mb-10">
+              <span className="text-amber font-semibold text-sm uppercase tracking-widest">Give With Purpose</span>
+              <h2 className="text-green-dark mt-3">See What Your Gift Does</h2>
+            </div>
+            <ImpactCalculator />
+          </div>
+        </section>
+
         {/* CTA */}
         <section className="section-padding bg-amber">
           <div className="container-max text-center">
@@ -166,21 +163,15 @@ export default async function HomePage() {
         <section className="py-10 bg-green-dark">
           <div className="container-max">
             <div className="flex flex-col md:flex-row items-center justify-center gap-8 text-green-light">
-              {s.phone && (
-                <a href={`tel:${s.phone?.replace(/\D/g,"")}`} className="flex items-center gap-2 hover:text-amber transition-colors">
-                  <Phone className="w-4 h-4 text-amber" />{s.phone}
-                </a>
-              )}
-              {s.email && (
-                <a href={`mailto:${s.email}`} className="flex items-center gap-2 hover:text-amber transition-colors">
-                  <Mail className="w-4 h-4 text-amber" />{s.email}
-                </a>
-              )}
-              {s.address && (
-                <span className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-amber shrink-0" />{s.address}
-                </span>
-              )}
+              <a href="tel:8502911888" className="flex items-center gap-2 hover:text-amber transition-colors">
+                <Phone className="w-4 h-4 text-amber" />{s.phone || "850.291.1888"}
+              </a>
+              <a href="mailto:info@teeshouse.org" className="flex items-center gap-2 hover:text-amber transition-colors">
+                <Mail className="w-4 h-4 text-amber" />{s.email || "info@teeshouse.org"}
+              </a>
+              <span className="flex items-center gap-2">
+                <MapPin className="w-4 h-4 text-amber shrink-0" />{s.address || "7823 Bay Meadows Dr, Pensacola, FL 32507"}
+              </span>
             </div>
           </div>
         </section>
