@@ -17,9 +17,10 @@ const CDN = "https://cdn.sanity.io/images/zbeb0ctt/production"
 
 const TEAM = [
   {
-    name:  "Latasha Nickson",
+    name:  "Tierra Smith, M.S.",
     title: "Founder and Executive Director",
-    bio:   "Latasha founded Tees House with a vision of creating transformative spaces where youth could grow through hands-on learning, creativity, and community connection. Her passion for agriculture, arts, and education drives every program we offer.",
+    bio:   "Known in the community as Big Tee, Tierra brings 12+ years of IT and Cybersecurity experience together with a deep commitment to community wellness. Through Tees House, she leads programs addressing food insecurity, behavioral health, and youth development â€” centering mind, body, and spirit. Tech brain. Service heart. Wellness soul.",
+    linkedin: "https://www.linkedin.com/in/tierra-smith2222/",
     image: `${CDN}/9e83c4f80bcfcf915d8313e338c0d7fd2a531f19-2048x2048.jpg`
   }
 ]
