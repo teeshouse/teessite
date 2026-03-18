@@ -1,4 +1,4 @@
-import type { Metadata } from "next"
+﻿import type { Metadata } from "next"
 import Link from "next/link"
 import Image from "next/image"
 import Navbar from "@/components/Navbar"
@@ -63,7 +63,7 @@ export default async function ProgramsPage() {
         <section className="section-padding bg-white">
           <div className="container-max max-w-3xl text-center">
             <p className="font-display italic text-green-dark text-xl md:text-2xl leading-relaxed">
-              At Tee&apos;s House, we believe growth begins with connection â€” between people, purpose, and the planet.
+              At Tee&apos;s House, we believe growth begins with connection Ã¢â‚¬â€ between people, purpose, and the planet.
               Each program we create is designed to nourish the mind, the body, and the spirit while building stronger,
               more resilient communities. Our work in 2025 reflects the heart of that mission, weaving together science,
               creativity, agriculture, and the arts to help young leaders blossom.
@@ -118,7 +118,7 @@ export default async function ProgramsPage() {
                     </p>
                     <p className="text-gray-muted leading-relaxed">
                       Through lessons in planting, painting, and creative expression, students learn about sustainability,
-                      teamwork, and self-expression â€” all while strengthening their connection to the environment and their community.
+                      teamwork, and self-expression Ã¢â‚¬â€ all while strengthening their connection to the environment and their community.
                     </p>
                   </div>
                 </div>
@@ -128,10 +128,10 @@ export default async function ProgramsPage() {
                   </div>
                   <div className="md:order-1">
                     <span className="badge-current mb-4 inline-block">Current 2025</span>
-                    <h3 className="text-green-dark text-2xl mb-4">Drama &amp; Poetry Club (Grades 3â€“5)</h3>
+                    <h3 className="text-green-dark text-2xl mb-4">Drama &amp; Poetry Club (Grades 3Ã¢â‚¬â€œ5)</h3>
                     <p className="text-gray-muted leading-relaxed mb-4">
                       Through our Drama and Poetry Club, Tee&apos;s House provides a safe, expressive space for students
-                      in grades 3â€“5 to explore their voices and share their stories.
+                      in grades 3Ã¢â‚¬â€œ5 to explore their voices and share their stories.
                     </p>
                     <p className="text-gray-muted leading-relaxed">
                       Participants study the works of notable poets, create original pieces, and perform for peers
@@ -152,7 +152,7 @@ export default async function ProgramsPage() {
                 <span className="badge-upcoming mb-4 inline-block">Coming 2026</span>
                 <h2 className="text-white mb-4">Looking Ahead to 2026</h2>
                 <p className="text-white/90 leading-relaxed mb-4">
-                  As we reflect on an incredible year of growth, we&apos;re also preparing something extraordinary â€”
+                  As we reflect on an incredible year of growth, we&apos;re also preparing something extraordinary Ã¢â‚¬â€
                   a first-of-its-kind program launching in 2026.
                 </p>
                 <p className="text-white/90 leading-relaxed mb-6">
