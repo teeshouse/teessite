@@ -129,7 +129,7 @@ export default function DonatePage() {
                 <span className="text-amber font-semibold text-sm uppercase tracking-widest">Sustaining Support</span>
                 <h2 className="text-white mt-3 mb-4">Become a Monthly Donor</h2>
                 <p className="text-green-light leading-relaxed mb-4">
-                  Monthly donors are the backbone of our programs. A recurring gift â€” no matter the size â€”
+                  Monthly donors are the backbone of our programs. A recurring gift -- no matter the size --
                   allows us to plan ahead, hire instructors, and serve more youth consistently.
                 </p>
                 <div className="flex flex-col gap-3 mb-6">

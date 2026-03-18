@@ -23,7 +23,7 @@ export default function ImpactCalculator() {
   const impact  = IMPACTS.reduce((best, curr) => amount >= curr.amount ? curr : best, IMPACTS[0])
   const multiplier = amount > 0 ? Math.floor(amount / impact.amount) : 1
   const display = multiplier > 1
-    ? `Your $${amount} ${impact.label.replace(/^(provides|feeds|sponsors|covers|funds)/, m => m)} â€” ${multiplier}x the impact!`
+    ? `Your $${amount} ${impact.label.replace(/^(provides|feeds|sponsors|covers|funds)/, m => m)} -- ${multiplier}x the impact!`
     : `Your $${amount} ${impact.label}.`
 
   return (
