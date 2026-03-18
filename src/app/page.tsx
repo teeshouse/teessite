@@ -3,145 +3,108 @@ import Link from "next/link"
 import Image from "next/image"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
-import { Heart, Users, Sprout, ArrowRight, Salad, Smile, HandHeart, Sparkles } from "lucide-react"
+import { getSiteSettings, getImpactStats, getFeaturedPrograms, getFeaturedNews } from "@/lib/sanity.fetch"
+import { ArrowRight, Heart, Users, Sprout, Mail, Phone, MapPin } from "lucide-react"
+
+export const revalidate = 60
 
 export const metadata: Metadata = {
-  title: "Tee's House Inc. | Empowering Communities in Northwest Florida"
+  title: "Tee's House Inc. | Growing Community in Pensacola, FL",
+  description: "Tee's House Inc. is a 501(c)(3) nonprofit cultivating youth development through agriculture, arts, and education in Pensacola, Florida.",
 }
 
-const featureCards = [
-  {
-    icon: Heart,
-    title: "Giving Back",
-    href: "/donate",
-    description: "Time, finances, or food are ways to help our organization and the community.",
-    color: "amber",
-    image: "https://cdn.sanity.io/images/zbeb0ctt/production/58792471f8a4433f2d4367eba2366f9dd5f21914-1024x1024.png"
-  },
-  {
-    icon: Sprout,
-    title: "Our Programs",
-    href: "/programs",
-    description: "Discover how Tee's House is cultivating creativity, education, and community growth.",
-    color: "green",
-    image: "https://cdn.sanity.io/images/zbeb0ctt/production/1fc83a1ef9faa8ff2552ba2ae09a1bc44b29a745-1024x1024.png"
-  },
-  {
-    icon: Users,
-    title: "Volunteer",
-    href: "/volunteer",
-    description: "We welcome all with a sincere heart and a warm smile.",
-    color: "amber",
-    image: "https://cdn.sanity.io/images/zbeb0ctt/production/c94746e3b73a04a0d2f0f69d628d5c00c2b85f3d-1024x1024.png"
+const CDN = "https://cdn.sanity.io/images/zbeb0ctt/production"
+
+const FALLBACK = {
+  heroHeadline:   "Growing Community Through Agriculture, Arts and Education",
+  heroSubtext:    "Tees House Inc. is a 501(c)(3) nonprofit cultivating youth development through hands-on learning experiences in Pensacola, Florida.",
+  missionTagline: "Planting seeds of knowledge, creativity, and community.",
+  phone:          "850.291.1888",
+  email:          "info@teeshouse.org",
+  address:        "7823 Bay Meadows Dr, Pensacola, FL 32507",
+  paypalDonateLink: "https://www.paypal.com/donate/?hosted_button_id=XSHDRCQ2L66JW"
+}
+
+const FALLBACK_STATS = [
+  { label: "Youth Served",       value: "150+", icon: "kids"       },
+  { label: "Programs Delivered", value: "12",   icon: "programs"   },
+  { label: "Volunteers",         value: "40+",  icon: "volunteers" },
+  { label: "Years of Impact",    value: "5+",   icon: "years"      },
+]
+
+function StatIcon({ icon }: { icon: string }) {
+  switch (icon) {
+    case "kids":       return <Users className="w-8 h-8 text-amber" />
+    case "programs":   return <Sprout className="w-8 h-8 text-amber" />
+    case "volunteers": return <Heart className="w-8 h-8 text-amber" />
+    default:           return <Sprout className="w-8 h-8 text-amber" />
   }
-]
+}
 
-const impactStats = [
-  { value: "500+", label: "Meals Provided", Icon: Salad },
-  { value: "150+", label: "Youth Reached",  Icon: Smile },
-  { value: "80+",  label: "Volunteers",     Icon: HandHeart },
-  { value: "5+",   label: "Programs",       Icon: Sparkles }
-]
+export default async function HomePage() {
+  const [settings, stats, programs, news] = await Promise.all([
+    getSiteSettings(),
+    getImpactStats(),
+    getFeaturedPrograms(),
+    getFeaturedNews()
+  ])
 
-export default function HomePage() {
+  const s     = settings || FALLBACK
+  const iStats = stats?.length > 0 ? stats : FALLBACK_STATS
+
   return (
     <>
       <Navbar />
       <main>
         {/* Hero */}
-        <section className="relative min-h-[90vh] flex items-center justify-center text-white overflow-hidden">
+        <section className="relative min-h-screen flex items-center justify-center text-white overflow-hidden">
           <Image
-            src="https://cdn.sanity.io/images/zbeb0ctt/production/aa3166c4742d84e1137865a365dcfd41de898dca-2048x2048.jpg"
-            alt="Tee's House community agriculture program"
-            fill
-            className="object-cover"
-            priority
+            src={`${CDN}/aa3166c4742d84e1137865a365dcfd41de898dca-2048x2048.jpg`}
+            alt="Tees House hero"
+            fill className="object-cover" priority
           />
           <div className="absolute inset-0 bg-green-dark/75" />
-          <div className="container-max relative text-center px-4 z-10">
-            <h1 className="text-4xl md:text-6xl font-display font-bold text-white mb-4">
-              Empowering Minds,<br />
-              <span className="text-amber">Nourishing Bodies,</span><br />
-              Building Futures.
+          <div className="container-max relative z-10 text-center py-24">
+            <span className="text-amber font-semibold text-sm uppercase tracking-widest">Pensacola, Florida</span>
+            <h1 className="text-white mt-4 mb-6 text-4xl md:text-6xl leading-tight max-w-4xl mx-auto">
+              {s.heroHeadline}
             </h1>
-            <p className="text-lg md:text-xl text-green-light max-w-2xl mx-auto mb-8 leading-relaxed">
-              Tee&apos;s House is a Pensacola-based nonprofit dedicated to uplifting communities
-              through food access, youth development, and creative expression.
+            <p className="text-green-light text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
+              {s.heroSubtext}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/donate"    className="btn-amber text-base px-8 py-4">Donate Today</Link>
-              <Link href="/about"     className="btn-outline-white text-base px-8 py-4">Learn Our Story</Link>
+              <Link href="/programs" className="btn-amber">
+                Our Programs <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link href="/donate" className="btn-outline-white">
+                Support Our Mission <Heart className="w-4 h-4" />
+              </Link>
             </div>
-          </div>
-          <div className="absolute bottom-0 left-0 right-0 z-10">
-            <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M0 60L1440 60L1440 20C1200 60 900 0 720 20C540 40 240 0 0 20L0 60Z" fill="white"/>
-            </svg>
           </div>
         </section>
 
-        {/* Tagline */}
-        <section className="py-12 bg-white">
-          <div className="container-max px-4 text-center">
-            <p className="font-display text-2xl md:text-3xl text-green-dark italic max-w-3xl mx-auto">
-              Real change starts at the grassroots level with neighbors helping neighbors.
+        {/* Mission */}
+        <section className="section-padding bg-white">
+          <div className="container-max max-w-3xl text-center">
+            <span className="text-amber font-semibold text-sm uppercase tracking-widest">Our Mission</span>
+            <p className="font-display italic text-green-dark text-2xl md:text-3xl leading-relaxed mt-4">
+              {s.missionTagline}
             </p>
-          </div>
-        </section>
-
-        {/* Feature Cards with Photos */}
-        <section className="section-padding bg-green-light">
-          <div className="container-max">
-            <div className="text-center mb-12">
-              <h2 className="text-green-dark mb-3">How You Can Help</h2>
-              <p className="text-gray-muted max-w-xl mx-auto">Every seed planted, every meal shared, every hour volunteered grows into a stronger community.</p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {featureCards.map((card) => {
-                const Icon = card.icon
-                return (
-                  <Link key={card.title} href={card.href}
-                    className="card group hover:-translate-y-1 transition-transform duration-300 overflow-hidden">
-                    <div className="relative h-52 w-full overflow-hidden">
-                      <Image
-                        src={card.image}
-                        alt={card.title}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-green-dark/30 group-hover:bg-green-dark/20 transition-colors" />
-                      <div className={`absolute top-3 left-3 p-2 rounded-full ${card.color === "amber" ? "bg-amber" : "bg-green-mid"}`}>
-                        <Icon className="w-5 h-5 text-white" />
-                      </div>
-                    </div>
-                    <div className="p-6">
-                      <h3 className="text-green-dark mb-2 group-hover:text-green-mid transition-colors">{card.title}</h3>
-                      <p className="text-gray-muted text-sm leading-relaxed mb-3">{card.description}</p>
-                      <span className="inline-flex items-center gap-1 text-sm font-semibold text-amber">
-                        Learn More <ArrowRight className="w-4 h-4" />
-                      </span>
-                    </div>
-                  </Link>
-                )
-              })}
-            </div>
           </div>
         </section>
 
         {/* Impact Stats */}
-        <section className="section-padding bg-green-dark text-white">
+        <section className="section-padding bg-green-dark">
           <div className="container-max">
-            <div className="text-center mb-10">
-              <h2 className="text-white mb-3">Our Impact</h2>
-              <p className="text-green-light">Growing stronger every year together.</p>
+            <div className="text-center mb-12">
+              <span className="text-amber font-semibold text-sm uppercase tracking-widest">Our Impact</span>
+              <h2 className="text-white mt-3">Making a Difference</h2>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {impactStats.map((stat) => (
-                <div key={stat.label} className="text-center">
-                  <div className="flex justify-center mb-3">
-                    <stat.Icon className="w-10 h-10 text-green-light" />
-                  </div>
-                  <div className="font-display text-4xl font-bold text-amber mb-1">{stat.value}</div>
+              {iStats.map((stat: any, i: number) => (
+                <div key={i} className="text-center p-6 rounded-card bg-white/5 border border-white/10">
+                  <StatIcon icon={stat.icon || "years"} />
+                  <div className="text-4xl font-bold text-white mt-3 mb-1">{stat.value}</div>
                   <div className="text-green-light text-sm">{stat.label}</div>
                 </div>
               ))}
@@ -149,45 +112,75 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Mission Section */}
-        <section className="section-padding bg-white">
-          <div className="container-max">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              <div>
-                <span className="text-amber font-semibold text-sm uppercase tracking-widest">Our Mission</span>
-                <h2 className="text-green-dark mt-2 mb-4">Building a Brighter Future Together</h2>
-                <p className="text-gray-muted leading-relaxed mb-4">
-                  Tee&apos;s House Inc. empowers communities in Northwest Florida by addressing food insecurity,
-                  fostering educational growth, and promoting mental well-being.
-                </p>
-                <p className="text-gray-muted leading-relaxed mb-6">
-                  Through agricultural programs and holistic support, we build resilience, independence,
-                  and a brighter future for individuals and families.
-                </p>
-                <Link href="/about" className="btn-primary">
-                  Our Full Story <ArrowRight className="w-4 h-4" />
+        {/* Featured Programs */}
+        {programs?.length > 0 && (
+          <section className="section-padding bg-green-light">
+            <div className="container-max">
+              <div className="text-center mb-12">
+                <span className="text-amber font-semibold text-sm uppercase tracking-widest">What We Do</span>
+                <h2 className="text-green-dark mt-3">Featured Programs</h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {programs.slice(0, 3).map((p: any) => (
+                  <div key={p._id} className="card overflow-hidden group hover:-translate-y-1 transition-transform duration-300">
+                    <div className="relative h-48 overflow-hidden">
+                      <Image
+                        src={p.image?.asset?.url || `${CDN}/aa3166c4742d84e1137865a365dcfd41de898dca-2048x2048.jpg`}
+                        alt={p.title} fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
+                    <div className="p-5">
+                      <h3 className="text-green-dark text-lg mb-2">{p.title}</h3>
+                      <Link href="/programs" className="inline-flex items-center gap-1 text-sm font-semibold text-amber hover:text-amber-dark transition-colors">
+                        Learn More <ArrowRight className="w-3 h-3" />
+                      </Link>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="text-center mt-10">
+                <Link href="/programs" className="btn-primary">
+                  View All Programs <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
-              <div className="relative h-80 rounded-card overflow-hidden shadow-card-hover">
-                <Image
-                  src="https://cdn.sanity.io/images/zbeb0ctt/production/bb80acf5b6d60378b6cff558e871c90c27240189-1024x1024.jpg"
-                  alt="Tee's House Agriculture and Arts Program"
-                  fill
-                  className="object-cover"
-                />
-              </div>
+            </div>
+          </section>
+        )}
+
+        {/* CTA */}
+        <section className="section-padding bg-amber">
+          <div className="container-max text-center">
+            <h2 className="text-white mb-4">Ready to Make a Difference?</h2>
+            <p className="text-white/90 text-lg max-w-xl mx-auto mb-8">
+              Whether you donate, volunteer, or spread the word, every action helps us grow.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/donate"    className="btn-outline-white">Donate Now <Heart className="w-4 h-4" /></Link>
+              <Link href="/volunteer" className="btn-outline-white">Volunteer <Users className="w-4 h-4" /></Link>
             </div>
           </div>
         </section>
 
-        {/* CTA Banner */}
-        <section className="section-padding-sm bg-amber">
-          <div className="container-max text-center px-4">
-            <h2 className="text-white mb-3">Ready to Make a Difference?</h2>
-            <p className="text-white/90 mb-6 max-w-xl mx-auto">Whether you donate, volunteer, or spread the word, every act of kindness plants a seed.</p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/donate"    className="btn-outline-white text-base px-8 py-4">Donate Now</Link>
-              <Link href="/volunteer" className="bg-white text-amber font-semibold px-8 py-4 rounded-lg hover:bg-amber-light transition-colors">Volunteer With Us</Link>
+        {/* Contact strip */}
+        <section className="py-10 bg-green-dark">
+          <div className="container-max">
+            <div className="flex flex-col md:flex-row items-center justify-center gap-8 text-green-light">
+              {s.phone && (
+                <a href={`tel:${s.phone?.replace(/\D/g,"")}`} className="flex items-center gap-2 hover:text-amber transition-colors">
+                  <Phone className="w-4 h-4 text-amber" />{s.phone}
+                </a>
+              )}
+              {s.email && (
+                <a href={`mailto:${s.email}`} className="flex items-center gap-2 hover:text-amber transition-colors">
+                  <Mail className="w-4 h-4 text-amber" />{s.email}
+                </a>
+              )}
+              {s.address && (
+                <span className="flex items-center gap-2">
+                  <MapPin className="w-4 h-4 text-amber shrink-0" />{s.address}
+                </span>
+              )}
             </div>
           </div>
         </section>

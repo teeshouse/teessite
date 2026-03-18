@@ -3,9 +3,10 @@ import {
   SITE_SETTINGS_QUERY,
   IMPACT_STATS_QUERY,
   PROGRAMS_QUERY,
+  FEATURED_PROGRAMS_QUERY,
   NEWS_QUERY,
-  VOLUNTEER_ROLES_QUERY,
-  FEATURED_NEWS_QUERY
+  FEATURED_NEWS_QUERY,
+  VOLUNTEER_ROLES_QUERY
 } from "./sanity.queries"
 
 export async function getSiteSettings() {
@@ -18,6 +19,10 @@ export async function getImpactStats() {
 
 export async function getPrograms() {
   try { return await sanityClient.fetch(PROGRAMS_QUERY) } catch { return [] }
+}
+
+export async function getFeaturedPrograms() {
+  try { return await sanityClient.fetch(FEATURED_PROGRAMS_QUERY) } catch { return [] }
 }
 
 export async function getNews() {
