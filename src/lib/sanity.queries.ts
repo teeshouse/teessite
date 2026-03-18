@@ -1,6 +1,5 @@
 import { groq } from "next-sanity"
 
-// Site Settings (singleton)
 export const SITE_SETTINGS_QUERY = groq`
   *[_type == "siteSettings"][0] {
     heroHeadline, heroSubtext, missionTagline,
@@ -9,49 +8,98 @@ export const SITE_SETTINGS_QUERY = groq`
     paypalDonateLink
   }
 `
-
-// Impact Stats
 export const IMPACT_STATS_QUERY = groq`
-  *[_type == "impactStat"] | order(order asc) {
-    label, value, icon, order
-  }
+  *[_type == "impactStat"] | order(order asc) { label, value, icon, order }
 `
-
-// Programs
 export const PROGRAMS_QUERY = groq`
   *[_type == "program"] | order(year desc, title asc) {
-    _id, title, slug, status, year, category,
-    description, featured,
-    image { asset->{ url, metadata { dimensions } } }
+    _id, title, slug, status, year, category, description, featured,
+    image { asset->{ url } }
   }
 `
-
 export const FEATURED_PROGRAMS_QUERY = groq`
   *[_type == "program" && featured == true] | order(year desc) {
-    _id, title, slug, status, year, category,
-    description,
-    image { asset->{ url, metadata { dimensions } } }
+    _id, title, slug, status, year, category, description,
+    image { asset->{ url } }
   }
 `
-
-// News
 export const NEWS_QUERY = groq`
   *[_type == "news"] | order(publishedAt desc) {
     _id, title, slug, publishedAt, excerpt, tags, featured,
-    featuredImage { asset->{ url, metadata { dimensions } } }
+    featuredImage { asset->{ url } }
   }
 `
-
 export const FEATURED_NEWS_QUERY = groq`
   *[_type == "news" && featured == true] | order(publishedAt desc)[0..2] {
     _id, title, slug, publishedAt, excerpt, tags,
-    featuredImage { asset->{ url, metadata { dimensions } } }
+    featuredImage { asset->{ url } }
   }
 `
-
-// Volunteer Roles
 export const VOLUNTEER_ROLES_QUERY = groq`
   *[_type == "volunteerRole" && active == true] | order(order asc) {
     _id, title, icon, description, responsibilities, order
+  }
+`
+export const EVENTS_QUERY = groq`
+  *[_type == "event"] | order(date asc) {
+    _id, title, slug, date, endDate, location, virtual, virtualLink,
+    description, registrationLink, free, cost, featured, status, tags,
+    image { asset->{ url } }
+  }
+`
+export const UPCOMING_EVENTS_QUERY = groq`
+  *[_type == "event" && status == "upcoming"] | order(date asc) {
+    _id, title, slug, date, endDate, location, virtual,
+    registrationLink, free, cost, featured,
+    image { asset->{ url } }
+  }
+`
+export const TEAM_QUERY = groq`
+  *[_type == "teamMember" && active == true] | order(order asc) {
+    _id, name, title, bio, email, linkedin, order, category,
+    photo { asset->{ url } }
+  }
+`
+export const TESTIMONIALS_QUERY = groq`
+  *[_type == "testimonial"] | order(order asc) {
+    _id, quote, authorName, authorRole, program, featured, order,
+    authorPhoto { asset->{ url } }
+  }
+`
+export const PARTNERS_QUERY = groq`
+  *[_type == "partner"] | order(order asc) {
+    _id, name, website, description, featured, tier, order,
+    logo { asset->{ url } }
+  }
+`
+export const GALLERY_QUERY = groq`
+  *[_type == "galleryAlbum"] | order(date desc) {
+    _id, title, slug, date, description, featured, program, tags,
+    coverImage { asset->{ url } },
+    photos[] { caption, image { asset->{ url } } }
+  }
+`
+export const FAQS_QUERY = groq`
+  *[_type == "faq" && active == true] | order(order asc) {
+    _id, question, answer, category, order
+  }
+`
+export const PAGES_QUERY = groq`
+  *[_type == "page" && published == true] | order(navOrder asc) {
+    _id, title, slug, excerpt, showInNav, navLabel, navOrder,
+    heroImage { asset->{ url } }
+  }
+`
+export const PAGE_BY_SLUG_QUERY = groq`
+  *[_type == "page" && slug.current == $slug && published == true][0] {
+    _id, title, slug, excerpt, publishedAt, content,
+    heroImage { asset->{ url } }
+  }
+`
+export const ANNUAL_REPORTS_QUERY = groq`
+  *[_type == "annualReport" && published == true] | order(year desc) {
+    _id, year, title, summary, highlights,
+    coverImage { asset->{ url } },
+    file { asset->{ url } }
   }
 `

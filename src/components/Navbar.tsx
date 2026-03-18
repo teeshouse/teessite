@@ -2,60 +2,110 @@
 import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { usePathname } from "next/navigation"
-import { Menu, X } from "lucide-react"
+import { Menu, X, ChevronDown } from "lucide-react"
 
-const navLinks = [
-  { label: "Home",         href: "/" },
-  { label: "About Us",     href: "/about" },
-  { label: "Our Programs", href: "/programs" },
-  { label: "Giving Back",  href: "/donate" },
-  { label: "Volunteer",    href: "/volunteer" },
-  { label: "News",         href: "/news" },
-  { label: "Contact",      href: "/contact" }
+const CDN = "https://cdn.sanity.io/images/zbeb0ctt/production"
+
+const NAV = [
+  { label: "About",    href: "/about" },
+  { label: "Programs", href: "/programs" },
+  { label: "Events",   href: "/events" },
+  { label: "News",     href: "/news" },
+  { label: "Gallery",  href: "/gallery" },
+  {
+    label: "More",
+    children: [
+      { label: "Partners",     href: "/partners" },
+      { label: "Transparency", href: "/transparency" },
+      { label: "FAQ",          href: "/faq" },
+      { label: "Contact",      href: "/contact" },
+    ]
+  },
 ]
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false)
-  const pathname = usePathname()
+  const [open,    setOpen]    = useState(false)
+  const [dropdown, setDropdown] = useState(false)
+
   return (
-    <nav className="bg-green-dark text-white sticky top-0 z-50 shadow-md">
-      <div className="container-max flex items-center justify-between h-16 px-4 md:px-8">
-        <Link href="/" className="flex items-center gap-2 hover:opacity-90 transition-opacity">
+    <nav className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
+      <div className="container-max flex items-center justify-between h-20">
+        <Link href="/" className="flex items-center gap-3 shrink-0">
           <Image
-            src="https://cdn.sanity.io/images/zbeb0ctt/production/44f842016c7584b95a281fcfdba5ec79a837304b-612x612.png"
-            alt="Tee's House"
-            width={72} height={72}
-            className="rounded-md"
+            src={`${CDN}/44f842016c7584b95a281fcfdba5ec79a837304b-612x612.png`}
+            alt="Tees House" width={72} height={72} className="rounded-full"
           />
-          <span className="font-display font-bold text-xl text-white">Tee&apos;s House</span>
+          <span className="font-display font-bold text-green-dark text-lg leading-tight hidden sm:block">
+            Tees House<br /><span className="text-xs font-sans font-normal text-gray-muted">Inc.</span>
+          </span>
         </Link>
-        <div className="hidden lg:flex items-center gap-1">
-          {navLinks.map(link => (
-            <Link key={link.href} href={link.href}
-              className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200
-                ${pathname === link.href ? "bg-green-mid text-white" : "text-green-light hover:bg-green-mid hover:text-white"}`}>
-              {link.label}
-            </Link>
-          ))}
-          <Link href="/donate" className="ml-3 btn-amber text-sm px-4 py-2">Donate</Link>
+
+        {/* Desktop nav */}
+        <div className="hidden lg:flex items-center gap-6">
+          {NAV.map(item =>
+            item.children ? (
+              <div key={item.label} className="relative">
+                <button
+                  onClick={() => setDropdown(!dropdown)}
+                  className="flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-green-mid transition-colors">
+                  {item.label} <ChevronDown className="w-3 h-3" />
+                </button>
+                {dropdown && (
+                  <div className="absolute top-8 right-0 bg-white border border-gray-100 rounded-card shadow-card-hover py-2 min-w-40 z-50">
+                    {item.children.map(child => (
+                      <Link key={child.href} href={child.href}
+                        onClick={() => setDropdown(false)}
+                        className="block px-4 py-2 text-sm text-gray-700 hover:text-green-mid hover:bg-green-light transition-colors">
+                        {child.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link key={item.href} href={item.href!}
+                className="text-sm font-medium text-gray-700 hover:text-green-mid transition-colors">
+                {item.label}
+              </Link>
+            )
+          )}
+          <Link href="/volunteer" className="btn-outline text-sm py-2">Volunteer</Link>
+          <Link href="/donate"    className="btn-amber text-sm py-2">Donate</Link>
         </div>
-        <button className="lg:hidden p-2 rounded-md hover:bg-green-mid transition-colors"
-          onClick={() => setOpen(!open)} aria-label="Toggle menu">
+
+        {/* Mobile toggle */}
+        <button onClick={() => setOpen(!open)} className="lg:hidden p-2 text-green-dark">
           {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
       </div>
+
+      {/* Mobile menu */}
       {open && (
-        <div className="lg:hidden bg-green-dark border-t border-green-mid px-4 pb-4">
-          {navLinks.map(link => (
-            <Link key={link.href} href={link.href} onClick={() => setOpen(false)}
-              className={`block px-3 py-3 rounded-md text-sm font-medium transition-colors
-                ${pathname === link.href ? "bg-green-mid text-white" : "text-green-light hover:bg-green-mid"}`}>
-              {link.label}
-            </Link>
-          ))}
-          <Link href="/donate" onClick={() => setOpen(false)}
-            className="block mt-3 btn-amber text-center text-sm">Donate Now</Link>
+        <div className="lg:hidden bg-white border-t border-gray-100 px-4 py-4 space-y-2">
+          {NAV.map(item =>
+            item.children ? (
+              <div key={item.label}>
+                <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest px-2 pt-3 pb-1">{item.label}</p>
+                {item.children.map(child => (
+                  <Link key={child.href} href={child.href}
+                    onClick={() => setOpen(false)}
+                    className="block px-2 py-2 text-sm text-gray-700 hover:text-green-mid transition-colors">
+                    {child.label}
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <Link key={item.href} href={item.href!}
+                onClick={() => setOpen(false)}
+                className="block px-2 py-2 text-sm font-medium text-gray-700 hover:text-green-mid transition-colors">
+                {item.label}
+              </Link>
+            )
+          )}
+          <div className="flex flex-col gap-2 pt-3">
+            <Link href="/volunteer" onClick={() => setOpen(false)} className="btn-outline text-sm text-center">Volunteer</Link>
+            <Link href="/donate"    onClick={() => setOpen(false)} className="btn-amber text-sm text-center">Donate</Link>
+          </div>
         </div>
       )}
     </nav>

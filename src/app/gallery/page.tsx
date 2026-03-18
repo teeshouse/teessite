@@ -1,0 +1,77 @@
+import type { Metadata } from "next"
+import Image from "next/image"
+import Navbar from "@/components/Navbar"
+import Footer from "@/components/Footer"
+import { getGallery } from "@/lib/sanity.fetch"
+import { Camera, ArrowRight } from "lucide-react"
+import Link from "next/link"
+
+export const revalidate = 60
+
+export const metadata: Metadata = {
+  title: "Gallery | Tees House Inc.",
+  description: "Photos from Tees House programs, events, and community activities."
+}
+
+const CDN = "https://cdn.sanity.io/images/zbeb0ctt/production"
+const PLACEHOLDER = `${CDN}/aa3166c4742d84e1137865a365dcfd41de898dca-2048x2048.jpg`
+
+export default async function GalleryPage() {
+  const albums = await getGallery()
+
+  return (
+    <>
+      <Navbar />
+      <main>
+        <section className="bg-green-dark text-white py-20 px-4">
+          <div className="container-max text-center">
+            <span className="text-amber font-semibold text-sm uppercase tracking-widest">Our Story in Photos</span>
+            <h1 className="text-white mt-3 mb-4 text-4xl md:text-5xl">Photo Gallery</h1>
+            <p className="text-green-light text-lg max-w-xl mx-auto">
+              Moments from our programs, events, and community â€” captured in photos.
+            </p>
+          </div>
+        </section>
+
+        <section className="section-padding bg-green-light">
+          <div className="container-max">
+            {albums.length === 0 ? (
+              <div className="card p-16 max-w-lg mx-auto text-center">
+                <Camera className="w-12 h-12 text-amber mx-auto mb-4" />
+                <h2 className="text-green-dark mb-3">Photos Coming Soon</h2>
+                <p className="text-gray-muted mb-6">Our gallery is being built. Check back soon!</p>
+                <Link href="/programs" className="btn-primary">See Our Programs <ArrowRight className="w-4 h-4" /></Link>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {albums.map((album: any) => (
+                  <div key={album._id} className="card overflow-hidden group hover:-translate-y-1 transition-transform duration-300">
+                    <div className="relative h-56 overflow-hidden">
+                      <Image
+                        src={album.coverImage?.asset?.url || PLACEHOLDER}
+                        alt={album.title} fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-green-dark/40 group-hover:bg-green-dark/20 transition-colors" />
+                      <div className="absolute bottom-3 left-3">
+                        <span className="text-white font-semibold text-sm bg-green-dark/60 px-2 py-1 rounded">
+                          {album.photos?.length || 0} photos
+                        </span>
+                      </div>
+                    </div>
+                    <div className="p-5">
+                      <h3 className="text-green-dark text-lg mb-1">{album.title}</h3>
+                      {album.date && <p className="text-xs text-gray-muted mb-2">{new Date(album.date).toLocaleDateString("en-US", { year: "numeric", month: "long" })}</p>}
+                      {album.description && <p className="text-gray-muted text-sm leading-relaxed">{album.description}</p>}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </>
+  )
+}
