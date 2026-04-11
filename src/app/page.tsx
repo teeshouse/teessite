@@ -5,8 +5,11 @@ import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import AnimatedCounter from "@/components/AnimatedCounter"
 import ImpactCalculator from "@/components/ImpactCalculator"
+import VideoHero from "@/components/VideoHero"
+import ParallaxSection from "@/components/ParallaxSection"
+import BeforeAfterSlider from "@/components/BeforeAfterSlider"
 import { getSiteSettings, getImpactStats, getFeaturedPrograms } from "@/lib/sanity.fetch"
-import { ArrowRight, Heart, Users, Sprout, Mail, Phone, MapPin } from "lucide-react"
+import { ArrowRight, Heart, Users, Mail, Phone, MapPin } from "lucide-react"
 
 export const revalidate = 60
 
@@ -47,31 +50,28 @@ export default async function HomePage() {
     <>
       <Navbar />
       <main>
-        {/* Hero */}
-        <section className="relative min-h-screen flex items-center justify-center text-white overflow-hidden">
-          <Image
-            src={`${CDN}/aa3166c4742d84e1137865a365dcfd41de898dca-2048x2048.jpg`}
-            alt="Tee's House hero" fill className="object-cover" priority
-          />
-          <div className="absolute inset-0 bg-green-dark/75" />
-          <div className="container-max relative z-10 text-center py-24">
-            <span className="text-amber font-semibold text-sm uppercase tracking-widest">Pensacola, Florida</span>
-            <h1 className="text-white mt-4 mb-6 text-4xl md:text-6xl leading-tight max-w-4xl mx-auto">
-              {s.heroHeadline}
-            </h1>
-            <p className="text-green-light text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
-              {s.heroSubtext}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/programs" className="btn-amber">
-                Our Programs <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link href="/donate" className="btn-outline-white">
-                Support Our Mission <Heart className="w-4 h-4" />
-              </Link>
-            </div>
+        {/* Hero (Phase 7B: video with image fallback) */}
+        <VideoHero
+          videoSrc={s.heroVideoUrl || undefined}
+          posterSrc={`${CDN}/aa3166c4742d84e1137865a365dcfd41de898dca-2048x2048.jpg`}
+          posterAlt="Tee's House hero"
+        >
+          <span className="text-amber font-semibold text-sm uppercase tracking-widest">Pensacola, Florida</span>
+          <h1 className="text-white mt-4 mb-6 text-4xl md:text-6xl leading-tight max-w-4xl mx-auto">
+            {s.heroHeadline}
+          </h1>
+          <p className="text-green-light text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
+            {s.heroSubtext}
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/programs" className="btn-amber">
+              Our Programs <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link href="/donate" className="btn-outline-white">
+              Support Our Mission <Heart className="w-4 h-4" />
+            </Link>
           </div>
-        </section>
+        </VideoHero>
 
         {/* Mission */}
         <section className="section-padding bg-white">
@@ -133,6 +133,42 @@ export default async function HomePage() {
             </div>
           </section>
         )}
+
+        {/* Phase 7B: Parallax inspirational band */}
+        <ParallaxSection
+          imageSrc={`${CDN}/aa3166c4742d84e1137865a365dcfd41de898dca-2048x2048.jpg`}
+          imageAlt="Tee's House garden"
+          speed={0.35}
+          minHeight="55vh"
+          overlayClassName="bg-green-dark/70"
+        >
+          <span className="text-amber font-semibold text-sm uppercase tracking-widest">Rooted in Pensacola</span>
+          <h2 className="text-white mt-3 max-w-3xl mx-auto">
+            Cultivating the next generation, one season at a time.
+          </h2>
+          <p className="text-green-light mt-4 max-w-2xl mx-auto">
+            From seed to harvest, from sketchbook to stage &mdash; we grow young leaders who invest in the community that raised them.
+          </p>
+        </ParallaxSection>
+
+        {/* Phase 7B: Before / After transformation slider */}
+        <section className="section-padding bg-white">
+          <div className="container-max">
+            <div className="text-center mb-10">
+              <span className="text-amber font-semibold text-sm uppercase tracking-widest">See the Growth</span>
+              <h2 className="text-green-dark mt-3">Before &amp; After</h2>
+              <p className="text-green-dark/70 mt-3 max-w-2xl mx-auto">
+                Drag the slider to see how our garden transforms across a single growing season.
+              </p>
+            </div>
+            <BeforeAfterSlider
+              beforeSrc={`${CDN}/d849d6072cf5ef6e1b989b58751d39a5c9db6429-791x1024.png`}
+              afterSrc={`${CDN}/aa3166c4742d84e1137865a365dcfd41de898dca-2048x2048.jpg`}
+              beforeAlt="Garden before the season"
+              afterAlt="Garden after the season"
+            />
+          </div>
+        </section>
 
         {/* Mini Impact Calculator on homepage */}
         <section className="section-padding bg-white">
