@@ -40,7 +40,7 @@ export default function ContactPage() {
             <span className="text-amber font-semibold text-sm uppercase tracking-widest">Reach Out</span>
             <h1 className="text-white mt-3 mb-4 text-4xl md:text-5xl">Contact Us</h1>
             <p className="text-green-light text-lg max-w-xl mx-auto">
-              Our doors are open. Whether you want to volunteer, partner, or learn more â€” we would love to hear from you.
+              Our doors are open. Whether you want to volunteer, partner, or learn more we would love to hear from you.
             </p>
           </div>
         </section>
