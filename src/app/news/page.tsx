@@ -9,8 +9,8 @@ import { Calendar, ArrowRight, Tag } from "lucide-react"
 export const revalidate = 60
 
 export const metadata: Metadata = {
-  title: "News | Tee's House Inc.",
-  description: "Latest news and updates from Tee's House Inc."
+  title: "News | Tee’s House Inc.",
+  description: "Latest news and updates from Tee’s House Inc."
 }
 
 const CDN = "https://cdn.sanity.io/images/zbeb0ctt/production"
@@ -35,7 +35,7 @@ export default async function NewsPage() {
             <span className="text-amber font-semibold text-sm uppercase tracking-widest">Stay Informed</span>
             <h1 className="text-white mt-3 mb-4 text-4xl md:text-5xl">News &amp; Updates</h1>
             <p className="text-green-light text-lg max-w-xl mx-auto">
-              The latest from Tee’s House â€” programs, events, and community stories.
+              The latest from Tee’s House — programs, events, and community stories.
             </p>
           </div>
         </section>

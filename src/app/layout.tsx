@@ -4,15 +4,15 @@ import "./globals.css"
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.teeshousepensacola.org"),
   title: {
-    default: "Tee's House Inc. | Empowering Communities in Northwest Florida",
-    template: "%s | Tee's House Inc."
+    default: "Tee’s House Inc. | Empowering Communities in Northwest Florida",
+    template: "%s | Tee’s House Inc."
   },
-  description: "Tee's House Inc. is a Pensacola-based nonprofit empowering communities through food access, youth development, mental health support, and creative expression.",
+  description: "Tee’s House Inc. is a Pensacola-based nonprofit empowering communities through food access, youth development, mental health support, and creative expression.",
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://www.teeshousepensacola.org",
-    siteName: "Tee's House Inc."
+    siteName: "Tee’s House Inc."
   },
   icons: {
     icon: [
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 
 const sd = {
   "@context": "https://schema.org", "@type": "NGO",
-  "name": "Tee's House Inc.", "url": "https://www.teeshousepensacola.org",
+  "name": "Tee’s House Inc.", "url": "https://www.teeshousepensacola.org",
   "description": "Empowering communities in Northwest Florida.",
   "address": { "@type": "PostalAddress", "addressLocality": "Pensacola", "addressRegion": "FL" },
   "telephone": "850-291-1888", "email": "info@mail.teeshouse.org"

@@ -109,7 +109,7 @@ export default function VolunteerPage() {
         <section className="relative text-white py-28 px-4 overflow-hidden">
           <Image
             src="https://cdn.sanity.io/images/zbeb0ctt/production/c94746e3b73a04a0d2f0f69d628d5c00c2b85f3d-1024x1024.png"
-            alt="Tee's House volunteers"
+            alt="Tee’s House volunteers"
             fill className="object-cover" priority
           />
           <div className="absolute inset-0 bg-green-dark/75" />

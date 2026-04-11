@@ -86,7 +86,7 @@ export default function ContactPage() {
                 </ul>
                 <div className="bg-green-light rounded-card p-6">
                   <p className="font-display italic text-green-dark text-lg">
-                    "Together, we can keep growing â€” one seed, one idea, one heart at a time."
+                    "Together, we can keep growing — one seed, one idea, one heart at a time."
                   </p>
                 </div>
               </div>

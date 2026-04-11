@@ -10,8 +10,8 @@ import { ArrowRight, Heart, Mail, Phone, MapPin } from "lucide-react"
 export const revalidate = 60
 
 export const metadata: Metadata = {
-  title: "About Us | Tee's House Inc.",
-  description: "Learn about Tee's House Inc., our mission, our team, and our commitment to youth development in Pensacola, FL."
+  title: "About Us | Tee’s House Inc.",
+  description: "Learn about Tee’s House Inc., our mission, our team, and our commitment to youth development in Pensacola, FL."
 }
 
 const CDN = "https://cdn.sanity.io/images/zbeb0ctt/production"
@@ -74,7 +74,7 @@ export default async function AboutPage() {
               <div className="relative h-96 rounded-card overflow-hidden shadow-card-hover">
                 <Image
                   src={`${CDN}/41367ca1929bf2ddd0f8fae7dda827e0a9ddb167-1024x1024.jpg`}
-                  alt="Tee's House mission" fill className="object-cover"
+                  alt="Tee’s House mission" fill className="object-cover"
                 />
               </div>
             </div>
@@ -213,7 +213,7 @@ export default async function AboutPage() {
               <div className="relative h-72 rounded-card overflow-hidden shadow-card-hover">
                 <Image
                   src={`${CDN}/bb80acf5b6d60378b6cff558e871c90c27240189-1024x1024.jpg`}
-                  alt="Tee's House community" fill className="object-cover"
+                  alt="Tee’s House community" fill className="object-cover"
                 />
               </div>
             </div>

@@ -4,8 +4,8 @@ import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 
 export const metadata: Metadata = {
-  title: "Terms and Conditions | Tee's House Inc.",
-  description: "Terms and Conditions for use of the Tee's House Inc. website."
+  title: "Terms and Conditions | Tee’s House Inc.",
+  description: "Terms and Conditions for use of the Tee’s House Inc. website."
 }
 
 export default function TermsPage() {

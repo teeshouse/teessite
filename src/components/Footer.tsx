@@ -14,7 +14,7 @@ export default function Footer() {
         <div className="flex flex-col items-center text-center mb-10 md:hidden">
           <Image
             src={`${CDN}/44f842016c7584b95a281fcfdba5ec79a837304b-612x612.png`}
-            alt="Tee's House" width={56} height={56} className="rounded-full mb-3"
+            alt="Tee’s House" width={56} height={56} className="rounded-full mb-3"
           />
           <p className="font-display font-bold text-white text-lg mb-1">Tee’s House Inc.</p>
           <p className="text-green-light text-xs mb-4 max-w-xs">
@@ -94,7 +94,7 @@ export default function Footer() {
             <div className="flex items-center gap-3 mb-4">
               <Image
                 src={`${CDN}/44f842016c7584b95a281fcfdba5ec79a837304b-612x612.png`}
-                alt="Tee's House" width={56} height={56} className="rounded-full"
+                alt="Tee’s House" width={56} height={56} className="rounded-full"
               />
               <span className="font-display font-bold text-white text-lg">Tee’s House Inc.</span>
             </div>

@@ -33,7 +33,7 @@ export default function Navbar() {
         <Link href="/" className="flex items-center gap-3 shrink-0">
           <Image
             src={`${CDN}/44f842016c7584b95a281fcfdba5ec79a837304b-612x612.png`}
-            alt="Tee's House" width={72} height={72} className="rounded-full"
+            alt="Tee’s House" width={72} height={72} className="rounded-full"
           />
           <span className="font-display font-bold text-green-dark text-lg leading-tight hidden sm:block">
             Tee’s House<br /><span className="text-xs font-sans font-normal text-gray-muted">Inc.</span>

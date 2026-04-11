@@ -1,4 +1,4 @@
-// Inline SVG logos for payment methods â€” no external image deps
+// Inline SVG logos for payment methods — no external image deps
 
 export function PayPalLogo({ className = "h-5" }: { className?: string }) {
   return (

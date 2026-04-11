@@ -28,7 +28,7 @@ export default async function GalleryPage() {
             <span className="text-amber font-semibold text-sm uppercase tracking-widest">Our Story in Photos</span>
             <h1 className="text-white mt-3 mb-4 text-4xl md:text-5xl">Photo Gallery</h1>
             <p className="text-green-light text-lg max-w-xl mx-auto">
-              Moments from our programs, events, and community â€” captured in photos.
+              Moments from our programs, events, and community — captured in photos.
             </p>
           </div>
         </section>

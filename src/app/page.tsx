@@ -15,15 +15,15 @@ import { ArrowRight, Heart, Users, Mail, Phone, MapPin } from "lucide-react"
 export const revalidate = 60
 
 export const metadata: Metadata = {
-  title: "Tee's House Inc. | Growing Community in Pensacola, FL",
-  description: "Tee's House Inc. is a 501(c)(3) nonprofit cultivating youth development through agriculture, arts, and education in Pensacola, Florida.",
+  title: "Tee’s House Inc. | Growing Community in Pensacola, FL",
+  description: "Tee’s House Inc. is a 501(c)(3) nonprofit cultivating youth development through agriculture, arts, and education in Pensacola, Florida.",
 }
 
 const CDN = "https://cdn.sanity.io/images/zbeb0ctt/production"
 
 const FALLBACK = {
   heroHeadline:   "Growing Community Through Agriculture, Arts and Education",
-  heroSubtext:    "Tee's House Inc. is a 501(c)(3) nonprofit cultivating youth development through hands-on learning experiences in Pensacola, Florida.",
+  heroSubtext:    "Tee’s House Inc. is a 501(c)(3) nonprofit cultivating youth development through hands-on learning experiences in Pensacola, Florida.",
   missionTagline: "Planting seeds of knowledge, creativity, and community.",
   phone:          "850.291.1888",
   email:          "info@mail.teeshouse.org",
@@ -55,7 +55,7 @@ export default async function HomePage() {
         <VideoHero
           videoSrc={s.heroVideoUrl || undefined}
           posterSrc={`${CDN}/aa3166c4742d84e1137865a365dcfd41de898dca-2048x2048.jpg`}
-          posterAlt="Tee's House hero"
+          posterAlt="Tee’s House hero"
         >
           <span className="text-amber font-semibold text-sm uppercase tracking-widest">Pensacola, Florida</span>
           <h1 className="text-white mt-4 mb-6 text-4xl md:text-6xl leading-tight max-w-4xl mx-auto">
@@ -138,7 +138,7 @@ export default async function HomePage() {
         {/* Phase 7B: Parallax inspirational band */}
         <ParallaxSection
           imageSrc={`${CDN}/aa3166c4742d84e1137865a365dcfd41de898dca-2048x2048.jpg`}
-          imageAlt="Tee's House garden"
+          imageAlt="Tee’s House garden"
           speed={0.35}
           minHeight="55vh"
           overlayClassName="bg-green-dark/70"

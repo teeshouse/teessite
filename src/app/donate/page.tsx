@@ -9,7 +9,7 @@ import DonorWall from "@/components/DonorWall"
 import { Heart, Mail, Smartphone, CreditCard, ArrowRight, Shield, RefreshCw } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Donate | Tee's House Inc.",
+  title: "Donate | Tee’s House Inc.",
   description: "Support Tee’s House Inc. Your donation helps us provide agriculture, arts, and STEAM programs to youth in Pensacola, FL."
 }
 

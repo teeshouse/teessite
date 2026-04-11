@@ -9,7 +9,7 @@ import { ArrowRight, Mail, Phone } from "lucide-react"
 export const revalidate = 60
 
 export const metadata: Metadata = {
-  title: "Our Programs | Tee's House Inc.",
+  title: "Our Programs | Tee’s House Inc.",
   description: "Discover how Tee’s House is cultivating creativity, education, and community growth."
 }
 
@@ -47,7 +47,7 @@ export default async function ProgramsPage() {
       <main>
         {/* Hero */}
         <section className="relative text-white py-28 px-4 overflow-hidden">
-          <Image src={STATIC.hero} alt="Tee's House programs" fill className="object-cover" priority />
+          <Image src={STATIC.hero} alt="Tee’s House programs" fill className="object-cover" priority />
           <div className="absolute inset-0 bg-green-dark/75" />
           <div className="container-max relative text-center z-10">
             <span className="text-amber font-semibold text-sm uppercase tracking-widest">What We Offer</span>
@@ -243,7 +243,7 @@ export default async function ProgramsPage() {
                 </div>
               </div>
               <div className="relative h-72 rounded-card overflow-hidden shadow-card-hover">
-                <Image src={STATIC.community} alt="Tee's House community" fill className="object-cover" />
+                <Image src={STATIC.community} alt="Tee’s House community" fill className="object-cover" />
               </div>
             </div>
           </div>

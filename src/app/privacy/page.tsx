@@ -4,8 +4,8 @@ import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Tee's House Inc.",
-  description: "Privacy Policy for Tee's House Inc. â€” how we collect, use, and protect your personal information."
+  title: "Privacy Policy | Tee’s House Inc.",
+  description: "Privacy Policy for Tee’s House Inc. — how we collect, use, and protect your personal information."
 }
 
 export default function PrivacyPage() {
@@ -49,7 +49,7 @@ export default function PrivacyPage() {
                 <h2 className="text-green-dark text-2xl font-display mb-3">Log Data</h2>
                 <p>
                   We collect information that your browser sends whenever you visit our Service (&ldquo;Log Data&rdquo;).
-                  This Log Data may include information such as your computer&apos;s Internet Protocol (&ldquo;IP&rdquo;) address,
+                  This Log Data may include information such as your computer’s Internet Protocol (&ldquo;IP&rdquo;) address,
                   browser type, browser version, the pages of our Service that you visit, the time and date of your visit,
                   the time spent on those pages and other statistics.
                 </p>
@@ -59,7 +59,7 @@ export default function PrivacyPage() {
                 <h2 className="text-green-dark text-2xl font-display mb-3">Cookies</h2>
                 <p>
                   Cookies are files with a small amount of data, which may include an anonymous unique identifier.
-                  Cookies are sent to your browser from a web site and stored on your computer&apos;s hard drive.
+                  Cookies are sent to your browser from a web site and stored on your computer’s hard drive.
                   We use &ldquo;cookies&rdquo; to collect information. You can instruct your browser to refuse all cookies
                   or to indicate when a cookie is being sent. However, if you do not accept cookies, you may not be
                   able to use some portions of our Service.
@@ -90,14 +90,14 @@ export default function PrivacyPage() {
                 <h2 className="text-green-dark text-2xl font-display mb-3">Links To Other Sites</h2>
                 <p>
                   Our Service may contain links to other sites that are not operated by us. If you click on a
-                  third party link, you will be directed to that third party&apos;s site. We strongly advise you to
+                  third party link, you will be directed to that third party’s site. We strongly advise you to
                   review the Privacy Policy of every site you visit. We have no control over, and assume no
                   responsibility for the content, privacy policies or practices of any third party sites or services.
                 </p>
               </div>
 
               <div>
-                <h2 className="text-green-dark text-2xl font-display mb-3">Children&apos;s Privacy</h2>
+                <h2 className="text-green-dark text-2xl font-display mb-3">Children’s Privacy</h2>
                 <p>
                   Our Service does not address anyone under the age of 18 (&ldquo;Children&rdquo;). We do not knowingly
                   collect personally identifiable information from children under 18. If you are a parent or guardian
