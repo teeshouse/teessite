@@ -5,22 +5,34 @@ import { createClient } from "@supabase/supabase-js"
  * Supabase keep-alive ping.
  *
  * Free-tier Supabase projects pause after 7 days with no activity. Hitting
- * this route from a weekly external scheduler (Vercel Cron, GitHub Actions,
- * cron-job.org, etc.) issues a cheap SELECT so the project stays warm.
+ * this route from a weekly scheduler issues a cheap count query so the
+ * project stays warm.
  *
- * Guarded by PING_SECRET to prevent random GET spam from consuming budget.
- * Call with:
- *   GET /api/ping?secret=<PING_SECRET>
+ * Auth: accepts EITHER of
+ *   1) `?secret=<PING_SECRET>`    (works with any external cron)
+ *   2) `Authorization: Bearer <CRON_SECRET>` header, which Vercel Cron
+ *      attaches automatically when the CRON_SECRET env var is set.
+ *
+ * If neither secret env var is configured, the route returns 503 so a
+ * misconfigured deployment is obvious instead of silently accepting traffic.
+ *
+ * The weekly schedule is defined in vercel.json.
  */
 export async function GET(req: Request) {
   const url = new URL(req.url)
-  const provided = url.searchParams.get("secret")
-  const expected = process.env.PING_SECRET
+  const querySecret = url.searchParams.get("secret")
+  const pingSecret  = process.env.PING_SECRET
+  const cronSecret  = process.env.CRON_SECRET
 
-  if (!expected) {
+  if (!pingSecret && !cronSecret) {
     return NextResponse.json({ error: "Ping not configured" }, { status: 503 })
   }
-  if (provided !== expected) {
+
+  const authHeader = req.headers.get("authorization") || ""
+  const bearerOk   = cronSecret && authHeader === `Bearer ${cronSecret}`
+  const querySecretOk = pingSecret && querySecret === pingSecret
+
+  if (!bearerOk && !querySecretOk) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 })
   }
 
