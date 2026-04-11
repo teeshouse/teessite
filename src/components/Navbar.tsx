@@ -8,7 +8,7 @@ const CDN = "https://cdn.sanity.io/images/zbeb0ctt/production"
 
 const NAV = [
   { label: "About",    href: "/about" },
-  { label: "Programs", href: "/programs" },
+  { label: "Community Impact", href: "/programs" },
   { label: "Events",   href: "/events" },
   { label: "News",     href: "/news" },
   { label: "Gallery",  href: "/gallery" },

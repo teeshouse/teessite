@@ -9,8 +9,8 @@ import { ArrowRight, Mail, Phone } from "lucide-react"
 export const revalidate = 60
 
 export const metadata: Metadata = {
-  title: "Our Programs | Tee’s House Inc.",
-  description: "Discover how Tee’s House is cultivating creativity, education, and community growth."
+  title: "Community Impact | Tee’s House Inc.",
+  description: "See the community impact of Tee’s House — programs cultivating creativity, education, and growth in Pensacola, FL."
 }
 
 const CDN = "https://cdn.sanity.io/images/zbeb0ctt/production"
@@ -50,8 +50,8 @@ export default async function ProgramsPage() {
           <Image src={STATIC.hero} alt="Tee’s House programs" fill className="object-cover" priority />
           <div className="absolute inset-0 bg-green-dark/75" />
           <div className="container-max relative text-center z-10">
-            <span className="text-amber font-semibold text-sm uppercase tracking-widest">What We Offer</span>
-            <h1 className="text-white mt-3 mb-4 text-4xl md:text-5xl">Our Programs</h1>
+            <span className="text-amber font-semibold text-sm uppercase tracking-widest">Our Work in Action</span>
+            <h1 className="text-white mt-3 mb-4 text-4xl md:text-5xl">Community Impact</h1>
           </div>
         </section>
 

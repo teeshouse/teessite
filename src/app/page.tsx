@@ -66,7 +66,7 @@ export default async function HomePage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/programs" className="btn-amber">
-              Our Programs <ArrowRight className="w-4 h-4" />
+              Community Impact <ArrowRight className="w-4 h-4" />
             </Link>
             <Link href="/donate" className="btn-outline-white">
               Support Our Mission <Heart className="w-4 h-4" />
@@ -128,7 +128,7 @@ export default async function HomePage() {
               </div>
               <div className="text-center mt-10">
                 <Link href="/programs" className="btn-primary">
-                  View All Programs <ArrowRight className="w-4 h-4" />
+                  See Community Impact <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             </div>

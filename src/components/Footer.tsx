@@ -45,7 +45,7 @@ export default function Footer() {
             <h4 className="text-white font-semibold mb-3 text-xs uppercase tracking-widest">Explore</h4>
             <ul className="space-y-2">
               {[
-                { label: "Programs",  href: "/programs"  },
+                { label: "Community Impact", href: "/programs" },
                 { label: "Events",    href: "/events"    },
                 { label: "News",      href: "/news"      },
                 { label: "Gallery",   href: "/gallery"   },
@@ -120,7 +120,7 @@ export default function Footer() {
             <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-widest">Programs</h4>
             <ul className="space-y-2">
               {[
-                { label: "Our Programs", href: "/programs" },
+                { label: "Community Impact", href: "/programs" },
                 { label: "Events",       href: "/events"   },
                 { label: "News",         href: "/news"     },
                 { label: "Gallery",      href: "/gallery"  },
