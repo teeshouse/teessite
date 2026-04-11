@@ -80,8 +80,8 @@ export default function Footer() {
           <a href="tel:8502911888" className="flex items-center gap-2 text-green-light text-sm">
             <Phone className="w-4 h-4 text-amber shrink-0" />850.291.1888
           </a>
-          <a href="mailto:info@teeshousepensacola.org" className="flex items-center gap-2 text-green-light text-sm">
-            <Mail className="w-4 h-4 text-amber shrink-0" />info@teeshousepensacola.org
+          <a href="mailto:info@mail.teeshouse.org" className="flex items-center gap-2 text-green-light text-sm">
+            <Mail className="w-4 h-4 text-amber shrink-0" />info@mail.teeshouse.org
           </a>
           <span className="flex items-center gap-2 text-green-light text-sm">
             <MapPin className="w-4 h-4 text-amber shrink-0" />7823 Bay Meadows Dr, Pensacola, FL 32507
@@ -157,8 +157,8 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="mailto:info@teeshousepensacola.org" className="flex items-start gap-2 text-green-light text-sm hover:text-amber transition-colors">
-                  <Mail className="w-4 h-4 text-amber mt-0.5 shrink-0" />info@teeshousepensacola.org
+                <a href="mailto:info@mail.teeshouse.org" className="flex items-start gap-2 text-green-light text-sm hover:text-amber transition-colors">
+                  <Mail className="w-4 h-4 text-amber mt-0.5 shrink-0" />info@mail.teeshouse.org
                 </a>
               </li>
               <li>

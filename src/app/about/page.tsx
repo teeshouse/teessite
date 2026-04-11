@@ -198,8 +198,8 @@ export default async function AboutPage() {
                   <a href="tel:8502911888" className="flex items-center gap-3 text-gray-muted hover:text-green-dark transition-colors">
                     <Phone className="w-5 h-5 text-amber shrink-0" />{s.phone || "850.291.1888"}
                   </a>
-                  <a href="mailto:info@teeshousepensacola.org" className="flex items-center gap-3 text-gray-muted hover:text-green-dark transition-colors">
-                    <Mail className="w-5 h-5 text-amber shrink-0" />{s.email || "info@teeshousepensacola.org"}
+                  <a href="mailto:info@mail.teeshouse.org" className="flex items-center gap-3 text-gray-muted hover:text-green-dark transition-colors">
+                    <Mail className="w-5 h-5 text-amber shrink-0" />{s.email || "info@mail.teeshouse.org"}
                   </a>
                   <span className="flex items-center gap-3 text-gray-muted">
                     <MapPin className="w-5 h-5 text-amber shrink-0" />{s.address || "7823 Bay Meadows Dr, Pensacola, FL 32507"}

@@ -41,12 +41,13 @@ export async function POST(req: NextRequest) {
     await notifyInfo({
       subject: `New contact form: ${subject || "(no subject)"}`,
       replyTo: email,
-      text:
-        `A new message was submitted on teeshousepensacola.org:\n\n` +
-        `Name:    ${name}\n` +
-        `Email:   ${email}\n` +
-        `Subject: ${subject || "(none)"}\n\n` +
-        `Message:\n${message}\n`,
+      intro:   `A new message was submitted through the contact form.`,
+      fields: [
+        { label: "Name",    value: name },
+        { label: "Email",   value: email },
+        { label: "Subject", value: subject || "(none)" },
+      ],
+      body: message,
     })
 
     return NextResponse.json({ success: true, message: "Message sent! We will get back to you soon." })

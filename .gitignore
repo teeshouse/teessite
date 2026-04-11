@@ -12,3 +12,6 @@
 *.tsbuildinfo
 next-env.d.ts
 bootstrap-teeshouse.ps1
+
+# Claude Code local settings (per-developer, not shared)
+.claude/settings.local.json

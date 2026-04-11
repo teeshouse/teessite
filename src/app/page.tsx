@@ -26,7 +26,7 @@ const FALLBACK = {
   heroSubtext:    "Tee's House Inc. is a 501(c)(3) nonprofit cultivating youth development through hands-on learning experiences in Pensacola, Florida.",
   missionTagline: "Planting seeds of knowledge, creativity, and community.",
   phone:          "850.291.1888",
-  email:          "info@teeshousepensacola.org",
+  email:          "info@mail.teeshouse.org",
   address:        "7823 Bay Meadows Dr, Pensacola, FL 32507",
 }
 
@@ -205,8 +205,8 @@ export default async function HomePage() {
               <a href="tel:8502911888" className="flex items-center gap-2 hover:text-amber transition-colors">
                 <Phone className="w-4 h-4 text-amber" />{s.phone || "850.291.1888"}
               </a>
-              <a href="mailto:info@teeshousepensacola.org" className="flex items-center gap-2 hover:text-amber transition-colors">
-                <Mail className="w-4 h-4 text-amber" />{s.email || "info@teeshousepensacola.org"}
+              <a href="mailto:info@mail.teeshouse.org" className="flex items-center gap-2 hover:text-amber transition-colors">
+                <Mail className="w-4 h-4 text-amber" />{s.email || "info@mail.teeshouse.org"}
               </a>
               <span className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-amber shrink-0" />{s.address || "7823 Bay Meadows Dr, Pensacola, FL 32507"}

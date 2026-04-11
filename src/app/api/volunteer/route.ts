@@ -48,21 +48,26 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Failed to save application. Please try again." }, { status: 500 })
     }
 
+    const skillsAndNotes = [
+      skills ? `Skills / experience:\n${skills}` : "",
+      notes  ? `Additional notes:\n${notes}`     : "",
+    ].filter(Boolean).join("\n\n")
+
     await notifyInfo({
       subject: `New volunteer application: ${name}`,
       replyTo: email,
-      text:
-        `A new volunteer application was submitted on teeshousepensacola.org:\n\n` +
-        `Name:      ${name}\n` +
-        `Email:     ${email}\n` +
-        `Phone:     ${phone || "(none)"}\n` +
-        `Roles:     ${(roles || []).join(", ") || "(none)"}\n` +
-        `Days:      ${(days  || []).join(", ") || "(none)"}\n` +
-        `Times:     ${(times || []).join(", ") || "(none)"}\n` +
-        `Bg check:  ${backgroundCheck || "(not answered)"}\n` +
-        `Emergency: ${emergencyName || "-"} / ${emergencyPhone || "-"} (${emergencyRelation || "-"})\n\n` +
-        `Skills:\n${skills || "(none provided)"}\n\n` +
-        `Notes:\n${notes || "(none)"}\n`,
+      intro:   `A new volunteer application was submitted.`,
+      fields: [
+        { label: "Name",       value: name },
+        { label: "Email",      value: email },
+        { label: "Phone",      value: phone || "(none)" },
+        { label: "Roles",      value: (roles || []).join(", ") || "(none)" },
+        { label: "Days",       value: (days  || []).join(", ") || "(none)" },
+        { label: "Times",      value: (times || []).join(", ") || "(none)" },
+        { label: "BG check",   value: backgroundCheck ? "Yes" : "Not answered" },
+        { label: "Emergency",  value: `${emergencyName || "-"} / ${emergencyPhone || "-"} (${emergencyRelation || "-"})` },
+      ],
+      body: skillsAndNotes || undefined,
     })
 
     return NextResponse.json({ success: true, message: "Application received! We will be in touch soon." })

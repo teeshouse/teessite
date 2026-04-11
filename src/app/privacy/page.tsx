@@ -128,8 +128,8 @@ export default function PrivacyPage() {
                 <h2 className="text-green-dark text-2xl font-display mb-3">Contact Us</h2>
                 <p>
                   If you have any questions about this Privacy Policy, please contact us at{" "}
-                  <a href="mailto:info@teeshousepensacola.org" className="text-green-mid hover:underline">
-                    info@teeshousepensacola.org
+                  <a href="mailto:info@mail.teeshouse.org" className="text-green-mid hover:underline">
+                    info@mail.teeshouse.org
                   </a>{" "}
                   or call{" "}
                   <a href="tel:8502911888" className="text-green-mid hover:underline">
