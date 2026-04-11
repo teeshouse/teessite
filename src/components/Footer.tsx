@@ -1,6 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
-import { Mail, Phone, MapPin, Instagram, Facebook, Heart } from "lucide-react"
+import { Mail, Phone, MapPin, Instagram, Facebook, Linkedin, Heart } from "lucide-react"
 
 const CDN = "https://cdn.sanity.io/images/zbeb0ctt/production"
 
@@ -21,13 +21,17 @@ export default function Footer() {
             Cultivating youth through agriculture, arts, and education in Pensacola, FL.
           </p>
           <div className="flex gap-3 mb-4">
-            <a href="https://instagram.com/teeshouseinc" target="_blank" rel="noopener noreferrer"
+            <a href="https://instagram.com/_teeshouse" target="_blank" rel="noopener noreferrer"
               className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-amber transition-colors">
               <Instagram className="w-4 h-4" />
             </a>
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"
+            <a href="https://www.facebook.com/teeshouseinc" target="_blank" rel="noopener noreferrer"
               className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-amber transition-colors">
               <Facebook className="w-4 h-4" />
+            </a>
+            <a href="https://www.linkedin.com/company/teeshouse/" target="_blank" rel="noopener noreferrer"
+              className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-amber transition-colors">
+              <Linkedin className="w-4 h-4" />
             </a>
           </div>
           <Link href="/donate" className="btn-amber text-sm w-full max-w-xs justify-center">
@@ -98,13 +102,17 @@ export default function Footer() {
               Cultivating youth development through agriculture, arts, and education in Pensacola, FL.
             </p>
             <div className="flex gap-3">
-              <a href="https://instagram.com/teeshouseinc" target="_blank" rel="noopener noreferrer"
+              <a href="https://instagram.com/_teeshouse" target="_blank" rel="noopener noreferrer"
                 className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-amber transition-colors">
                 <Instagram className="w-4 h-4" />
               </a>
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"
+              <a href="https://www.facebook.com/teeshouseinc" target="_blank" rel="noopener noreferrer"
                 className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-amber transition-colors">
                 <Facebook className="w-4 h-4" />
+              </a>
+              <a href="https://www.linkedin.com/company/teeshouse/" target="_blank" rel="noopener noreferrer"
+                className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-amber transition-colors">
+                <Linkedin className="w-4 h-4" />
               </a>
             </div>
           </div>
