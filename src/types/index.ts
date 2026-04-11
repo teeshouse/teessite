@@ -24,10 +24,20 @@ export interface BeforeAfterSettings {
   afterLabel?:  string
   caption?:     string
 }
+export interface ProgramsPageSettings {
+  navLabel?:        string
+  pageTitle?:       string
+  pageKicker?:      string
+  metaTitle?:       string
+  metaDescription?: string
+  homeHeroCta?:     string
+  homeListCta?:     string
+}
 export interface SiteSettings {
   heroHeadline: string; heroSubtext: string; missionTagline: string
   heroVideoUrl?: string
   beforeAfter?: BeforeAfterSettings
+  programsPage?: ProgramsPageSettings
   phone: string; email: string; address: string
   facebookUrl?: string; instagramUrl?: string; paypalDonateLink?: string
 }

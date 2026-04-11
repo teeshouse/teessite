@@ -9,6 +9,7 @@ import VideoHero from "@/components/VideoHero"
 import ParallaxSection from "@/components/ParallaxSection"
 import BeforeAfterSlider from "@/components/BeforeAfterSlider"
 import { getSiteSettings, getImpactStats, getFeaturedPrograms } from "@/lib/sanity.fetch"
+import { resolveProgramsLabels } from "@/lib/programsPageLabels"
 import type { SiteSettings } from "@/types"
 import { ArrowRight, Heart, Users, Mail, Phone, MapPin } from "lucide-react"
 
@@ -46,6 +47,7 @@ export default async function HomePage() {
 
   const s: Partial<SiteSettings> = settings || FALLBACK
   const iStats = stats?.length > 0 ? stats : FALLBACK_STATS
+  const programsLabels = resolveProgramsLabels(settings)
 
   return (
     <>
@@ -66,7 +68,7 @@ export default async function HomePage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/programs" className="btn-amber">
-              Community Impact <ArrowRight className="w-4 h-4" />
+              {programsLabels.homeHeroCta} <ArrowRight className="w-4 h-4" />
             </Link>
             <Link href="/donate" className="btn-outline-white">
               Support Our Mission <Heart className="w-4 h-4" />
@@ -128,7 +130,7 @@ export default async function HomePage() {
               </div>
               <div className="text-center mt-10">
                 <Link href="/programs" className="btn-primary">
-                  See Community Impact <ArrowRight className="w-4 h-4" />
+                  {programsLabels.homeListCta} <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             </div>

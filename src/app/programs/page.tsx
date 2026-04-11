@@ -3,14 +3,19 @@ import Link from "next/link"
 import Image from "next/image"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
-import { getPrograms } from "@/lib/sanity.fetch"
+import { getPrograms, getSiteSettings } from "@/lib/sanity.fetch"
+import { resolveProgramsLabels } from "@/lib/programsPageLabels"
 import { ArrowRight, Mail, Phone } from "lucide-react"
 
 export const revalidate = 60
 
-export const metadata: Metadata = {
-  title: "Community Impact | Tee’s House Inc.",
-  description: "See the community impact of Tee’s House — programs cultivating creativity, education, and growth in Pensacola, FL."
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings()
+  const labels   = resolveProgramsLabels(settings)
+  return {
+    title:       labels.metaTitle,
+    description: labels.metaDescription,
+  }
 }
 
 const CDN = "https://cdn.sanity.io/images/zbeb0ctt/production"
@@ -36,9 +41,10 @@ function StatusBadge({ status }: { status: string }) {
 }
 
 export default async function ProgramsPage() {
-  const programs = await getPrograms()
-  const current  = programs.filter((p: any) => p.status === "current")
-  const past     = programs.filter((p: any) => p.status === "past")
+  const [programs, settings] = await Promise.all([getPrograms(), getSiteSettings()])
+  const labels    = resolveProgramsLabels(settings)
+  const current   = programs.filter((p: any) => p.status === "current")
+  const past      = programs.filter((p: any) => p.status === "past")
   const hasContent = programs.length > 0
 
   return (
@@ -50,8 +56,8 @@ export default async function ProgramsPage() {
           <Image src={STATIC.hero} alt="Tee’s House programs" fill className="object-cover" priority />
           <div className="absolute inset-0 bg-green-dark/75" />
           <div className="container-max relative text-center z-10">
-            <span className="text-amber font-semibold text-sm uppercase tracking-widest">Our Work in Action</span>
-            <h1 className="text-white mt-3 mb-4 text-4xl md:text-5xl">Community Impact</h1>
+            <span className="text-amber font-semibold text-sm uppercase tracking-widest">{labels.pageKicker}</span>
+            <h1 className="text-white mt-3 mb-4 text-4xl md:text-5xl">{labels.pageTitle}</h1>
           </div>
         </section>
 

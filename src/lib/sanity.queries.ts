@@ -10,6 +10,11 @@ export const SITE_SETTINGS_QUERY = groq`
       beforeLabel, afterLabel, caption,
       beforeImage { asset->{ url } },
       afterImage  { asset->{ url } }
+    },
+    programsPage {
+      navLabel, pageTitle, pageKicker,
+      metaTitle, metaDescription,
+      homeHeroCta, homeListCta
     }
   }
 `

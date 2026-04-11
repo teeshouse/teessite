@@ -1,10 +1,14 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Mail, Phone, MapPin, Instagram, Facebook, Linkedin, Heart } from "lucide-react"
+import { getSiteSettings } from "@/lib/sanity.fetch"
+import { resolveProgramsLabels } from "@/lib/programsPageLabels"
 
 const CDN = "https://cdn.sanity.io/images/zbeb0ctt/production"
 
-export default function Footer() {
+export default async function Footer() {
+  const settings = await getSiteSettings()
+  const labels   = resolveProgramsLabels(settings)
   return (
     <footer className="bg-green-dark text-white">
       {/* Main footer */}
@@ -45,7 +49,7 @@ export default function Footer() {
             <h4 className="text-white font-semibold mb-3 text-xs uppercase tracking-widest">Explore</h4>
             <ul className="space-y-2">
               {[
-                { label: "Community Impact", href: "/programs" },
+                { label: labels.navLabel, href: "/programs" },
                 { label: "Events",    href: "/events"    },
                 { label: "News",      href: "/news"      },
                 { label: "Gallery",   href: "/gallery"   },
@@ -120,7 +124,7 @@ export default function Footer() {
             <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-widest">Programs</h4>
             <ul className="space-y-2">
               {[
-                { label: "Community Impact", href: "/programs" },
+                { label: labels.navLabel, href: "/programs" },
                 { label: "Events",       href: "/events"   },
                 { label: "News",         href: "/news"     },
                 { label: "Gallery",      href: "/gallery"  },
