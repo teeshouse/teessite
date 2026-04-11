@@ -40,12 +40,12 @@ export default async function AboutPage() {
         <section className="relative text-white py-28 px-4 overflow-hidden">
           <Image
             src={`${CDN}/9e83c4f80bcfcf915d8313e338c0d7fd2a531f19-2048x2048.jpg`}
-            alt="About Tees House" fill className="object-cover"
+            alt="About Tee&apos;s House" fill className="object-cover"
           />
           <div className="absolute inset-0 bg-green-dark/75" />
           <div className="container-max relative z-10 text-center">
             <span className="text-amber font-semibold text-sm uppercase tracking-widest">Who We Are</span>
-            <h1 className="text-white mt-3 mb-4 text-4xl md:text-5xl">About Tees House</h1>
+            <h1 className="text-white mt-3 mb-4 text-4xl md:text-5xl">About Tee&apos;s House</h1>
           </div>
         </section>
 
@@ -57,7 +57,7 @@ export default async function AboutPage() {
                 <span className="text-amber font-semibold text-sm uppercase tracking-widest">Our Mission</span>
                 <h2 className="text-green-dark mt-3 mb-4">Cultivating Growth in Every Child</h2>
                 <p className="text-gray-muted leading-relaxed mb-4">
-                  Tees House Inc. is a 501(c)(3) nonprofit organization dedicated to empowering youth through
+                  Tee&apos;s House Inc. is a 501(c)(3) nonprofit organization dedicated to empowering youth through
                   hands-on educational experiences that integrate agriculture, arts, and STEAM learning.
                 </p>
                 <p className="text-gray-muted leading-relaxed mb-4">
@@ -73,7 +73,7 @@ export default async function AboutPage() {
               <div className="relative h-96 rounded-card overflow-hidden shadow-card-hover">
                 <Image
                   src={`${CDN}/41367ca1929bf2ddd0f8fae7dda827e0a9ddb167-1024x1024.jpg`}
-                  alt="Tees House mission" fill className="object-cover"
+                  alt="Tee's House mission" fill className="object-cover"
                 />
               </div>
             </div>
@@ -212,7 +212,7 @@ export default async function AboutPage() {
               <div className="relative h-72 rounded-card overflow-hidden shadow-card-hover">
                 <Image
                   src={`${CDN}/bb80acf5b6d60378b6cff558e871c90c27240189-1024x1024.jpg`}
-                  alt="Tees House community" fill className="object-cover"
+                  alt="Tee's House community" fill className="object-cover"
                 />
               </div>
             </div>

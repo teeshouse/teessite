@@ -8,8 +8,8 @@ import { FileText, Download, ArrowRight, Shield } from "lucide-react"
 export const revalidate = 60
 
 export const metadata: Metadata = {
-  title: "Transparency | Tees House Inc.",
-  description: "Tees House Inc. annual reports, financial transparency, and nonprofit accountability."
+  title: "Transparency | Tee&apos;s House Inc.",
+  description: "Tee's House Inc. annual reports, financial transparency, and nonprofit accountability."
 }
 
 export default async function TransparencyPage() {
@@ -33,7 +33,7 @@ export default async function TransparencyPage() {
           <div className="container-max max-w-3xl">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
               {[
-                { icon: <Shield className="w-8 h-8 text-amber" />, title: "501(c)(3) Status", desc: "Tees House Inc. is a registered 501(c)(3) nonprofit organization. Donations are tax-deductible." },
+                { icon: <Shield className="w-8 h-8 text-amber" />, title: "501(c)(3) Status", desc: "Tee's House Inc. is a registered 501(c)(3) nonprofit organization. Donations are tax-deductible." },
                 { icon: <FileText className="w-8 h-8 text-amber" />, title: "Annual Reporting", desc: "We publish annual reports detailing our programs, financials, and community impact." },
                 { icon: <Shield className="w-8 h-8 text-amber" />, title: "Board Governed", desc: "Our organization is governed by a volunteer board of directors committed to our mission." }
               ].map(item => (

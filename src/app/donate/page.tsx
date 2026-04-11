@@ -10,7 +10,7 @@ import { Heart, Mail, Smartphone, CreditCard, ArrowRight, Shield, RefreshCw } fr
 
 export const metadata: Metadata = {
   title: "Donate | Tee's House Inc.",
-  description: "Support Tees House Inc. Your donation helps us provide agriculture, arts, and STEAM programs to youth in Pensacola, FL."
+  description: "Support Tee&apos;s House Inc. Your donation helps us provide agriculture, arts, and STEAM programs to youth in Pensacola, FL."
 }
 
 const CDN = "https://cdn.sanity.io/images/zbeb0ctt/production"
@@ -24,7 +24,7 @@ export default function DonatePage() {
         <section className="relative text-white py-28 px-4 overflow-hidden">
           <Image
             src={`${CDN}/58792471f8a4433f2d4367eba2366f9dd5f21914-1024x1024.png`}
-            alt="Support Tees House" fill className="object-cover" priority
+            alt="Support Tee&apos;s House" fill className="object-cover" priority
           />
           <div className="absolute inset-0 bg-green-dark/80" />
           <div className="container-max relative z-10 text-center">
@@ -93,7 +93,7 @@ export default function DonatePage() {
                 {
                   icon: <Mail className="w-6 h-6 text-amber" />,
                   title: "Check by Mail",
-                  desc: "Payable to Tees House Inc.",
+                  desc: "Payable to Tee&apos;s House Inc.",
                   action: "Get Mailing Address",
                   href: "/contact",
                   external: false

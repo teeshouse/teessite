@@ -6,13 +6,13 @@ import Link from "next/link"
 // Donors can be managed via Sanity or hardcoded here
 // Format: { name, tier, anonymous, message }
 const DONORS = [
-  { name: "The Johnson Family",    tier: "gold",    message: "Proud to support Tees House!" },
+  { name: "The Johnson Family",    tier: "gold",    message: "Proud to support Tee&apos;s House!" },
   { name: "Anonymous Friend",      tier: "silver",  message: "" },
   { name: "Dr. Patricia Williams", tier: "gold",    message: "Education changes everything." },
   { name: "Marcus & Diane Reed",   tier: "silver",  message: "" },
   { name: "Northwest FL Community Foundation", tier: "platinum", message: "Building futures together." },
   { name: "Anonymous",             tier: "bronze",  message: "" },
-  { name: "Coach Terrell Brown",   tier: "silver",  message: "Go Tees House!" },
+  { name: "Coach Terrell Brown",   tier: "silver",  message: "Go Tee&apos;s House!" },
   { name: "Anonymous Friend",      tier: "bronze",  message: "" },
   { name: "The Patel Family",      tier: "silver",  message: "Every child deserves this." },
   { name: "Anonymous",             tier: "bronze",  message: "" },

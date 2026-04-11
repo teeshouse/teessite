@@ -9,8 +9,8 @@ import { ArrowRight, ExternalLink } from "lucide-react"
 export const revalidate = 60
 
 export const metadata: Metadata = {
-  title: "Partners and Sponsors | Tees House Inc.",
-  description: "Our partners and sponsors who make Tees House programs possible."
+  title: "Partners and Sponsors | Tee&apos;s House Inc.",
+  description: "Our partners and sponsors who make Tee&apos;s House programs possible."
 }
 
 const TIER_LABELS: Record<string, string> = {
@@ -43,7 +43,7 @@ export default async function PartnersPage() {
             {partners.length === 0 ? (
               <div className="card p-16 max-w-lg mx-auto text-center">
                 <h2 className="text-green-dark mb-3">Partnership Opportunities</h2>
-                <p className="text-gray-muted mb-6">Interested in partnering with Tees House? We would love to connect.</p>
+                <p className="text-gray-muted mb-6">Interested in partnering with Tee&apos;s House? We would love to connect.</p>
                 <Link href="/contact" className="btn-primary">Get in Touch <ArrowRight className="w-4 h-4" /></Link>
               </div>
             ) : (
@@ -82,7 +82,7 @@ export default async function PartnersPage() {
               <h2 className="text-green-dark mb-3">Become a Partner</h2>
               <p className="text-gray-muted max-w-lg mx-auto mb-6">
                 Your organization can help us grow. From in-kind donations to program sponsorships,
-                there are many ways to partner with Tees House.
+                there are many ways to partner with Tee&apos;s House.
               </p>
               <Link href="/contact" className="btn-primary">Partner With Us <ArrowRight className="w-4 h-4" /></Link>
             </div>

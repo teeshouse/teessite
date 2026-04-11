@@ -14,9 +14,9 @@ export default function Footer() {
         <div className="flex flex-col items-center text-center mb-10 md:hidden">
           <Image
             src={`${CDN}/44f842016c7584b95a281fcfdba5ec79a837304b-612x612.png`}
-            alt="Tees House" width={56} height={56} className="rounded-full mb-3"
+            alt="Tee's House" width={56} height={56} className="rounded-full mb-3"
           />
-          <p className="font-display font-bold text-white text-lg mb-1">Tees House Inc.</p>
+          <p className="font-display font-bold text-white text-lg mb-1">Tee&apos;s House Inc.</p>
           <p className="text-green-light text-xs mb-4 max-w-xs">
             Cultivating youth through agriculture, arts, and education in Pensacola, FL.
           </p>
@@ -90,9 +90,9 @@ export default function Footer() {
             <div className="flex items-center gap-3 mb-4">
               <Image
                 src={`${CDN}/44f842016c7584b95a281fcfdba5ec79a837304b-612x612.png`}
-                alt="Tees House" width={56} height={56} className="rounded-full"
+                alt="Tee's House" width={56} height={56} className="rounded-full"
               />
-              <span className="font-display font-bold text-white text-lg">Tees House Inc.</span>
+              <span className="font-display font-bold text-white text-lg">Tee&apos;s House Inc.</span>
             </div>
             <p className="text-green-light text-sm leading-relaxed mb-4">
               Cultivating youth development through agriculture, arts, and education in Pensacola, FL.
@@ -169,7 +169,7 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-white/10">
         <div className="container-max py-5 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-green-light">
-          <p className="text-center md:text-left">2025 Tees House Inc. All rights reserved. 501(c)(3) Nonprofit.</p>
+          <p className="text-center md:text-left">2025 Tee&apos;s House Inc. All rights reserved. 501(c)(3) Nonprofit.</p>
           <div className="flex gap-4">
             <Link href="/privacy" className="hover:text-amber transition-colors">Privacy</Link>
             <Link href="/terms"   className="hover:text-amber transition-colors">Terms</Link>

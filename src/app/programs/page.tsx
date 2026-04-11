@@ -10,7 +10,7 @@ export const revalidate = 60
 
 export const metadata: Metadata = {
   title: "Our Programs | Tee's House Inc.",
-  description: "Discover how Tees House is cultivating creativity, education, and community growth."
+  description: "Discover how Tee&apos;s House is cultivating creativity, education, and community growth."
 }
 
 const CDN = "https://cdn.sanity.io/images/zbeb0ctt/production"
@@ -47,7 +47,7 @@ export default async function ProgramsPage() {
       <main>
         {/* Hero */}
         <section className="relative text-white py-28 px-4 overflow-hidden">
-          <Image src={STATIC.hero} alt="Tees House programs" fill className="object-cover" priority />
+          <Image src={STATIC.hero} alt="Tee's House programs" fill className="object-cover" priority />
           <div className="absolute inset-0 bg-green-dark/75" />
           <div className="container-max relative text-center z-10">
             <span className="text-amber font-semibold text-sm uppercase tracking-widest">What We Offer</span>
@@ -59,7 +59,7 @@ export default async function ProgramsPage() {
         <section className="section-padding bg-white">
           <div className="container-max max-w-3xl text-center">
             <p className="font-display italic text-green-dark text-xl md:text-2xl leading-relaxed">
-              At Tees House, we believe growth begins with connection between people, purpose, and the planet.
+              At Tee&apos;s House, we believe growth begins with connection between people, purpose, and the planet.
               Each program we create is designed to nourish the mind, the body, and the spirit while building
               stronger, more resilient communities. Our work in 2025 reflects the heart of that mission,
               weaving together science, creativity, agriculture, and the arts to help young leaders blossom.
@@ -104,7 +104,7 @@ export default async function ProgramsPage() {
                     <span className="badge-current mb-4 inline-block">Current 2025</span>
                     <h3 className="text-green-dark text-2xl mb-4">Agriculture and Arts Enrichment</h3>
                     <p className="text-gray-muted leading-relaxed mb-4">
-                      Our ongoing school partnerships continue to blossom. Tees House has been actively involved
+                      Our ongoing school partnerships continue to blossom. Tee&apos;s House has been actively involved
                       in implementing agriculture and arts enrichment that enhances traditional learning with
                       creative, hands-on experiences.
                     </p>
@@ -123,7 +123,7 @@ export default async function ProgramsPage() {
                     <span className="badge-current mb-4 inline-block">Current 2025</span>
                     <h3 className="text-green-dark text-2xl mb-4">Drama and Poetry Club (Grades 3-5)</h3>
                     <p className="text-gray-muted leading-relaxed mb-4">
-                      Through our Drama and Poetry Club, Tees House provides a safe, expressive space for
+                      Through our Drama and Poetry Club, Tee&apos;s House provides a safe, expressive space for
                       students in grades 3-5 to explore their voices and share their stories.
                     </p>
                     <p className="text-gray-muted leading-relaxed">
@@ -195,13 +195,13 @@ export default async function ProgramsPage() {
               <div className="space-y-16">
                 {[
                   { img: STATIC.steam, title: "STEAM Future Leaders of Northwest Florida",
-                    p1: "This year marked a major milestone as Tees House spearheaded the creation of the STEAM Future Leaders of NWFL 2025 Cohort, an innovative five-week experience that blended science, technology, engineering, arts, and mathematics through real-world learning.",
+                    p1: "This year marked a major milestone as Tee&apos;s House spearheaded the creation of the STEAM Future Leaders of NWFL 2025 Cohort, an innovative five-week experience that blended science, technology, engineering, arts, and mathematics through real-world learning.",
                     p2: "Throughout the program, youth explored hands-on discovery in a way that connected education to everyday life. Participants cultivated curiosity, leadership, and teamwork." },
                   { img: STATIC.sciAgArts, title: "Science, Agriculture, and Arts Week",
-                    p1: "As part of the STEAM initiative, Tees House proudly facilitated the Science, Agriculture, and Arts Week, an immersive learning journey where participants explored how creativity and cultivation intertwine.",
+                    p1: "As part of the STEAM initiative, Tee&apos;s House proudly facilitated the Science, Agriculture, and Arts Week, an immersive learning journey where participants explored how creativity and cultivation intertwine.",
                     p2: "Students examined plant science, created art inspired by nature, and learned how growing food can nurture both the body and the imagination." },
                   { img: STATIC.nutrition, title: "Nutrition Course: From Garden to Smoothie",
-                    p1: "In 2025, Tees House hosted an engaging nutrition course that taught students about healthy eating and homegrown ingredients.",
+                    p1: "In 2025, Tee&apos;s House hosted an engaging nutrition course that taught students about healthy eating and homegrown ingredients.",
                     p2: "The course combined wellness education with practical skills, reminding everyone that nourishment can be both simple and joyful when it begins with the earth." }
                 ].map((item, i) => (
                   <div key={item.title} className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
@@ -243,7 +243,7 @@ export default async function ProgramsPage() {
                 </div>
               </div>
               <div className="relative h-72 rounded-card overflow-hidden shadow-card-hover">
-                <Image src={STATIC.community} alt="Tees House community" fill className="object-cover" />
+                <Image src={STATIC.community} alt="Tee's House community" fill className="object-cover" />
               </div>
             </div>
           </div>

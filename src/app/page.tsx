@@ -12,14 +12,14 @@ export const revalidate = 60
 
 export const metadata: Metadata = {
   title: "Tee's House Inc. | Growing Community in Pensacola, FL",
-  description: "Tees House Inc. is a 501(c)(3) nonprofit cultivating youth development through agriculture, arts, and education in Pensacola, Florida.",
+  description: "Tee's House Inc. is a 501(c)(3) nonprofit cultivating youth development through agriculture, arts, and education in Pensacola, Florida.",
 }
 
 const CDN = "https://cdn.sanity.io/images/zbeb0ctt/production"
 
 const FALLBACK = {
   heroHeadline:   "Growing Community Through Agriculture, Arts and Education",
-  heroSubtext:    "Tees House Inc. is a 501(c)(3) nonprofit cultivating youth development through hands-on learning experiences in Pensacola, Florida.",
+  heroSubtext:    "Tee's House Inc. is a 501(c)(3) nonprofit cultivating youth development through hands-on learning experiences in Pensacola, Florida.",
   missionTagline: "Planting seeds of knowledge, creativity, and community.",
   phone:          "850.291.1888",
   email:          "info@teeshouse.org",
@@ -51,7 +51,7 @@ export default async function HomePage() {
         <section className="relative min-h-screen flex items-center justify-center text-white overflow-hidden">
           <Image
             src={`${CDN}/aa3166c4742d84e1137865a365dcfd41de898dca-2048x2048.jpg`}
-            alt="Tees House hero" fill className="object-cover" priority
+            alt="Tee's House hero" fill className="object-cover" priority
           />
           <div className="absolute inset-0 bg-green-dark/75" />
           <div className="container-max relative z-10 text-center py-24">
