@@ -35,7 +35,7 @@ export default async function NewsPage() {
             <span className="text-amber font-semibold text-sm uppercase tracking-widest">Stay Informed</span>
             <h1 className="text-white mt-3 mb-4 text-4xl md:text-5xl">News &amp; Updates</h1>
             <p className="text-green-light text-lg max-w-xl mx-auto">
-              The latest from Tee&apos;s House â€” programs, events, and community stories.
+              The latest from Tee’s House â€” programs, events, and community stories.
             </p>
           </div>
         </section>
@@ -48,7 +48,7 @@ export default async function NewsPage() {
                 <h2 className="text-green-dark mb-3">Coming Soon</h2>
                 <p className="text-gray-muted leading-relaxed mb-6">
                   News and updates are on the way. Check back soon or follow us on social media
-                  for the latest from Tee&apos;s House.
+                  for the latest from Tee’s House.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link href="/programs" className="btn-primary">Our Programs <ArrowRight className="w-4 h-4" /></Link>

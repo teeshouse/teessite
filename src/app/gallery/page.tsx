@@ -9,8 +9,8 @@ import Link from "next/link"
 export const revalidate = 60
 
 export const metadata: Metadata = {
-  title: "Gallery | Tee&apos;s House Inc.",
-  description: "Photos from Tee&apos;s House programs, events, and community activities."
+  title: "Gallery | Tee’s House Inc.",
+  description: "Photos from Tee’s House programs, events, and community activities."
 }
 
 const CDN = "https://cdn.sanity.io/images/zbeb0ctt/production"

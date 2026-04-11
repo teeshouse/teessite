@@ -27,7 +27,7 @@ export default function TermsPage() {
               <p>
                 Please read these Terms of Use (&ldquo;Terms&rdquo;, &ldquo;Terms of Use&rdquo;) carefully before using the{" "}
                 <a href="https://www.teeshouse.org" className="text-green-mid hover:underline">https://www.teeshouse.org</a>{" "}
-                website (the &ldquo;Service&rdquo;) operated by Tee&apos;s House (&ldquo;us&rdquo;, &ldquo;we&rdquo;, or &ldquo;our&rdquo;).
+                website (the &ldquo;Service&rdquo;) operated by Tee’s House (&ldquo;us&rdquo;, &ldquo;we&rdquo;, or &ldquo;our&rdquo;).
               </p>
               <p>
                 Your access to and use of the Service is conditioned on your acceptance of and compliance with these Terms.
@@ -54,7 +54,7 @@ export default function TermsPage() {
                 <h2 className="text-green-dark text-2xl font-display mb-3">Intellectual Property</h2>
                 <p>
                   The Service and its original content, features and functionality are and will remain the exclusive
-                  property of Tee&apos;s House and its licensors.
+                  property of Tee’s House and its licensors.
                 </p>
               </div>
 
@@ -62,7 +62,7 @@ export default function TermsPage() {
                 <h2 className="text-green-dark text-2xl font-display mb-3">Links To Other Web Sites</h2>
                 <p>
                   Our Service may contain links to third-party web sites or services that are not owned or controlled
-                  by Tee&apos;s House. Tee&apos;s House has no control over, and assumes no responsibility for, the content,
+                  by Tee’s House. Tee’s House has no control over, and assumes no responsibility for, the content,
                   privacy policies, or practices of any third party web sites or services.
                 </p>
                 <p className="mt-3">

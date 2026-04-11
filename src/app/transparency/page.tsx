@@ -8,7 +8,7 @@ import { FileText, Download, ArrowRight, Shield } from "lucide-react"
 export const revalidate = 60
 
 export const metadata: Metadata = {
-  title: "Transparency | Tee&apos;s House Inc.",
+  title: "Transparency | Tee’s House Inc.",
   description: "Tee's House Inc. annual reports, financial transparency, and nonprofit accountability."
 }
 

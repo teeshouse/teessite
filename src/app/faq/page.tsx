@@ -8,8 +8,8 @@ import { ArrowRight } from "lucide-react"
 export const revalidate = 60
 
 export const metadata: Metadata = {
-  title: "FAQ | Tee&apos;s House Inc.",
-  description: "Frequently asked questions about Tee&apos;s House Inc. programs, volunteering, and donations."
+  title: "FAQ | Tee’s House Inc.",
+  description: "Frequently asked questions about Tee’s House Inc. programs, volunteering, and donations."
 }
 
 const CATEGORIES = ["general", "programs", "volunteer", "donation"]

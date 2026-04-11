@@ -25,7 +25,7 @@ export default function PrivacyPage() {
             <div className="prose prose-lg max-w-none text-gray-muted space-y-8">
 
               <p>
-                Tee&apos;s House (&ldquo;us&rdquo;, &ldquo;we&rdquo;, or &ldquo;our&rdquo;) operates the Tee&apos;s House website (the &ldquo;Service&rdquo;).
+                Tee’s House (&ldquo;us&rdquo;, &ldquo;we&rdquo;, or &ldquo;our&rdquo;) operates the Tee’s House website (the &ldquo;Service&rdquo;).
                 This page informs you of our policies regarding the collection, use and disclosure of Personal Information
                 when you use our Service. We will not use or share your information with anyone except as described in this Privacy Policy.
               </p>

@@ -85,7 +85,7 @@ export default function ImpactCalculator() {
         <ChevronRight className="w-4 h-4" />
       </a>
       <p className="text-center text-xs text-gray-muted mt-3">
-        Secure payment via PayPal. Tee&apos;s House Inc. is a 501(c)(3) nonprofit. Your donation may be tax-deductible.
+        Secure payment via PayPal. Tee’s House Inc. is a 501(c)(3) nonprofit. Your donation may be tax-deductible.
       </p>
     </div>
   )

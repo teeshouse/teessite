@@ -115,7 +115,7 @@ export default function VolunteerPage() {
           <div className="absolute inset-0 bg-green-dark/75" />
           <div className="container-max relative text-center z-10">
             <span className="text-amber font-semibold text-sm uppercase tracking-widest">Be the Change</span>
-            <h1 className="text-white mt-3 mb-4 text-4xl md:text-5xl">Volunteer With Tee&apos;s House</h1>
+            <h1 className="text-white mt-3 mb-4 text-4xl md:text-5xl">Volunteer With Tee’s House</h1>
             <p className="text-green-light text-lg max-w-2xl mx-auto">
               We welcome all with a sincere heart and a warm smile. Join our mission to empower, nourish, and build.
             </p>

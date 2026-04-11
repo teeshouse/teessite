@@ -9,8 +9,8 @@ import { Calendar, MapPin, ExternalLink, ArrowRight } from "lucide-react"
 export const revalidate = 60
 
 export const metadata: Metadata = {
-  title: "Events | Tee&apos;s House Inc.",
-  description: "Upcoming and past events from Tee&apos;s House Inc. in Pensacola, FL."
+  title: "Events | Tee’s House Inc.",
+  description: "Upcoming and past events from Tee’s House Inc. in Pensacola, FL."
 }
 
 const CDN = "https://cdn.sanity.io/images/zbeb0ctt/production"
@@ -37,7 +37,7 @@ export default async function EventsPage() {
             <span className="text-amber font-semibold text-sm uppercase tracking-widest">Join Us</span>
             <h1 className="text-white mt-3 mb-4 text-4xl md:text-5xl">Events</h1>
             <p className="text-green-light text-lg max-w-xl mx-auto">
-              Connect with Tee&apos;s House at our upcoming programs, fundraisers, and community gatherings.
+              Connect with Tee’s House at our upcoming programs, fundraisers, and community gatherings.
             </p>
           </div>
         </section>

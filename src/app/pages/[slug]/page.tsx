@@ -15,7 +15,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const page = await getPageBySlug(params.slug)
   if (!page) return { title: "Page Not Found" }
-  return { title: `${page.title} | Tee&apos;s House Inc.`, description: page.excerpt }
+  return { title: `${page.title} | Tee’s House Inc.`, description: page.excerpt }
 }
 
 export default async function CmsPage({ params }: { params: { slug: string } }) {

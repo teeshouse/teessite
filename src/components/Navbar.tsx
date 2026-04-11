@@ -36,7 +36,7 @@ export default function Navbar() {
             alt="Tee's House" width={72} height={72} className="rounded-full"
           />
           <span className="font-display font-bold text-green-dark text-lg leading-tight hidden sm:block">
-            Tee&apos;s House<br /><span className="text-xs font-sans font-normal text-gray-muted">Inc.</span>
+            Tee’s House<br /><span className="text-xs font-sans font-normal text-gray-muted">Inc.</span>
           </span>
         </Link>
 
