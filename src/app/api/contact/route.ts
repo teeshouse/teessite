@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
+import { createClient } from "@supabase/supabase-js"
 
 export async function POST(req: NextRequest) {
   try {
@@ -13,36 +14,25 @@ export async function POST(req: NextRequest) {
     const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
     if (!supabaseUrl || !supabaseKey) {
-      console.log("Contact submission (no DB):", { name, email, subject, message })
-      return NextResponse.json({ success: true, message: "Message received" })
+      console.error("Missing Supabase env vars")
+      return NextResponse.json({ error: "Server configuration error" }, { status: 500 })
     }
 
-    const { createClient } = await import("@supabase/supabase-js")
     const supabase = createClient(supabaseUrl, supabaseKey)
 
-    const { error } = await supabase
+    const { error: dbError } = await supabase
       .from("contact_submissions")
-      .insert([{ name, email, subject: subject || null, message, status: "new" }])
+      .insert([{
+        name,
+        email,
+        subject: subject || null,
+        message,
+        status: "new"
+      }])
 
-    if (error) {
-      console.error("Supabase error:", error)
+    if (dbError) {
+      console.error("Supabase insert error:", JSON.stringify(dbError))
       return NextResponse.json({ error: "Failed to send message. Please try again." }, { status: 500 })
-    }
-
-    const resendKey = process.env.RESEND_API_KEY
-    if (resendKey) {
-      try {
-        const { Resend } = await import("resend")
-        const resend = new Resend(resendKey)
-        await resend.emails.send({
-          from: "notifications@teeshouse.org",
-          to:   "info@teeshouse.org",
-          subject: `New Contact: ${subject || "General Inquiry"} from ${name}`,
-          text: `From: ${name} (${email})\n\n${message}`
-        })
-      } catch (emailErr) {
-        console.error("Email error (non-fatal):", emailErr)
-      }
     }
 
     return NextResponse.json({ success: true, message: "Message sent! We will get back to you soon." })

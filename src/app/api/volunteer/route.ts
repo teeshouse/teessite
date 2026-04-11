@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
+import { createClient } from "@supabase/supabase-js"
 
 export async function POST(req: NextRequest) {
   try {
@@ -9,26 +10,21 @@ export async function POST(req: NextRequest) {
       emergencyName, emergencyPhone, emergencyRelation, notes
     } = body
 
-    // Validate required fields
     if (!name || !email) {
       return NextResponse.json({ error: "Name and email are required" }, { status: 400 })
     }
 
-    // Save to Supabase
-    const supabaseUrl  = process.env.NEXT_PUBLIC_SUPABASE_URL
-    const supabaseKey  = process.env.SUPABASE_SERVICE_ROLE_KEY
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
     if (!supabaseUrl || !supabaseKey) {
       console.error("Missing Supabase env vars")
-      // Still return success to user - log the submission
-      console.log("Volunteer submission (no DB):", { name, email, phone, roles })
-      return NextResponse.json({ success: true, message: "Application received" })
+      return NextResponse.json({ error: "Server configuration error" }, { status: 500 })
     }
 
-    const { createClient } = await import("@supabase/supabase-js")
     const supabase = createClient(supabaseUrl, supabaseKey)
 
-    const { error } = await supabase
+    const { error: dbError } = await supabase
       .from("volunteer_applications")
       .insert([{
         name,
@@ -46,26 +42,9 @@ export async function POST(req: NextRequest) {
         status:             "pending"
       }])
 
-    if (error) {
-      console.error("Supabase error:", error)
+    if (dbError) {
+      console.error("Supabase insert error:", JSON.stringify(dbError))
       return NextResponse.json({ error: "Failed to save application. Please try again." }, { status: 500 })
-    }
-
-    // Try to send notification email via Resend (optional)
-    const resendKey = process.env.RESEND_API_KEY
-    if (resendKey) {
-      try {
-        const { Resend } = await import("resend")
-        const resend = new Resend(resendKey)
-        await resend.emails.send({
-          from: "notifications@teeshouse.org",
-          to:   "info@teeshouse.org",
-          subject: `New Volunteer Application: ${name}`,
-          text: `New volunteer application from ${name} (${email}). Roles: ${roles?.join(", ")}. Check Supabase for full details.`
-        })
-      } catch (emailErr) {
-        console.error("Email error (non-fatal):", emailErr)
-      }
     }
 
     return NextResponse.json({ success: true, message: "Application received! We will be in touch soon." })
