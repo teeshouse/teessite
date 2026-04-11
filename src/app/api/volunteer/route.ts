@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createClient } from "@supabase/supabase-js"
+import { notifyInfo } from "@/lib/resend"
 
 export async function POST(req: NextRequest) {
   try {
@@ -46,6 +47,23 @@ export async function POST(req: NextRequest) {
       console.error("Supabase insert error:", JSON.stringify(dbError))
       return NextResponse.json({ error: "Failed to save application. Please try again." }, { status: 500 })
     }
+
+    await notifyInfo({
+      subject: `New volunteer application: ${name}`,
+      replyTo: email,
+      text:
+        `A new volunteer application was submitted on teeshouse.org:\n\n` +
+        `Name:      ${name}\n` +
+        `Email:     ${email}\n` +
+        `Phone:     ${phone || "(none)"}\n` +
+        `Roles:     ${(roles || []).join(", ") || "(none)"}\n` +
+        `Days:      ${(days  || []).join(", ") || "(none)"}\n` +
+        `Times:     ${(times || []).join(", ") || "(none)"}\n` +
+        `Bg check:  ${backgroundCheck || "(not answered)"}\n` +
+        `Emergency: ${emergencyName || "-"} / ${emergencyPhone || "-"} (${emergencyRelation || "-"})\n\n` +
+        `Skills:\n${skills || "(none provided)"}\n\n` +
+        `Notes:\n${notes || "(none)"}\n`,
+    })
 
     return NextResponse.json({ success: true, message: "Application received! We will be in touch soon." })
 

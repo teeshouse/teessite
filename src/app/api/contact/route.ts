@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createClient } from "@supabase/supabase-js"
+import { notifyInfo } from "@/lib/resend"
 
 export async function POST(req: NextRequest) {
   try {
@@ -34,6 +35,19 @@ export async function POST(req: NextRequest) {
       console.error("Supabase insert error:", JSON.stringify(dbError))
       return NextResponse.json({ error: "Failed to send message. Please try again." }, { status: 500 })
     }
+
+    // Fire-and-forget email notification. Intentionally awaited so failures
+    // are logged, but its return value never affects the user-facing response.
+    await notifyInfo({
+      subject: `New contact form: ${subject || "(no subject)"}`,
+      replyTo: email,
+      text:
+        `A new message was submitted on teeshouse.org:\n\n` +
+        `Name:    ${name}\n` +
+        `Email:   ${email}\n` +
+        `Subject: ${subject || "(none)"}\n\n` +
+        `Message:\n${message}\n`,
+    })
 
     return NextResponse.json({ success: true, message: "Message sent! We will get back to you soon." })
 
