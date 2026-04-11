@@ -17,8 +17,17 @@ export interface VolunteerRole {
   _id: string; title: string; icon: string; description: string
   responsibilities?: string[]; active: boolean; order: number
 }
+export interface BeforeAfterSettings {
+  beforeImage?: { asset?: { url?: string } }
+  afterImage?:  { asset?: { url?: string } }
+  beforeLabel?: string
+  afterLabel?:  string
+  caption?:     string
+}
 export interface SiteSettings {
   heroHeadline: string; heroSubtext: string; missionTagline: string
+  heroVideoUrl?: string
+  beforeAfter?: BeforeAfterSettings
   phone: string; email: string; address: string
   facebookUrl?: string; instagramUrl?: string; paypalDonateLink?: string
 }

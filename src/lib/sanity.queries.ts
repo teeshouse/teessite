@@ -5,7 +5,12 @@ export const SITE_SETTINGS_QUERY = groq`
     heroHeadline, heroSubtext, heroVideoUrl, missionTagline,
     phone, email, address,
     facebookUrl, instagramUrl,
-    paypalDonateLink
+    paypalDonateLink,
+    beforeAfter {
+      beforeLabel, afterLabel, caption,
+      beforeImage { asset->{ url } },
+      afterImage  { asset->{ url } }
+    }
   }
 `
 export const IMPACT_STATS_QUERY = groq`

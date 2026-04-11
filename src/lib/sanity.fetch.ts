@@ -1,4 +1,5 @@
 import { sanityClient } from "./sanity.client"
+import type { SiteSettings } from "@/types"
 import {
   SITE_SETTINGS_QUERY, IMPACT_STATS_QUERY,
   PROGRAMS_QUERY, FEATURED_PROGRAMS_QUERY,
@@ -9,7 +10,7 @@ import {
   PAGE_BY_SLUG_QUERY, ANNUAL_REPORTS_QUERY
 } from "./sanity.queries"
 
-export async function getSiteSettings()    { try { return await sanityClient.fetch(SITE_SETTINGS_QUERY) }    catch { return null } }
+export async function getSiteSettings(): Promise<SiteSettings | null> { try { return await sanityClient.fetch<SiteSettings>(SITE_SETTINGS_QUERY) }    catch { return null } }
 export async function getImpactStats()     { try { return await sanityClient.fetch(IMPACT_STATS_QUERY) }     catch { return [] } }
 export async function getPrograms()        { try { return await sanityClient.fetch(PROGRAMS_QUERY) }         catch { return [] } }
 export async function getFeaturedPrograms(){ try { return await sanityClient.fetch(FEATURED_PROGRAMS_QUERY)} catch { return [] } }

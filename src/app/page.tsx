@@ -9,6 +9,7 @@ import VideoHero from "@/components/VideoHero"
 import ParallaxSection from "@/components/ParallaxSection"
 import BeforeAfterSlider from "@/components/BeforeAfterSlider"
 import { getSiteSettings, getImpactStats, getFeaturedPrograms } from "@/lib/sanity.fetch"
+import type { SiteSettings } from "@/types"
 import { ArrowRight, Heart, Users, Mail, Phone, MapPin } from "lucide-react"
 
 export const revalidate = 60
@@ -43,7 +44,7 @@ export default async function HomePage() {
     getFeaturedPrograms()
   ])
 
-  const s      = settings || FALLBACK
+  const s: Partial<SiteSettings> = settings || FALLBACK
   const iStats = stats?.length > 0 ? stats : FALLBACK_STATS
 
   return (
@@ -151,21 +152,23 @@ export default async function HomePage() {
           </p>
         </ParallaxSection>
 
-        {/* Phase 7B: Before / After transformation slider */}
+        {/* Phase 7B: Before / After transformation slider (Sanity-driven with fallback) */}
         <section className="section-padding bg-white">
           <div className="container-max">
             <div className="text-center mb-10">
               <span className="text-amber font-semibold text-sm uppercase tracking-widest">See the Growth</span>
               <h2 className="text-green-dark mt-3">Before &amp; After</h2>
               <p className="text-green-dark/70 mt-3 max-w-2xl mx-auto">
-                Drag the slider to see how our garden transforms across a single growing season.
+                {s.beforeAfter?.caption || "Drag the slider to see how our garden transforms across a single growing season."}
               </p>
             </div>
             <BeforeAfterSlider
-              beforeSrc={`${CDN}/d849d6072cf5ef6e1b989b58751d39a5c9db6429-791x1024.png`}
-              afterSrc={`${CDN}/aa3166c4742d84e1137865a365dcfd41de898dca-2048x2048.jpg`}
-              beforeAlt="Garden before the season"
-              afterAlt="Garden after the season"
+              beforeSrc={s.beforeAfter?.beforeImage?.asset?.url || `${CDN}/d849d6072cf5ef6e1b989b58751d39a5c9db6429-791x1024.png`}
+              afterSrc={s.beforeAfter?.afterImage?.asset?.url   || `${CDN}/aa3166c4742d84e1137865a365dcfd41de898dca-2048x2048.jpg`}
+              beforeAlt={`Garden ${s.beforeAfter?.beforeLabel || "before"}`}
+              afterAlt={`Garden ${s.beforeAfter?.afterLabel || "after"}`}
+              beforeLabel={s.beforeAfter?.beforeLabel || "Before"}
+              afterLabel={s.beforeAfter?.afterLabel || "After"}
             />
           </div>
         </section>

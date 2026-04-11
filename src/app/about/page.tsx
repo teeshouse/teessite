@@ -4,6 +4,7 @@ import Image from "next/image"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import { getSiteSettings, getImpactStats, getTeam } from "@/lib/sanity.fetch"
+import type { SiteSettings } from "@/types"
 import { ArrowRight, Heart, Mail, Phone, MapPin } from "lucide-react"
 
 export const revalidate = 60
@@ -29,7 +30,7 @@ export default async function AboutPage() {
     getTeam()
   ])
 
-  const s      = settings || {}
+  const s: Partial<SiteSettings> = settings || {}
   const iStats = stats?.length > 0 ? stats : FALLBACK_STATS
 
   return (
@@ -40,12 +41,12 @@ export default async function AboutPage() {
         <section className="relative text-white py-28 px-4 overflow-hidden">
           <Image
             src={`${CDN}/9e83c4f80bcfcf915d8313e338c0d7fd2a531f19-2048x2048.jpg`}
-            alt="About Tee&apos;s House" fill className="object-cover"
+            alt="About Tee’s House" fill className="object-cover"
           />
           <div className="absolute inset-0 bg-green-dark/75" />
           <div className="container-max relative z-10 text-center">
             <span className="text-amber font-semibold text-sm uppercase tracking-widest">Who We Are</span>
-            <h1 className="text-white mt-3 mb-4 text-4xl md:text-5xl">About Tee&apos;s House</h1>
+            <h1 className="text-white mt-3 mb-4 text-4xl md:text-5xl">About Tee’s House</h1>
           </div>
         </section>
 
@@ -57,7 +58,7 @@ export default async function AboutPage() {
                 <span className="text-amber font-semibold text-sm uppercase tracking-widest">Our Mission</span>
                 <h2 className="text-green-dark mt-3 mb-4">Cultivating Growth in Every Child</h2>
                 <p className="text-gray-muted leading-relaxed mb-4">
-                  Tee&apos;s House Inc. is a 501(c)(3) nonprofit organization dedicated to empowering youth through
+                  Tee’s House Inc. is a 501(c)(3) nonprofit organization dedicated to empowering youth through
                   hands-on educational experiences that integrate agriculture, arts, and STEAM learning.
                 </p>
                 <p className="text-gray-muted leading-relaxed mb-4">

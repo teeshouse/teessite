@@ -10,7 +10,7 @@ import { Heart, Mail, Smartphone, CreditCard, ArrowRight, Shield, RefreshCw } fr
 
 export const metadata: Metadata = {
   title: "Donate | Tee's House Inc.",
-  description: "Support Tee&apos;s House Inc. Your donation helps us provide agriculture, arts, and STEAM programs to youth in Pensacola, FL."
+  description: "Support Tee’s House Inc. Your donation helps us provide agriculture, arts, and STEAM programs to youth in Pensacola, FL."
 }
 
 const CDN = "https://cdn.sanity.io/images/zbeb0ctt/production"
@@ -24,7 +24,7 @@ export default function DonatePage() {
         <section className="relative text-white py-28 px-4 overflow-hidden">
           <Image
             src={`${CDN}/58792471f8a4433f2d4367eba2366f9dd5f21914-1024x1024.png`}
-            alt="Support Tee&apos;s House" fill className="object-cover" priority
+            alt="Support Tee’s House" fill className="object-cover" priority
           />
           <div className="absolute inset-0 bg-green-dark/80" />
           <div className="container-max relative z-10 text-center">
@@ -44,15 +44,18 @@ export default function DonatePage() {
           </div>
         </section>
 
-        {/* Fundraising Thermometer */}
+        {/* Fundraising Thermometer
+            TODO: replace these placeholders with live totals once Tierra has
+            real numbers. Either hardcode here or add a `fundraisingGoal`
+            singleton to Sanity and fetch it via getSiteSettings. */}
         <section className="section-padding bg-green-light">
           <div className="container-max">
             <DonationThermometer
-              goal={10000}
-              raised={3250}
-              donors={47}
-              label="2026 Program Launch Fund"
-              deadline="December 31, 2025"
+              goal={25000}
+              raised={6200}
+              donors={62}
+              label="2026 STEAM Future Leaders Fund"
+              deadline="August 31, 2026"
             />
           </div>
         </section>
@@ -93,7 +96,7 @@ export default function DonatePage() {
                 {
                   icon: <Mail className="w-6 h-6 text-amber" />,
                   title: "Check by Mail",
-                  desc: "Payable to Tee&apos;s House Inc.",
+                  desc: "Payable to Tee’s House Inc.",
                   action: "Get Mailing Address",
                   href: "/contact",
                   external: false
