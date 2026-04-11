@@ -52,7 +52,7 @@ export async function POST(req: NextRequest) {
       subject: `New volunteer application: ${name}`,
       replyTo: email,
       text:
-        `A new volunteer application was submitted on teeshouse.org:\n\n` +
+        `A new volunteer application was submitted on teeshousepensacola.org:\n\n` +
         `Name:      ${name}\n` +
         `Email:     ${email}\n` +
         `Phone:     ${phone || "(none)"}\n` +

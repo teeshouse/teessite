@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
       subject: `New contact form: ${subject || "(no subject)"}`,
       replyTo: email,
       text:
-        `A new message was submitted on teeshouse.org:\n\n` +
+        `A new message was submitted on teeshousepensacola.org:\n\n` +
         `Name:    ${name}\n` +
         `Email:   ${email}\n` +
         `Subject: ${subject || "(none)"}\n\n` +

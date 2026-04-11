@@ -26,7 +26,7 @@ export default function TermsPage() {
 
               <p>
                 Please read these Terms of Use (&ldquo;Terms&rdquo;, &ldquo;Terms of Use&rdquo;) carefully before using the{" "}
-                <a href="https://www.teeshouse.org" className="text-green-mid hover:underline">https://www.teeshouse.org</a>{" "}
+                <a href="https://www.teeshousepensacola.org" className="text-green-mid hover:underline">https://www.teeshousepensacola.org</a>{" "}
                 website (the &ldquo;Service&rdquo;) operated by Tee’s House (&ldquo;us&rdquo;, &ldquo;we&rdquo;, or &ldquo;our&rdquo;).
               </p>
               <p>
@@ -113,8 +113,8 @@ export default function TermsPage() {
                 <h2 className="text-green-dark text-2xl font-display mb-3">Contact Us</h2>
                 <p>
                   If you have any questions about these Terms, please contact us at{" "}
-                  <a href="mailto:info@teeshouse.org" className="text-green-mid hover:underline">
-                    info@teeshouse.org
+                  <a href="mailto:info@teeshousepensacola.org" className="text-green-mid hover:underline">
+                    info@teeshousepensacola.org
                   </a>{" "}
                   or call{" "}
                   <a href="tel:8502911888" className="text-green-mid hover:underline">

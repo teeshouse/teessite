@@ -22,12 +22,13 @@ export function getResend(): Resend | null {
   return _client
 }
 
-// FROM domain must be verified in Resend (DNS records on whichever
-// subdomain you verify — e.g. teeshouse.org or mail.teeshouse.org).
-export const FROM   = "Tee’s House <noreply@mail.teeshouse.org>"
+// FROM domain must be verified in Resend. We verify the `mail.` subdomain
+// so the apex MX for teeshousepensacola.org can stay pointed at whoever
+// hosts the info@ mailbox.
+export const FROM   = "Tee’s House <noreply@mail.teeshousepensacola.org>"
 // NOTIFY is just the destination mailbox — no Resend verification needed
 // for the receiving address, any valid inbox works.
-export const NOTIFY = "info@mail.teeshouse.org"
+export const NOTIFY = "info@teeshousepensacola.org"
 
 export interface NotifyArgs {
   subject: string

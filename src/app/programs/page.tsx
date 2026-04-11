@@ -230,8 +230,8 @@ export default async function ProgramsPage() {
                   Together, we can plant the ideas that will nourish generations to come.
                 </p>
                 <div className="flex flex-col gap-3 mb-8">
-                  <a href="mailto:info@teeshouse.org" className="flex items-center gap-3 text-green-light hover:text-amber transition-colors">
-                    <Mail className="w-5 h-5 text-amber shrink-0" />info@teeshouse.org
+                  <a href="mailto:info@teeshousepensacola.org" className="flex items-center gap-3 text-green-light hover:text-amber transition-colors">
+                    <Mail className="w-5 h-5 text-amber shrink-0" />info@teeshousepensacola.org
                   </a>
                   <a href="tel:8502911888" className="flex items-center gap-3 text-green-light hover:text-amber transition-colors">
                     <Phone className="w-5 h-5 text-amber shrink-0" />850.291.1888
