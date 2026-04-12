@@ -39,7 +39,7 @@ export interface SiteSettings {
   beforeAfter?: BeforeAfterSettings
   programsPage?: ProgramsPageSettings
   phone: string; email: string; address: string
-  facebookUrl?: string; instagramUrl?: string; paypalDonateLink?: string
+  facebookUrl?: string; instagramUrl?: string; linkedinUrl?: string; paypalDonateLink?: string
 }
 export interface ImpactStat { _id: string; label: string; value: string; icon: string; order: number }
 export interface VolunteerApplication {

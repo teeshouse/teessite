@@ -6,9 +6,26 @@ import { resolveProgramsLabels } from "@/lib/programsPageLabels"
 
 const CDN = "https://cdn.sanity.io/images/zbeb0ctt/production"
 
+/** Default social URLs used whenever Sanity siteSettings is blank. */
+const DEFAULT_SOCIALS = {
+  instagram: "https://instagram.com/_teeshouse",
+  facebook:  "https://www.facebook.com/teeshouseinc",
+  linkedin:  "https://www.linkedin.com/company/teeshouse/",
+} as const
+
 export default async function Footer() {
   const settings = await getSiteSettings()
   const labels   = resolveProgramsLabels(settings)
+
+  // Build the list of social links. Any blank Sanity field falls back to
+  // the hardcoded default; callers who want to HIDE a platform entirely
+  // can set the field to whitespace only (handled by the trim check).
+  const socials: Array<{ label: string; href: string; Icon: typeof Instagram }> = [
+    { label: "Instagram", href: (settings?.instagramUrl?.trim() || DEFAULT_SOCIALS.instagram), Icon: Instagram },
+    { label: "Facebook",  href: (settings?.facebookUrl?.trim()  || DEFAULT_SOCIALS.facebook),  Icon: Facebook  },
+    { label: "LinkedIn",  href: (settings?.linkedinUrl?.trim()  || DEFAULT_SOCIALS.linkedin),  Icon: Linkedin  },
+  ].filter(s => s.href)
+
   return (
     <footer className="bg-green-dark text-white">
       {/* Main footer */}
@@ -25,18 +42,13 @@ export default async function Footer() {
             Cultivating youth through agriculture, arts, and education in Pensacola, FL.
           </p>
           <div className="flex gap-3 mb-4">
-            <a href="https://instagram.com/_teeshouse" target="_blank" rel="noopener noreferrer"
-              className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-amber transition-colors">
-              <Instagram className="w-4 h-4" />
-            </a>
-            <a href="https://www.facebook.com/teeshouseinc" target="_blank" rel="noopener noreferrer"
-              className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-amber transition-colors">
-              <Facebook className="w-4 h-4" />
-            </a>
-            <a href="https://www.linkedin.com/company/teeshouse/" target="_blank" rel="noopener noreferrer"
-              className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-amber transition-colors">
-              <Linkedin className="w-4 h-4" />
-            </a>
+            {socials.map(({ label, href, Icon }) => (
+              <a key={label} href={href} target="_blank" rel="noopener noreferrer"
+                aria-label={`Tee’s House on ${label}`}
+                className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-amber transition-colors">
+                <Icon className="w-4 h-4" aria-hidden="true" />
+              </a>
+            ))}
           </div>
           <Link href="/donate" className="btn-amber text-sm w-full max-w-xs justify-center">
             <Heart className="w-4 h-4" /> Donate Now
@@ -106,18 +118,13 @@ export default async function Footer() {
               Cultivating youth development through agriculture, arts, and education in Pensacola, FL.
             </p>
             <div className="flex gap-3">
-              <a href="https://instagram.com/_teeshouse" target="_blank" rel="noopener noreferrer"
-                className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-amber transition-colors">
-                <Instagram className="w-4 h-4" />
-              </a>
-              <a href="https://www.facebook.com/teeshouseinc" target="_blank" rel="noopener noreferrer"
-                className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-amber transition-colors">
-                <Facebook className="w-4 h-4" />
-              </a>
-              <a href="https://www.linkedin.com/company/teeshouse/" target="_blank" rel="noopener noreferrer"
-                className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-amber transition-colors">
-                <Linkedin className="w-4 h-4" />
-              </a>
+              {socials.map(({ label, href, Icon }) => (
+                <a key={label} href={href} target="_blank" rel="noopener noreferrer"
+                  aria-label={`Tee’s House on ${label}`}
+                  className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-amber transition-colors">
+                  <Icon className="w-4 h-4" aria-hidden="true" />
+                </a>
+              ))}
             </div>
           </div>
           <div>

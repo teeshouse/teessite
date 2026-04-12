@@ -4,7 +4,7 @@ export const SITE_SETTINGS_QUERY = groq`
   *[_type == "siteSettings"][0] {
     heroHeadline, heroSubtext, heroVideoUrl, missionTagline,
     phone, email, address,
-    facebookUrl, instagramUrl,
+    facebookUrl, instagramUrl, linkedinUrl,
     paypalDonateLink,
     beforeAfter {
       beforeLabel, afterLabel, caption,
