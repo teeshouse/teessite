@@ -28,7 +28,7 @@ export default async function CmsPage({ params }: { params: { slug: string } }) 
       <main>
         {page.heroImage?.asset?.url && (
           <section className="relative text-white py-28 px-4 overflow-hidden">
-            <Image src={page.heroImage.asset.url} alt={page.title} fill className="object-cover" />
+            <Image src={page.heroImage.asset.url} alt={page.title} fill sizes="100vw" className="object-cover" />
             <div className="absolute inset-0 bg-green-dark/75" />
             <div className="container-max relative z-10 text-center">
               <h1 className="text-white mt-3 mb-4 text-4xl md:text-5xl">{page.title}</h1>
@@ -58,7 +58,7 @@ export default async function CmsPage({ params }: { params: { slug: string } }) 
               if (block._type === "image" && block.asset?.url) {
                 return (
                   <div key={i} className="relative h-64 my-8 rounded-card overflow-hidden">
-                    <Image src={block.asset.url} alt={block.caption || ""} fill className="object-cover" />
+                    <Image src={block.asset.url} alt={block.caption || ""} fill sizes="(min-width: 768px) 768px, 100vw" className="object-cover" />
                     {block.caption && <p className="text-center text-sm text-gray-muted mt-2">{block.caption}</p>}
                   </div>
                 )

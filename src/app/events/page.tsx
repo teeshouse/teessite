@@ -68,7 +68,7 @@ export default async function EventsPage() {
                     {upcoming.map((event: any) => (
                       <div key={event._id} className="card overflow-hidden">
                         <div className="relative h-48 overflow-hidden">
-                          <Image src={event.image?.asset?.url || PLACEHOLDER} alt={event.title} fill className="object-cover" />
+                          <Image src={event.image?.asset?.url || PLACEHOLDER} alt={event.title} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
                           {event.featured && <span className="absolute top-3 left-3 badge-current">Featured</span>}
                         </div>
                         <div className="p-6">
@@ -117,7 +117,7 @@ export default async function EventsPage() {
                     {past.map((event: any) => (
                       <div key={event._id} className="card overflow-hidden opacity-80">
                         <div className="relative h-36 overflow-hidden">
-                          <Image src={event.image?.asset?.url || PLACEHOLDER} alt={event.title} fill className="object-cover grayscale" />
+                          <Image src={event.image?.asset?.url || PLACEHOLDER} alt={event.title} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover grayscale" />
                         </div>
                         <div className="p-4">
                           <h3 className="text-green-dark text-base mb-1">{event.title}</h3>

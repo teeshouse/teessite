@@ -3,7 +3,7 @@ import type { SiteSettings } from "@/types"
 import {
   SITE_SETTINGS_QUERY, IMPACT_STATS_QUERY,
   PROGRAMS_QUERY, FEATURED_PROGRAMS_QUERY,
-  NEWS_QUERY, FEATURED_NEWS_QUERY,
+  NEWS_QUERY, FEATURED_NEWS_QUERY, NEWS_BY_SLUG_QUERY,
   VOLUNTEER_ROLES_QUERY, EVENTS_QUERY, UPCOMING_EVENTS_QUERY,
   TEAM_QUERY, TESTIMONIALS_QUERY, PARTNERS_QUERY,
   GALLERY_QUERY, FAQS_QUERY, PAGES_QUERY,
@@ -28,4 +28,7 @@ export async function getPages()           { try { return await sanityClient.fet
 export async function getAnnualReports()   { try { return await sanityClient.fetch(ANNUAL_REPORTS_QUERY) }  catch { return [] } }
 export async function getPageBySlug(slug: string) {
   try { return await sanityClient.fetch(PAGE_BY_SLUG_QUERY, { slug }) } catch { return null }
+}
+export async function getNewsBySlug(slug: string) {
+  try { return await sanityClient.fetch(NEWS_BY_SLUG_QUERY, { slug }) } catch { return null }
 }

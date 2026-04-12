@@ -69,7 +69,9 @@ export default async function NewsPage() {
                     <div className="relative h-80 rounded-card overflow-hidden shadow-card-hover">
                       <Image
                         src={featured.featuredImage?.asset?.url || PLACEHOLDER}
-                        alt={featured.title} fill className="object-cover"
+                        alt={featured.title} fill
+                        sizes="(min-width: 768px) 50vw, 100vw"
+                        className="object-cover"
                       />
                     </div>
                     <div>
@@ -113,6 +115,7 @@ export default async function NewsPage() {
                           <Image
                             src={article.featuredImage?.asset?.url || PLACEHOLDER}
                             alt={article.title} fill
+                            sizes="(min-width: 768px) 33vw, 100vw"
                             className="object-cover group-hover:scale-105 transition-transform duration-500"
                           />
                         </div>

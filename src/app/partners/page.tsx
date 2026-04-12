@@ -58,7 +58,7 @@ export default async function PartnersPage() {
                         <div key={partner._id} className="card p-6 flex flex-col items-center text-center">
                           {partner.logo?.asset?.url ? (
                             <div className="relative h-20 w-full mb-4">
-                              <Image src={partner.logo.asset.url} alt={partner.name} fill className="object-contain" />
+                              <Image src={partner.logo.asset.url} alt={partner.name} fill sizes="(min-width: 768px) 25vw, 50vw" className="object-contain" />
                             </div>
                           ) : (
                             <div className="h-20 w-full flex items-center justify-center mb-4">

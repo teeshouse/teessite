@@ -43,7 +43,7 @@ export default async function AboutPage() {
         <section className="relative text-white py-28 px-4 overflow-hidden">
           <Image
             src={`${CDN}/9e83c4f80bcfcf915d8313e338c0d7fd2a531f19-2048x2048.jpg`}
-            alt="About Tee’s House" fill className="object-cover"
+            alt="About Tee’s House" fill sizes="100vw" className="object-cover"
           />
           <div className="absolute inset-0 bg-green-dark/75" />
           <div className="container-max relative z-10 text-center">
@@ -76,7 +76,9 @@ export default async function AboutPage() {
               <div className="relative h-96 rounded-card overflow-hidden shadow-card-hover">
                 <Image
                   src={`${CDN}/41367ca1929bf2ddd0f8fae7dda827e0a9ddb167-1024x1024.jpg`}
-                  alt="Tee’s House mission" fill className="object-cover"
+                  alt="Tee’s House mission" fill
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  className="object-cover"
                 />
               </div>
             </div>
@@ -140,7 +142,9 @@ export default async function AboutPage() {
                     {member.photo?.asset?.url ? (
                       <Image
                         src={member.photo.asset.url}
-                        alt={member.name} fill className="object-cover object-top"
+                        alt={member.name} fill
+                        sizes="(min-width: 768px) 320px, 100vw"
+                        className="object-cover object-top"
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center">
@@ -172,7 +176,9 @@ export default async function AboutPage() {
                   <div className="relative h-72 overflow-hidden">
                     <Image
                       src={`${CDN}/9e83c4f80bcfcf915d8313e338c0d7fd2a531f19-2048x2048.jpg`}
-                      alt="Tierra Smith" fill className="object-cover object-top"
+                      alt="Tierra Smith" fill
+                      sizes="(min-width: 768px) 320px, 100vw"
+                      className="object-cover object-top"
                     />
                   </div>
                   <div className="p-6">
@@ -215,7 +221,9 @@ export default async function AboutPage() {
               <div className="relative h-72 rounded-card overflow-hidden shadow-card-hover">
                 <Image
                   src={`${CDN}/bb80acf5b6d60378b6cff558e871c90c27240189-1024x1024.jpg`}
-                  alt="Tee’s House community" fill className="object-cover"
+                  alt="Tee’s House community" fill
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  className="object-cover"
                 />
               </div>
             </div>

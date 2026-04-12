@@ -72,7 +72,7 @@ export default function ParallaxSection({
             : undefined
         }
       >
-        <Image src={imageSrc} alt={imageAlt} fill className="object-cover" />
+        <Image src={imageSrc} alt={imageAlt} fill sizes="100vw" className="object-cover" />
       </div>
       <div className={`absolute inset-0 ${overlayClassName}`} />
       <div className="container-max relative z-10 py-24 text-center text-white">

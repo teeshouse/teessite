@@ -43,6 +43,7 @@ export default function VideoHero({
         alt={posterAlt}
         fill
         priority
+        sizes="100vw"
         className="object-cover"
       />
       {canPlayVideo && videoSrc && (

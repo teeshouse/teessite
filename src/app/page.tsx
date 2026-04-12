@@ -116,6 +116,7 @@ export default async function HomePage() {
                       <Image
                         src={p.image?.asset?.url || `${CDN}/aa3166c4742d84e1137865a365dcfd41de898dca-2048x2048.jpg`}
                         alt={p.title} fill
+                        sizes="(min-width: 768px) 33vw, 100vw"
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                     </div>

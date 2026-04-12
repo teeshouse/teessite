@@ -45,6 +45,19 @@ export const NEWS_QUERY = groq`
     featuredImage { asset->{ url } }
   }
 `
+export const NEWS_BY_SLUG_QUERY = groq`
+  *[_type == "news" && slug.current == $slug][0] {
+    _id, title, slug, publishedAt, excerpt, tags,
+    featuredImage { asset->{ url }, alt },
+    body[] {
+      ...,
+      _type == "image" => {
+        ...,
+        asset->{ url }
+      }
+    }
+  }
+`
 export const FEATURED_NEWS_QUERY = groq`
   *[_type == "news" && featured == true] | order(publishedAt desc)[0..2] {
     _id, title, slug, publishedAt, excerpt, tags,

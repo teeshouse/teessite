@@ -52,6 +52,7 @@ export default async function GalleryPage() {
                       <Image
                         src={album.coverImage?.asset?.url || PLACEHOLDER}
                         alt={album.title} fill
+                        sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute inset-0 bg-green-dark/40 group-hover:bg-green-dark/20 transition-colors" />

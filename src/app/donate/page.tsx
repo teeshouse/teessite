@@ -24,7 +24,7 @@ export default function DonatePage() {
         <section className="relative text-white py-28 px-4 overflow-hidden">
           <Image
             src={`${CDN}/58792471f8a4433f2d4367eba2366f9dd5f21914-1024x1024.png`}
-            alt="Support Tee’s House" fill className="object-cover" priority
+            alt="Support Tee’s House" fill sizes="100vw" className="object-cover" priority
           />
           <div className="absolute inset-0 bg-green-dark/80" />
           <div className="container-max relative z-10 text-center">
@@ -156,7 +156,7 @@ export default function DonatePage() {
               <div className="relative h-72 rounded-card overflow-hidden shadow-card-hover">
                 <Image
                   src={`${CDN}/58792471f8a4433f2d4367eba2366f9dd5f21914-1024x1024.png`}
-                  alt="Monthly giving" fill className="object-cover"
+                  alt="Monthly giving" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover"
                 />
               </div>
             </div>

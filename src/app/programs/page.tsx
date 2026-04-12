@@ -53,7 +53,7 @@ export default async function ProgramsPage() {
       <main>
         {/* Hero */}
         <section className="relative text-white py-28 px-4 overflow-hidden">
-          <Image src={STATIC.hero} alt="Tee’s House programs" fill className="object-cover" priority />
+          <Image src={STATIC.hero} alt="Tee’s House programs" fill sizes="100vw" className="object-cover" priority />
           <div className="absolute inset-0 bg-green-dark/75" />
           <div className="container-max relative text-center z-10">
             <span className="text-amber font-semibold text-sm uppercase tracking-widest">{labels.pageKicker}</span>
@@ -86,7 +86,7 @@ export default async function ProgramsPage() {
                 {current.map((p: any, i: number) => (
                   <div key={p._id} className={`grid grid-cols-1 md:grid-cols-2 gap-10 items-center`}>
                     <div className={`relative h-96 rounded-card overflow-hidden shadow-card-hover ${i % 2 !== 0 ? "md:order-2" : ""}`}>
-                      <Image src={p.image?.asset?.url || STATIC.agArts} alt={p.title} fill className="object-cover" />
+                      <Image src={p.image?.asset?.url || STATIC.agArts} alt={p.title} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
                     </div>
                     <div className={i % 2 !== 0 ? "md:order-1" : ""}>
                       <div className="mb-4"><StatusBadge status={p.status} /></div>
@@ -104,7 +104,7 @@ export default async function ProgramsPage() {
               <div className="space-y-16">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
                   <div className="relative h-96 rounded-card overflow-hidden shadow-card-hover">
-                    <Image src={STATIC.agArts} alt="Agriculture and Arts Enrichment" fill className="object-cover" />
+                    <Image src={STATIC.agArts} alt="Agriculture and Arts Enrichment" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
                   </div>
                   <div>
                     <span className="badge-current mb-4 inline-block">Current 2025</span>
@@ -123,7 +123,7 @@ export default async function ProgramsPage() {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
                   <div className="md:order-2 relative h-96 rounded-card overflow-hidden shadow-card-hover">
-                    <Image src={STATIC.drama} alt="Drama and Poetry Club" fill className="object-cover" />
+                    <Image src={STATIC.drama} alt="Drama and Poetry Club" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
                   </div>
                   <div className="md:order-1">
                     <span className="badge-current mb-4 inline-block">Current 2025</span>
@@ -164,7 +164,7 @@ export default async function ProgramsPage() {
                 </Link>
               </div>
               <div className="relative h-80 rounded-card overflow-hidden shadow-card-hover">
-                <Image src={STATIC.teaser2026} alt="2026 program preview" fill className="object-cover" />
+                <Image src={STATIC.teaser2026} alt="2026 program preview" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
               </div>
             </div>
           </div>
@@ -183,7 +183,7 @@ export default async function ProgramsPage() {
                 {past.map((p: any, i: number) => (
                   <div key={p._id} className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
                     <div className={`relative h-96 rounded-card overflow-hidden shadow-card-hover ${i % 2 !== 0 ? "md:order-2" : ""}`}>
-                      <Image src={p.image?.asset?.url || STATIC.steam} alt={p.title} fill className="object-cover" />
+                      <Image src={p.image?.asset?.url || STATIC.steam} alt={p.title} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
                     </div>
                     <div className={i % 2 !== 0 ? "md:order-1" : ""}>
                       <div className="mb-4"><StatusBadge status={p.status} /></div>
@@ -212,7 +212,7 @@ export default async function ProgramsPage() {
                 ].map((item, i) => (
                   <div key={item.title} className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
                     <div className={`relative h-96 rounded-card overflow-hidden shadow-card-hover ${i % 2 !== 0 ? "md:order-2" : ""}`}>
-                      <Image src={item.img} alt={item.title} fill className="object-cover" />
+                      <Image src={item.img} alt={item.title} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
                     </div>
                     <div className={i % 2 !== 0 ? "md:order-1" : ""}>
                       <span className="badge-past mb-4 inline-block">Past 2025</span>
@@ -249,7 +249,7 @@ export default async function ProgramsPage() {
                 </div>
               </div>
               <div className="relative h-72 rounded-card overflow-hidden shadow-card-hover">
-                <Image src={STATIC.community} alt="Tee’s House community" fill className="object-cover" />
+                <Image src={STATIC.community} alt="Tee’s House community" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
               </div>
             </div>
           </div>
