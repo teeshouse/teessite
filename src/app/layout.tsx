@@ -13,16 +13,10 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://www.teeshousepensacola.org",
     siteName: "Tee’s House Inc."
-  },
-  icons: {
-    icon: [
-      { url: "https://cdn.sanity.io/images/zbeb0ctt/production/44f842016c7584b95a281fcfdba5ec79a837304b-612x612.png", type: "image/png" }
-    ],
-    apple: [
-      { url: "https://cdn.sanity.io/images/zbeb0ctt/production/44f842016c7584b95a281fcfdba5ec79a837304b-612x612.png", type: "image/png" }
-    ],
-    shortcut: "https://cdn.sanity.io/images/zbeb0ctt/production/44f842016c7584b95a281fcfdba5ec79a837304b-612x612.png"
   }
+  // Icons are auto-detected from src/app/icon.png, apple-icon.png, and
+  // favicon.ico by Next 14 file conventions — no metadata block needed.
+  // Regenerate with:  node scripts/generate-favicons.mjs
 }
 
 const sd = {
