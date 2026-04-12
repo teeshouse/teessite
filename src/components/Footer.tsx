@@ -3,6 +3,7 @@ import Image from "next/image"
 import { Mail, Phone, MapPin, Instagram, Facebook, Linkedin, Heart } from "lucide-react"
 import { getSiteSettings } from "@/lib/sanity.fetch"
 import { resolveProgramsLabels } from "@/lib/programsPageLabels"
+import { resolveAllPageLabels } from "@/lib/pageLabels"
 
 const CDN = "https://cdn.sanity.io/images/zbeb0ctt/production"
 
@@ -16,6 +17,7 @@ const DEFAULT_SOCIALS = {
 export default async function Footer() {
   const settings = await getSiteSettings()
   const labels   = resolveProgramsLabels(settings)
+  const pages    = resolveAllPageLabels(settings)
 
   // Build the list of social links. Any blank Sanity field falls back to
   // the hardcoded default; callers who want to HIDE a platform entirely
@@ -61,11 +63,11 @@ export default async function Footer() {
             <h4 className="text-white font-semibold mb-3 text-xs uppercase tracking-widest">Explore</h4>
             <ul className="space-y-2">
               {[
-                { label: labels.navLabel, href: "/programs" },
-                { label: "Events",    href: "/events"    },
-                { label: "News",      href: "/news"      },
-                { label: "Gallery",   href: "/gallery"   },
-                { label: "About",     href: "/about"     },
+                { label: labels.navLabel,        href: "/programs" },
+                { label: pages.events.navLabel,  href: "/events"   },
+                { label: pages.news.navLabel,    href: "/news"     },
+                { label: pages.gallery.navLabel, href: "/gallery"  },
+                { label: pages.about.navLabel,   href: "/about"    },
               ].map(l => (
                 <li key={l.href}>
                   <Link href={l.href} className="text-green-light text-sm hover:text-amber transition-colors">{l.label}</Link>
@@ -131,10 +133,10 @@ export default async function Footer() {
             <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-widest">Programs</h4>
             <ul className="space-y-2">
               {[
-                { label: labels.navLabel, href: "/programs" },
-                { label: "Events",       href: "/events"   },
-                { label: "News",         href: "/news"     },
-                { label: "Gallery",      href: "/gallery"  },
+                { label: labels.navLabel,        href: "/programs" },
+                { label: pages.events.navLabel,  href: "/events"   },
+                { label: pages.news.navLabel,    href: "/news"     },
+                { label: pages.gallery.navLabel, href: "/gallery"  },
               ].map(l => (
                 <li key={l.href}>
                   <Link href={l.href} className="text-green-light text-sm hover:text-amber transition-colors">{l.label}</Link>
@@ -146,7 +148,7 @@ export default async function Footer() {
             <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-widest">Organization</h4>
             <ul className="space-y-2">
               {[
-                { label: "About Us",     href: "/about"        },
+                { label: pages.about.navLabel, href: "/about"    },
                 { label: "Partners",     href: "/partners"     },
                 { label: "Transparency", href: "/transparency" },
                 { label: "FAQ",          href: "/faq"          },

@@ -3,14 +3,15 @@ import Link from "next/link"
 import Image from "next/image"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
-import { getEvents } from "@/lib/sanity.fetch"
+import { getEvents, getSiteSettings } from "@/lib/sanity.fetch"
+import { resolvePageLabels } from "@/lib/pageLabels"
 import { Calendar, MapPin, ExternalLink, ArrowRight } from "lucide-react"
 
 export const revalidate = 60
 
-export const metadata: Metadata = {
-  title: "Events | Tee’s House Inc.",
-  description: "Upcoming and past events from Tee’s House Inc. in Pensacola, FL."
+export async function generateMetadata(): Promise<Metadata> {
+  const labels = resolvePageLabels("events", await getSiteSettings())
+  return { title: labels.metaTitle, description: labels.metaDescription }
 }
 
 const CDN = "https://cdn.sanity.io/images/zbeb0ctt/production"
@@ -24,7 +25,8 @@ function formatTime(d: string) {
 }
 
 export default async function EventsPage() {
-  const events   = await getEvents()
+  const [events, settings] = await Promise.all([getEvents(), getSiteSettings()])
+  const labels   = resolvePageLabels("events", settings)
   const upcoming = events.filter((e: any) => e.status === "upcoming")
   const past     = events.filter((e: any) => e.status === "past")
 
@@ -34,8 +36,8 @@ export default async function EventsPage() {
       <main>
         <section className="bg-green-dark text-white py-20 px-4">
           <div className="container-max text-center">
-            <span className="text-amber font-semibold text-sm uppercase tracking-widest">Join Us</span>
-            <h1 className="text-white mt-3 mb-4 text-4xl md:text-5xl">Events</h1>
+            <span className="text-amber font-semibold text-sm uppercase tracking-widest">{labels.pageKicker}</span>
+            <h1 className="text-white mt-3 mb-4 text-4xl md:text-5xl">{labels.pageTitle}</h1>
             <p className="text-green-light text-lg max-w-xl mx-auto">
               Connect with Tee’s House at our upcoming programs, fundraisers, and community gatherings.
             </p>

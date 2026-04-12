@@ -1,5 +1,6 @@
 import { getSiteSettings } from "@/lib/sanity.fetch"
 import { resolveProgramsLabels } from "@/lib/programsPageLabels"
+import { resolveAllPageLabels } from "@/lib/pageLabels"
 import NavbarClient, { type NavItem } from "./NavbarClient"
 
 /**
@@ -15,13 +16,14 @@ import NavbarClient, { type NavItem } from "./NavbarClient"
 export default async function Navbar() {
   const settings = await getSiteSettings()
   const labels   = resolveProgramsLabels(settings)
+  const pages    = resolveAllPageLabels(settings)
 
   const nav: NavItem[] = [
-    { label: "About",             href: "/about"    },
-    { label: labels.navLabel,     href: "/programs" },
-    { label: "Events",            href: "/events"   },
-    { label: "News",              href: "/news"     },
-    { label: "Gallery",           href: "/gallery"  },
+    { label: pages.about.navLabel,   href: "/about"    },
+    { label: labels.navLabel,        href: "/programs" },
+    { label: pages.events.navLabel,  href: "/events"   },
+    { label: pages.news.navLabel,    href: "/news"     },
+    { label: pages.gallery.navLabel, href: "/gallery"  },
     {
       label: "More",
       children: [

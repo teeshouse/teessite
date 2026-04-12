@@ -3,14 +3,15 @@ import Link from "next/link"
 import Image from "next/image"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
-import { getNews } from "@/lib/sanity.fetch"
+import { getNews, getSiteSettings } from "@/lib/sanity.fetch"
+import { resolvePageLabels } from "@/lib/pageLabels"
 import { Calendar, ArrowRight, Tag } from "lucide-react"
 
 export const revalidate = 60
 
-export const metadata: Metadata = {
-  title: "News | Tee’s House Inc.",
-  description: "Latest news and updates from Tee’s House Inc."
+export async function generateMetadata(): Promise<Metadata> {
+  const labels = resolvePageLabels("news", await getSiteSettings())
+  return { title: labels.metaTitle, description: labels.metaDescription }
 }
 
 const CDN = "https://cdn.sanity.io/images/zbeb0ctt/production"
@@ -21,9 +22,10 @@ function formatDate(dateStr: string) {
 }
 
 export default async function NewsPage() {
-  const articles = await getNews()
+  const [articles, settings] = await Promise.all([getNews(), getSiteSettings()])
+  const labels   = resolvePageLabels("news", settings)
   const featured = articles.find((a: any) => a.featured) || articles[0]
-  const rest      = articles.filter((a: any) => a._id !== featured?._id)
+  const rest     = articles.filter((a: any) => a._id !== featured?._id)
 
   return (
     <>
@@ -32,8 +34,8 @@ export default async function NewsPage() {
         {/* Hero */}
         <section className="bg-green-dark text-white py-20 px-4">
           <div className="container-max text-center">
-            <span className="text-amber font-semibold text-sm uppercase tracking-widest">Stay Informed</span>
-            <h1 className="text-white mt-3 mb-4 text-4xl md:text-5xl">News &amp; Updates</h1>
+            <span className="text-amber font-semibold text-sm uppercase tracking-widest">{labels.pageKicker}</span>
+            <h1 className="text-white mt-3 mb-4 text-4xl md:text-5xl">{labels.pageTitle}</h1>
             <p className="text-green-light text-lg max-w-xl mx-auto">
               The latest from Tee’s House — programs, events, and community stories.
             </p>

@@ -33,11 +33,27 @@ export interface ProgramsPageSettings {
   homeHeroCta?:     string
   homeListCta?:     string
 }
+/** Reusable label set for simple top-level pages (About/Events/News/Gallery). */
+export interface PageLabelFields {
+  navLabel?:        string
+  pageTitle?:       string
+  pageKicker?:      string
+  metaTitle?:       string
+  metaDescription?: string
+}
+export interface PageLabelsSettings {
+  about?:   PageLabelFields
+  events?:  PageLabelFields
+  news?:    PageLabelFields
+  gallery?: PageLabelFields
+}
+export type PageLabelsKey = keyof PageLabelsSettings
 export interface SiteSettings {
   heroHeadline: string; heroSubtext: string; missionTagline: string
   heroVideoUrl?: string
   beforeAfter?: BeforeAfterSettings
   programsPage?: ProgramsPageSettings
+  pageLabels?: PageLabelsSettings
   phone: string; email: string; address: string
   facebookUrl?: string; instagramUrl?: string; linkedinUrl?: string; paypalDonateLink?: string
 }

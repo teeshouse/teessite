@@ -2,22 +2,24 @@ import type { Metadata } from "next"
 import Image from "next/image"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
-import { getGallery } from "@/lib/sanity.fetch"
+import { getGallery, getSiteSettings } from "@/lib/sanity.fetch"
+import { resolvePageLabels } from "@/lib/pageLabels"
 import { Camera, ArrowRight } from "lucide-react"
 import Link from "next/link"
 
 export const revalidate = 60
 
-export const metadata: Metadata = {
-  title: "Gallery | Tee’s House Inc.",
-  description: "Photos from Tee’s House programs, events, and community activities."
+export async function generateMetadata(): Promise<Metadata> {
+  const labels = resolvePageLabels("gallery", await getSiteSettings())
+  return { title: labels.metaTitle, description: labels.metaDescription }
 }
 
 const CDN = "https://cdn.sanity.io/images/zbeb0ctt/production"
 const PLACEHOLDER = `${CDN}/aa3166c4742d84e1137865a365dcfd41de898dca-2048x2048.jpg`
 
 export default async function GalleryPage() {
-  const albums = await getGallery()
+  const [albums, settings] = await Promise.all([getGallery(), getSiteSettings()])
+  const labels = resolvePageLabels("gallery", settings)
 
   return (
     <>
@@ -25,8 +27,8 @@ export default async function GalleryPage() {
       <main>
         <section className="bg-green-dark text-white py-20 px-4">
           <div className="container-max text-center">
-            <span className="text-amber font-semibold text-sm uppercase tracking-widest">Our Story in Photos</span>
-            <h1 className="text-white mt-3 mb-4 text-4xl md:text-5xl">Photo Gallery</h1>
+            <span className="text-amber font-semibold text-sm uppercase tracking-widest">{labels.pageKicker}</span>
+            <h1 className="text-white mt-3 mb-4 text-4xl md:text-5xl">{labels.pageTitle}</h1>
             <p className="text-green-light text-lg max-w-xl mx-auto">
               Moments from our programs, events, and community — captured in photos.
             </p>
