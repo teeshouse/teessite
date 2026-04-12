@@ -28,11 +28,13 @@ type FormData = {
   backgroundCheck: string
   emergencyName: string; emergencyPhone: string; emergencyRelation: string
   notes: string
+  website: string // honeypot — always empty for real users
 }
 
 const empty: FormData = {
   name:"",email:"",phone:"",roles:[],skills:"",days:[],times:[],
-  backgroundCheck:"",emergencyName:"",emergencyPhone:"",emergencyRelation:"",notes:""
+  backgroundCheck:"",emergencyName:"",emergencyPhone:"",emergencyRelation:"",notes:"",
+  website:""
 }
 
 export default function VolunteerPage() {
@@ -155,6 +157,14 @@ export default function VolunteerPage() {
               <p className="text-gray-muted mt-2">Complete the form so we can get you plugged in to the right opportunity.</p>
             </div>
             <div className="card p-8 space-y-6">
+              {/* Honeypot: hidden from real users, bots fill it and get silently dropped server-side */}
+              <div aria-hidden="true" style={{ position: "absolute", left: "-10000px", top: "auto", width: 1, height: 1, overflow: "hidden" }}>
+                <label>
+                  Website (leave blank)
+                  <input type="text" tabIndex={-1} autoComplete="off"
+                    value={form.website} onChange={e=>set("website",e.target.value)}/>
+                </label>
+              </div>
               {/* Personal */}
               <div>
                 <h3 className="text-green-dark mb-4 pb-2 border-b border-gray-border">Personal Information</h3>

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createClient } from "@supabase/supabase-js"
 import { notifyInfo } from "@/lib/resend"
+import { checkRateLimit, getClientIp, isHoneypotTripped } from "@/lib/rateLimit"
 
 export async function POST(req: NextRequest) {
   try {
@@ -11,8 +12,25 @@ export async function POST(req: NextRequest) {
       emergencyName, emergencyPhone, emergencyRelation, notes
     } = body
 
+    // Honeypot: silently accept bot submissions so they don't retry.
+    if (isHoneypotTripped(body)) {
+      return NextResponse.json({ success: true, message: "Application received! We will be in touch soon." })
+    }
+
     if (!name || !email) {
       return NextResponse.json({ error: "Name and email are required" }, { status: 400 })
+    }
+
+    // Rate limit: 3 volunteer applications per 5 minutes per IP. Tighter
+    // than contact because this form is much longer and nobody legitimately
+    // submits it multiple times in quick succession.
+    const ip = getClientIp(req)
+    const gate = checkRateLimit(`volunteer:${ip}`, { limit: 3, windowMs: 5 * 60_000 })
+    if (!gate.ok) {
+      return NextResponse.json(
+        { error: "Too many applications. Please wait a few minutes and try again." },
+        { status: 429, headers: { "Retry-After": String(gate.retryAfterSec) } }
+      )
     }
 
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL

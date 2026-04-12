@@ -5,7 +5,7 @@ import Footer from "@/components/Footer"
 import { Mail, Phone, MapPin, CheckCircle, Loader2 } from "lucide-react"
 
 export default function ContactPage() {
-  const [form, setForm]     = useState({ name: "", email: "", subject: "", message: "" })
+  const [form, setForm]     = useState({ name: "", email: "", subject: "", message: "", website: "" })
   const [status, setStatus] = useState<"idle"|"loading"|"success"|"error">("idle")
 
   function set(key: string, value: string) {
@@ -23,7 +23,7 @@ export default function ContactPage() {
       })
       if (!res.ok) throw new Error()
       setStatus("success")
-      setForm({ name: "", email: "", subject: "", message: "" })
+      setForm({ name: "", email: "", subject: "", message: "", website: "" })
     } catch {
       setStatus("error")
     }
@@ -101,6 +101,14 @@ export default function ContactPage() {
                   </div>
                 ) : (
                   <div className="card p-8 space-y-4">
+                    {/* Honeypot: hidden from real users, bots fill it and get silently dropped server-side */}
+                    <div aria-hidden="true" style={{ position: "absolute", left: "-10000px", top: "auto", width: 1, height: 1, overflow: "hidden" }}>
+                      <label>
+                        Website (leave blank)
+                        <input type="text" tabIndex={-1} autoComplete="off"
+                          value={form.website} onChange={e => set("website", e.target.value)} />
+                      </label>
+                    </div>
                     <div>
                       <label className="form-label">Name *</label>
                       <input className="form-input" placeholder="Your full name"
