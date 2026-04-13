@@ -30,7 +30,6 @@ export default async function Navbar() {
         { label: "Products & Services", href: "/services"      },
         { label: "Partners",            href: "/partners"      },
         { label: "Transparency",        href: "/transparency"  },
-        { label: "Client Intake",        href: "/intake"        },
         { label: "FAQ",                 href: "/faq"           },
         { label: "Contact",             href: "/contact"       },
       ]

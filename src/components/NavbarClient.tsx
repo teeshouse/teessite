@@ -64,6 +64,7 @@ export default function NavbarClient({ nav }: { nav: NavItem[] }) {
             )
           )}
           <Link href="/volunteer" className="btn-outline text-sm py-2">Volunteer</Link>
+          <Link href="/intake"    className="btn-outline text-sm py-2">Client Intake</Link>
           <Link href="/donate"    className="btn-amber text-sm py-2">Donate</Link>
         </div>
 
@@ -98,6 +99,7 @@ export default function NavbarClient({ nav }: { nav: NavItem[] }) {
           )}
           <div className="flex flex-col gap-2 pt-3">
             <Link href="/volunteer" onClick={() => setOpen(false)} className="btn-outline text-sm text-center">Volunteer</Link>
+            <Link href="/intake"    onClick={() => setOpen(false)} className="btn-outline text-sm text-center">Client Intake</Link>
             <Link href="/donate"    onClick={() => setOpen(false)} className="btn-amber text-sm text-center">Donate</Link>
           </div>
         </div>
