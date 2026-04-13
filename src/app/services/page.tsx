@@ -3,8 +3,8 @@ import Link from "next/link"
 import Image from "next/image"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
-import { getSiteSettings, getServices } from "@/lib/sanity.fetch"
-import { ArrowRight, Mail, Phone, Check, Leaf, Heart, ShoppingBag, Package, Star, Sparkles } from "lucide-react"
+import { getSiteSettings, getServices, getDownloads } from "@/lib/sanity.fetch"
+import { ArrowRight, Mail, Phone, Check, Leaf, Heart, ShoppingBag, Package, Star, Sparkles, FileDown } from "lucide-react"
 import type { Service } from "@/types"
 
 export const revalidate = 60
@@ -98,10 +98,13 @@ const KITS = [
 ]
 
 export default async function ServicesPage() {
-  const [settings, allServices] = await Promise.all([
+  const [settings, allServices, allDownloads] = await Promise.all([
     getSiteSettings(),
     getServices() as Promise<Service[]>,
+    getDownloads(),
   ])
+
+  const downloads = (allDownloads || []).filter((d: any) => d.showOnServicesPage)
 
   const phone = settings?.phone || "850.291.1888"
 
@@ -245,6 +248,44 @@ export default async function ServicesPage() {
             </div>
           </div>
         </section>
+
+        {/* Downloads — only shows when Tierra uploads docs in Sanity */}
+        {downloads.length > 0 && (
+          <section className="section-padding bg-white">
+            <div className="container-max">
+              <div className="text-center mb-12">
+                <span className="text-amber font-semibold text-sm uppercase tracking-widest">Resources</span>
+                <h2 className="text-green-dark mt-3">Downloads & Flyers</h2>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                {downloads.map((doc: any) => (
+                  <a key={doc._id} href={doc.file?.asset?.url}
+                    target="_blank" rel="noopener noreferrer"
+                    className="card overflow-hidden group hover:-translate-y-1 transition-transform duration-300">
+                    {doc.thumbnail?.asset?.url ? (
+                      <div className="relative h-48 overflow-hidden">
+                        <Image src={doc.thumbnail.asset.url} alt={doc.title} fill
+                          sizes="(min-width: 768px) 33vw, 100vw"
+                          className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                      </div>
+                    ) : (
+                      <div className="h-32 bg-green-light flex items-center justify-center">
+                        <FileDown className="w-10 h-10 text-green-mid" />
+                      </div>
+                    )}
+                    <div className="p-5">
+                      <h3 className="text-green-dark font-semibold mb-1 group-hover:text-green-mid transition-colors">{doc.title}</h3>
+                      {doc.description && <p className="text-gray-muted text-sm mb-3">{doc.description}</p>}
+                      <span className="inline-flex items-center gap-1 text-sm font-semibold text-amber">
+                        <FileDown className="w-4 h-4" /> Download PDF
+                      </span>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* CTA */}
         <section className="section-padding bg-green-dark text-white">

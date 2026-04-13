@@ -145,6 +145,14 @@ export const PAGE_BY_SLUG_QUERY = groq`
     heroImage { asset->{ url } }
   }
 `
+export const DOWNLOADS_QUERY = groq`
+  *[_type == "download"] | order(order asc) {
+    _id, title, description, category, order,
+    showOnServicesPage, showOnTransparencyPage,
+    file { asset->{ url, originalFilename, size } },
+    thumbnail { asset->{ url } }
+  }
+`
 export const SERVICES_QUERY = groq`
   *[_type == "service"] | order(order asc) {
     _id, title, description, category, price, featured, order,
