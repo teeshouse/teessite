@@ -19,20 +19,27 @@ export default async function Navbar() {
   const pages    = resolveAllPageLabels(settings)
 
   const nav: NavItem[] = [
-    { label: pages.about.navLabel,   href: "/about"    },
-    { label: labels.navLabel,        href: "/community-impact" },
-    { label: pages.events.navLabel,  href: "/events"   },
-    { label: pages.news.navLabel,    href: "/news"     },
-    { label: pages.gallery.navLabel, href: "/gallery"  },
+    { label: pages.about.navLabel,   href: "/about"            },
+    { label: labels.navLabel,        href: "/community-impact"  },
+    { label: pages.events.navLabel,  href: "/events"            },
+    { label: pages.news.navLabel,    href: "/news"              },
+    {
+      label: "Get Involved",
+      children: [
+        { label: "Volunteer",          href: "/volunteer" },
+        { label: "Client Intake",      href: "/intake"    },
+      ],
+    },
     {
       label: "More",
       children: [
-        { label: "Products & Services", href: "/services"      },
-        { label: "Partners",            href: "/partners"      },
-        { label: "Transparency",        href: "/transparency"  },
-        { label: "FAQ",                 href: "/faq"           },
+        { label: pages.gallery.navLabel, href: "/gallery"       },
+        { label: "Products & Services",  href: "/services"      },
+        { label: "Partners",             href: "/partners"      },
+        { label: "Transparency",         href: "/transparency"  },
+        { label: "FAQ",                  href: "/faq"           },
         { label: "Contact",             href: "/contact"       },
-      ]
+      ],
     },
   ]
 
