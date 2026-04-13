@@ -48,12 +48,48 @@ export interface PageLabelsSettings {
   gallery?: PageLabelFields
 }
 export type PageLabelsKey = keyof PageLabelsSettings
+export interface GivingOption {
+  title: string; description?: string; buttonLabel?: string; url?: string; isExternal?: boolean
+}
+export interface MonthlyTier {
+  amount: string; impact: string
+}
+export interface DonatePageSettings {
+  fundraisingGoal?: number; fundraisingRaised?: number; fundraisingDonors?: number
+  fundraisingLabel?: string; fundraisingDeadline?: string
+  givingOptions?: GivingOption[]
+  monthlyTiers?: MonthlyTier[]
+}
+export interface CoreValue { title: string; description: string }
+export interface AboutPageSettings {
+  missionHeading?: string
+  missionBody?: any[]
+  missionImage?: { asset?: { url?: string } }
+  coreValues?: CoreValue[]
+  contactQuote?: string
+  contactImage?: { asset?: { url?: string } }
+}
+export interface HomePageSettings {
+  parallaxHeading?: string; parallaxText?: string
+  parallaxImage?: { asset?: { url?: string } }
+  ctaHeading?: string; ctaText?: string
+  heroImage?: { asset?: { url?: string } }
+}
+export interface Service {
+  _id: string; title: string; description: string
+  category: "kit" | "service"; price?: string
+  image?: { asset?: { url?: string }; alt?: string }
+  featured?: boolean; order?: number
+}
 export interface SiteSettings {
   heroHeadline: string; heroSubtext: string; missionTagline: string
   heroVideoUrl?: string
   beforeAfter?: BeforeAfterSettings
   programsPage?: ProgramsPageSettings
   pageLabels?: PageLabelsSettings
+  donatePage?: DonatePageSettings
+  aboutPage?: AboutPageSettings
+  homePage?: HomePageSettings
   phone: string; email: string; address: string
   facebookUrl?: string; instagramUrl?: string; linkedinUrl?: string; paypalDonateLink?: string
 }

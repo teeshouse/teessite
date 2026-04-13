@@ -7,7 +7,8 @@ import {
   VOLUNTEER_ROLES_QUERY, EVENTS_QUERY, UPCOMING_EVENTS_QUERY,
   TEAM_QUERY, TESTIMONIALS_QUERY, PARTNERS_QUERY,
   GALLERY_QUERY, FAQS_QUERY, PAGES_QUERY,
-  PAGE_BY_SLUG_QUERY, ANNUAL_REPORTS_QUERY
+  PAGE_BY_SLUG_QUERY, ANNUAL_REPORTS_QUERY,
+  SERVICES_QUERY
 } from "./sanity.queries"
 
 export async function getSiteSettings(): Promise<SiteSettings | null> { try { return await sanityClient.fetch<SiteSettings>(SITE_SETTINGS_QUERY) }    catch { return null } }
@@ -25,6 +26,7 @@ export async function getPartners()        { try { return await sanityClient.fet
 export async function getGallery()         { try { return await sanityClient.fetch(GALLERY_QUERY) }          catch { return [] } }
 export async function getFaqs()            { try { return await sanityClient.fetch(FAQS_QUERY) }             catch { return [] } }
 export async function getPages()           { try { return await sanityClient.fetch(PAGES_QUERY) }            catch { return [] } }
+export async function getServices()        { try { return await sanityClient.fetch(SERVICES_QUERY) }         catch { return [] } }
 export async function getAnnualReports()   { try { return await sanityClient.fetch(ANNUAL_REPORTS_QUERY) }  catch { return [] } }
 export async function getPageBySlug(slug: string) {
   try { return await sanityClient.fetch(PAGE_BY_SLUG_QUERY, { slug }) } catch { return null }

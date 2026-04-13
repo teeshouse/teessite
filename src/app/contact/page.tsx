@@ -1,14 +1,25 @@
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import ContactForm from "@/components/ContactForm"
+import { getSiteSettings } from "@/lib/sanity.fetch"
+import type { SiteSettings } from "@/types"
 import { Mail, Phone, MapPin } from "lucide-react"
+
+export const revalidate = 60
 
 export const metadata = {
   title: "Contact | Tee's House",
   description: "Get in touch with Tee's House. We'd love to hear from you.",
 }
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const settings = await getSiteSettings()
+  const s: Partial<SiteSettings> = settings || {}
+
+  const phone   = s.phone   || "850.291.1888"
+  const email   = s.email   || "info@teeshouse.org"
+  const address = s.address || "Pensacola, Florida"
+
   return (
     <>
       <Navbar />
@@ -28,7 +39,7 @@ export default function ContactPage() {
         <section className="section-padding bg-white">
           <div className="container-max">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-              {/* Info */}
+              {/* Info — now pulled from Sanity Site Settings */}
               <div>
                 <h2 className="text-green-dark mb-6">Get In Touch</h2>
                 <ul className="space-y-5 mb-8">
@@ -38,7 +49,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <p className="font-semibold text-gray-body">Location</p>
-                      <p className="text-gray-muted text-sm">Pensacola, Florida</p>
+                      <p className="text-gray-muted text-sm">{address}</p>
                     </div>
                   </li>
                   <li className="flex items-start gap-4">
@@ -47,8 +58,8 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <p className="font-semibold text-gray-body">Phone</p>
-                      <a href="tel:8502911888" className="text-gray-muted text-sm hover:text-green-mid transition-colors">
-                        850.291.1888
+                      <a href={`tel:${phone.replace(/[^0-9]/g, "")}`} className="text-gray-muted text-sm hover:text-green-mid transition-colors">
+                        {phone}
                       </a>
                     </div>
                   </li>
@@ -58,15 +69,15 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <p className="font-semibold text-gray-body">Email</p>
-                      <a href="mailto:info@teeshouse.org" className="text-gray-muted text-sm hover:text-green-mid transition-colors">
-                        info@teeshouse.org
+                      <a href={`mailto:${email}`} className="text-gray-muted text-sm hover:text-green-mid transition-colors">
+                        {email}
                       </a>
                     </div>
                   </li>
                 </ul>
                 <div className="bg-green-light rounded-card p-6">
                   <p className="font-display italic text-green-dark text-lg">
-                    "Together, we can keep growing — one seed, one idea, one heart at a time."
+                    &ldquo;Together, we can keep growing &mdash; one seed, one idea, one heart at a time.&rdquo;
                   </p>
                 </div>
               </div>

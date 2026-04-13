@@ -3,6 +3,7 @@ import Link from "next/link"
 import Image from "next/image"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
+import PortableTextBody from "@/components/PortableTextBody"
 import { getSiteSettings, getImpactStats, getTeam } from "@/lib/sanity.fetch"
 import { resolvePageLabels } from "@/lib/pageLabels"
 import type { SiteSettings } from "@/types"
@@ -24,6 +25,18 @@ const FALLBACK_STATS = [
   { label: "Years of Impact",    value: "5+"   },
 ]
 
+const FALLBACK_VALUES = [
+  { title: "Community",  description: "We believe in the power of community to lift every individual. Everything we do is rooted in building stronger connections between people, families, and the natural world." },
+  { title: "Creativity", description: "We nurture creative expression as a fundamental human need. Through arts, drama, and hands-on making, youth discover their unique voices and strengths." },
+  { title: "Growth",     description: "We are committed to continuous growth for the youth we serve and for our organization. We learn, adapt, and improve so that our impact deepens with every season." },
+]
+
+const FALLBACK_MISSION = [
+  "Tee's House Inc. is a 501(c)(3) nonprofit organization dedicated to empowering youth through hands-on educational experiences that integrate agriculture, arts, and STEAM learning.",
+  "We believe that every child deserves access to enriching experiences that nurture their creativity, curiosity, and confidence. Our programs are designed to connect young people with the natural world, with each other, and with their own potential.",
+  "Based in Pensacola, Florida, we serve youth across Northwest Florida through school partnerships, community programs, and seasonal enrichment initiatives.",
+]
+
 export default async function AboutPage() {
   const [settings, stats, team] = await Promise.all([
     getSiteSettings(),
@@ -34,6 +47,14 @@ export default async function AboutPage() {
   const s: Partial<SiteSettings> = settings || {}
   const labels = resolvePageLabels("about", settings)
   const iStats = stats?.length > 0 ? stats : FALLBACK_STATS
+  const about  = s.aboutPage || {}
+
+  const missionHeading = about.missionHeading || "Cultivating Growth in Every Child"
+  const hasMissionBody = about.missionBody && about.missionBody.length > 0
+  const values         = about.coreValues?.length ? about.coreValues : FALLBACK_VALUES
+  const missionImgUrl  = about.missionImage?.asset?.url || `${CDN}/41367ca1929bf2ddd0f8fae7dda827e0a9ddb167-1024x1024.jpg`
+  const contactImgUrl  = about.contactImage?.asset?.url || `${CDN}/bb80acf5b6d60378b6cff558e871c90c27240189-1024x1024.jpg`
+  const contactQuote   = about.contactQuote || "Together, we can keep growing \u2014 one seed, one idea, one heart at a time."
 
   return (
     <>
@@ -43,7 +64,7 @@ export default async function AboutPage() {
         <section className="relative text-white py-28 px-4 overflow-hidden">
           <Image
             src={`${CDN}/9e83c4f80bcfcf915d8313e338c0d7fd2a531f19-2048x2048.jpg`}
-            alt="About Tee’s House" fill sizes="100vw" className="object-cover"
+            alt="About Tee's House" fill sizes="100vw" className="object-cover"
           />
           <div className="absolute inset-0 bg-green-dark/75" />
           <div className="container-max relative z-10 text-center">
@@ -52,31 +73,27 @@ export default async function AboutPage() {
           </div>
         </section>
 
-        {/* Mission and Vision */}
+        {/* Mission and Vision — now Sanity-editable */}
         <section className="section-padding bg-white">
           <div className="container-max">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               <div>
                 <span className="text-amber font-semibold text-sm uppercase tracking-widest">Our Mission</span>
-                <h2 className="text-green-dark mt-3 mb-4">Cultivating Growth in Every Child</h2>
-                <p className="text-gray-muted leading-relaxed mb-4">
-                  Tee’s House Inc. is a 501(c)(3) nonprofit organization dedicated to empowering youth through
-                  hands-on educational experiences that integrate agriculture, arts, and STEAM learning.
-                </p>
-                <p className="text-gray-muted leading-relaxed mb-4">
-                  We believe that every child deserves access to enriching experiences that nurture their
-                  creativity, curiosity, and confidence. Our programs are designed to connect young people
-                  with the natural world, with each other, and with their own potential.
-                </p>
-                <p className="text-gray-muted leading-relaxed">
-                  Based in Pensacola, Florida, we serve youth across Northwest Florida through school
-                  partnerships, community programs, and seasonal enrichment initiatives.
-                </p>
+                <h2 className="text-green-dark mt-3 mb-4">{missionHeading}</h2>
+                {hasMissionBody ? (
+                  <div className="text-gray-muted leading-relaxed space-y-4">
+                    <PortableTextBody value={about.missionBody!} />
+                  </div>
+                ) : (
+                  FALLBACK_MISSION.map((p, i) => (
+                    <p key={i} className="text-gray-muted leading-relaxed mb-4">{p}</p>
+                  ))
+                )}
               </div>
               <div className="relative h-96 rounded-card overflow-hidden shadow-card-hover">
                 <Image
-                  src={`${CDN}/41367ca1929bf2ddd0f8fae7dda827e0a9ddb167-1024x1024.jpg`}
-                  alt="Tee’s House mission" fill
+                  src={missionImgUrl}
+                  alt="Tee's House mission" fill
                   sizes="(min-width: 768px) 50vw, 100vw"
                   className="object-cover"
                 />
@@ -85,7 +102,7 @@ export default async function AboutPage() {
           </div>
         </section>
 
-        {/* Values */}
+        {/* Values — now Sanity-editable */}
         <section className="section-padding bg-green-light">
           <div className="container-max">
             <div className="text-center mb-12">
@@ -93,17 +110,13 @@ export default async function AboutPage() {
               <h2 className="text-green-dark mt-3">Our Core Values</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {[
-                { title: "Community",  desc: "We believe in the power of community to lift every individual. Everything we do is rooted in building stronger connections between people, families, and the natural world." },
-                { title: "Creativity", desc: "We nurture creative expression as a fundamental human need. Through arts, drama, and hands-on making, youth discover their unique voices and strengths." },
-                { title: "Growth",     desc: "We are committed to continuous growth for the youth we serve and for our organization. We learn, adapt, and improve so that our impact deepens with every season." }
-              ].map((v) => (
+              {values.map((v: any) => (
                 <div key={v.title} className="card p-8 text-center">
                   <div className="w-12 h-12 bg-amber-light rounded-full flex items-center justify-center mx-auto mb-4">
                     <Heart className="w-6 h-6 text-amber" />
                   </div>
                   <h3 className="text-green-dark text-xl mb-3">{v.title}</h3>
-                  <p className="text-gray-muted leading-relaxed text-sm">{v.desc}</p>
+                  <p className="text-gray-muted leading-relaxed text-sm">{v.description}</p>
                 </div>
               ))}
             </div>
@@ -128,7 +141,7 @@ export default async function AboutPage() {
           </div>
         </section>
 
-        {/* Team - pulls from Sanity */}
+        {/* Team */}
         <section className="section-padding bg-white">
           <div className="container-max">
             <div className="text-center mb-12">
@@ -171,7 +184,6 @@ export default async function AboutPage() {
                   </div>
                 </div>
               )) : (
-                // Fallback if Sanity returns empty
                 <div className="card max-w-sm text-center overflow-hidden w-full md:w-80">
                   <div className="relative h-72 overflow-hidden">
                     <Image
@@ -195,7 +207,7 @@ export default async function AboutPage() {
           </div>
         </section>
 
-        {/* Contact */}
+        {/* Contact — quote and image now Sanity-editable */}
         <section className="section-padding bg-green-light">
           <div className="container-max">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -203,15 +215,20 @@ export default async function AboutPage() {
                 <span className="text-amber font-semibold text-sm uppercase tracking-widest">Get in Touch</span>
                 <h2 className="text-green-dark mt-3 mb-6">Connect With Us</h2>
                 <div className="flex flex-col gap-4 mb-8">
-                  <a href="tel:8502911888" className="flex items-center gap-3 text-gray-muted hover:text-green-dark transition-colors">
+                  <a href={`tel:${(s.phone || "850.291.1888").replace(/[^0-9]/g, "")}`} className="flex items-center gap-3 text-gray-muted hover:text-green-dark transition-colors">
                     <Phone className="w-5 h-5 text-amber shrink-0" />{s.phone || "850.291.1888"}
                   </a>
-                  <a href="mailto:info@teeshouse.org" className="flex items-center gap-3 text-gray-muted hover:text-green-dark transition-colors">
+                  <a href={`mailto:${s.email || "info@teeshouse.org"}`} className="flex items-center gap-3 text-gray-muted hover:text-green-dark transition-colors">
                     <Mail className="w-5 h-5 text-amber shrink-0" />{s.email || "info@teeshouse.org"}
                   </a>
                   <span className="flex items-center gap-3 text-gray-muted">
                     <MapPin className="w-5 h-5 text-amber shrink-0" />{s.address || "Pensacola, FL"}
                   </span>
+                </div>
+                <div className="bg-white rounded-card p-6 mb-6">
+                  <p className="font-display italic text-green-dark text-lg">
+                    &ldquo;{contactQuote}&rdquo;
+                  </p>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link href="/contact"   className="btn-primary">Contact Us <ArrowRight className="w-4 h-4" /></Link>
@@ -220,8 +237,8 @@ export default async function AboutPage() {
               </div>
               <div className="relative h-72 rounded-card overflow-hidden shadow-card-hover">
                 <Image
-                  src={`${CDN}/bb80acf5b6d60378b6cff558e871c90c27240189-1024x1024.jpg`}
-                  alt="Tee’s House community" fill
+                  src={contactImgUrl}
+                  alt="Tee's House community" fill
                   sizes="(min-width: 768px) 50vw, 100vw"
                   className="object-cover"
                 />

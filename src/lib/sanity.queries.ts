@@ -21,6 +21,26 @@ export const SITE_SETTINGS_QUERY = groq`
       events  { navLabel, pageTitle, pageKicker, metaTitle, metaDescription },
       news    { navLabel, pageTitle, pageKicker, metaTitle, metaDescription },
       gallery { navLabel, pageTitle, pageKicker, metaTitle, metaDescription }
+    },
+    donatePage {
+      fundraisingGoal, fundraisingRaised, fundraisingDonors,
+      fundraisingLabel, fundraisingDeadline,
+      givingOptions[] { title, description, buttonLabel, url, isExternal },
+      monthlyTiers[]  { amount, impact }
+    },
+    aboutPage {
+      missionHeading,
+      missionBody[] { ..., _type == "image" => { ..., asset->{ url } } },
+      missionImage { asset->{ url } },
+      coreValues[] { title, description },
+      contactQuote,
+      contactImage { asset->{ url } }
+    },
+    homePage {
+      parallaxHeading, parallaxText,
+      parallaxImage { asset->{ url } },
+      ctaHeading, ctaText,
+      heroImage { asset->{ url } }
     }
   }
 `
@@ -123,6 +143,12 @@ export const PAGE_BY_SLUG_QUERY = groq`
   *[_type == "page" && slug.current == $slug && published == true][0] {
     _id, title, slug, excerpt, publishedAt, content,
     heroImage { asset->{ url } }
+  }
+`
+export const SERVICES_QUERY = groq`
+  *[_type == "service"] | order(order asc) {
+    _id, title, description, category, price, featured, order,
+    image { asset->{ url }, alt }
   }
 `
 export const ANNUAL_REPORTS_QUERY = groq`

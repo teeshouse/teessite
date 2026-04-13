@@ -56,7 +56,7 @@ export default async function HomePage() {
         {/* Hero (Phase 7B: video with image fallback) */}
         <VideoHero
           videoSrc={s.heroVideoUrl || undefined}
-          posterSrc={`${CDN}/aa3166c4742d84e1137865a365dcfd41de898dca-2048x2048.jpg`}
+          posterSrc={s.homePage?.heroImage?.asset?.url || `${CDN}/aa3166c4742d84e1137865a365dcfd41de898dca-2048x2048.jpg`}
           posterAlt="Tee’s House hero"
         >
           <span className="text-amber font-semibold text-sm uppercase tracking-widest">Pensacola, Florida</span>
@@ -138,9 +138,9 @@ export default async function HomePage() {
           </section>
         )}
 
-        {/* Phase 7B: Parallax inspirational band */}
+        {/* Parallax — now Sanity-editable */}
         <ParallaxSection
-          imageSrc={`${CDN}/aa3166c4742d84e1137865a365dcfd41de898dca-2048x2048.jpg`}
+          imageSrc={s.homePage?.parallaxImage?.asset?.url || `${CDN}/aa3166c4742d84e1137865a365dcfd41de898dca-2048x2048.jpg`}
           imageAlt="Tee’s House garden"
           speed={0.35}
           minHeight="55vh"
@@ -148,10 +148,10 @@ export default async function HomePage() {
         >
           <span className="text-amber font-semibold text-sm uppercase tracking-widest">Rooted in Pensacola</span>
           <h2 className="text-white mt-3 max-w-3xl mx-auto">
-            Cultivating the next generation, one season at a time.
+            {s.homePage?.parallaxHeading || "Cultivating the next generation, one season at a time."}
           </h2>
           <p className="text-green-light mt-4 max-w-2xl mx-auto">
-            From seed to harvest, from sketchbook to stage &mdash; we grow young leaders who invest in the community that raised them.
+            {s.homePage?.parallaxText || "From seed to harvest, from sketchbook to stage \u2014 we grow young leaders who invest in the community that raised them."}
           </p>
         </ParallaxSection>
 
@@ -187,12 +187,12 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* CTA */}
+        {/* CTA — now Sanity-editable */}
         <section className="section-padding bg-amber">
           <div className="container-max text-center">
-            <h2 className="text-white mb-4">Ready to Make a Difference?</h2>
+            <h2 className="text-white mb-4">{s.homePage?.ctaHeading || "Ready to Make a Difference?"}</h2>
             <p className="text-white/90 text-lg max-w-xl mx-auto mb-8">
-              Whether you donate, volunteer, or spread the word, every action helps us grow.
+              {s.homePage?.ctaText || "Whether you donate, volunteer, or spread the word, every action helps us grow."}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/donate"    className="btn-outline-white">Donate Now <Heart className="w-4 h-4" /></Link>

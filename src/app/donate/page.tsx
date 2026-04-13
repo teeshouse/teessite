@@ -6,16 +6,53 @@ import Footer from "@/components/Footer"
 import ImpactCalculator from "@/components/ImpactCalculator"
 import DonationThermometer from "@/components/DonationThermometer"
 import DonorWall from "@/components/DonorWall"
+import { getSiteSettings } from "@/lib/sanity.fetch"
+import type { SiteSettings } from "@/types"
 import { Heart, Mail, Smartphone, CreditCard, ArrowRight, Shield, RefreshCw } from "lucide-react"
 
+export const revalidate = 60
+
 export const metadata: Metadata = {
-  title: "Donate | Tee’s House Inc.",
-  description: "Support Tee’s House Inc. Your donation helps us provide agriculture, arts, and STEAM programs to youth in Pensacola, FL."
+  title: "Donate | Tee's House Inc.",
+  description: "Support Tee's House Inc. Your donation helps us provide agriculture, arts, and STEAM programs to youth in Pensacola, FL."
 }
 
 const CDN = "https://cdn.sanity.io/images/zbeb0ctt/production"
 
-export default function DonatePage() {
+const FALLBACK_GIVING = [
+  { title: "PayPal",        description: "Secure one-time or recurring donation", buttonLabel: "Donate via PayPal", url: "https://www.paypal.com/donate/?hosted_button_id=XSHDRCQ2L66JW", isExternal: true },
+  { title: "Venmo",         description: "@TeesHouseInc",                         buttonLabel: "Open Venmo",        url: "https://venmo.com/TeesHouseInc",  isExternal: true },
+  { title: "Cash App",      description: "$teeshouseinc",                         buttonLabel: "Open Cash App",     url: "https://cash.app/$teeshouseinc",  isExternal: true },
+  { title: "Check by Mail", description: "Payable to Tee's House Inc.",           buttonLabel: "Get Mailing Address", url: "/contact",                      isExternal: false },
+]
+
+const FALLBACK_TIERS = [
+  { amount: "$10/mo", impact: "provides snacks for 2 students every week" },
+  { amount: "$25/mo", impact: "covers art supplies for an entire class monthly" },
+  { amount: "$50/mo", impact: "sponsors one student through a full program" },
+]
+
+const ICON_MAP: Record<string, any> = {
+  "PayPal": <CreditCard className="w-6 h-6 text-amber" />,
+  "Venmo": <Smartphone className="w-6 h-6 text-amber" />,
+  "Cash App": <Smartphone className="w-6 h-6 text-amber" />,
+  "Check by Mail": <Mail className="w-6 h-6 text-amber" />,
+}
+
+export default async function DonatePage() {
+  const settings = await getSiteSettings()
+  const s: Partial<SiteSettings> = settings || {}
+  const d = s.donatePage || {}
+
+  const goal     = d.fundraisingGoal     ?? 25000
+  const raised   = d.fundraisingRaised   ?? 6200
+  const donors   = d.fundraisingDonors   ?? 62
+  const label    = d.fundraisingLabel    ?? "2026 STEAM Future Leaders Fund"
+  const deadline = d.fundraisingDeadline ?? "August 31, 2026"
+  const giving   = d.givingOptions?.length ? d.givingOptions : FALLBACK_GIVING
+  const tiers    = d.monthlyTiers?.length  ? d.monthlyTiers  : FALLBACK_TIERS
+  const paypalUrl = s.paypalDonateLink || "https://www.paypal.com/donate/?hosted_button_id=XSHDRCQ2L66JW"
+
   return (
     <>
       <Navbar />
@@ -24,7 +61,7 @@ export default function DonatePage() {
         <section className="relative text-white py-28 px-4 overflow-hidden">
           <Image
             src={`${CDN}/58792471f8a4433f2d4367eba2366f9dd5f21914-1024x1024.png`}
-            alt="Support Tee’s House" fill sizes="100vw" className="object-cover" priority
+            alt="Support Tee's House" fill sizes="100vw" className="object-cover" priority
           />
           <div className="absolute inset-0 bg-green-dark/80" />
           <div className="container-max relative z-10 text-center">
@@ -44,23 +81,20 @@ export default function DonatePage() {
           </div>
         </section>
 
-        {/* Fundraising Thermometer
-            TODO: replace these placeholders with live totals once Tierra has
-            real numbers. Either hardcode here or add a `fundraisingGoal`
-            singleton to Sanity and fetch it via getSiteSettings. */}
+        {/* Fundraising Thermometer — now Sanity-driven */}
         <section className="section-padding bg-green-light">
           <div className="container-max">
             <DonationThermometer
-              goal={25000}
-              raised={6200}
-              donors={62}
-              label="2026 STEAM Future Leaders Fund"
-              deadline="August 31, 2026"
+              goal={goal}
+              raised={raised}
+              donors={donors}
+              label={label}
+              deadline={deadline}
             />
           </div>
         </section>
 
-        {/* Other ways to give */}
+        {/* Other ways to give — now Sanity-driven */}
         <section className="section-padding bg-white">
           <div className="container-max">
             <div className="text-center mb-12">
@@ -68,54 +102,21 @@ export default function DonatePage() {
               <h2 className="text-green-dark mt-3">Other Ways to Give</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
-              {[
-                {
-                  icon: <CreditCard className="w-6 h-6 text-amber" />,
-                  title: "PayPal",
-                  desc: "Secure one-time or recurring donation",
-                  action: "Donate via PayPal",
-                  href: "https://www.paypal.com/donate/?hosted_button_id=XSHDRCQ2L66JW",
-                  external: true
-                },
-                {
-                  icon: <Smartphone className="w-6 h-6 text-amber" />,
-                  title: "Venmo",
-                  desc: "@TeesHouseInc",
-                  action: "Open Venmo",
-                  href: "https://venmo.com/TeesHouseInc",
-                  external: true
-                },
-                {
-                  icon: <Smartphone className="w-6 h-6 text-amber" />,
-                  title: "Cash App",
-                  desc: "$teeshouseinc",
-                  action: "Open Cash App",
-                  href: "https://cash.app/$teeshouseinc",
-                  external: true
-                },
-                {
-                  icon: <Mail className="w-6 h-6 text-amber" />,
-                  title: "Check by Mail",
-                  desc: "Payable to Tee’s House Inc.",
-                  action: "Get Mailing Address",
-                  href: "/contact",
-                  external: false
-                },
-              ].map(item => (
+              {giving.map((item: any) => (
                 <div key={item.title} className="card p-6 text-center flex flex-col">
                   <div className="w-12 h-12 bg-amber-light rounded-full flex items-center justify-center mx-auto mb-3">
-                    {item.icon}
+                    {ICON_MAP[item.title] || <CreditCard className="w-6 h-6 text-amber" />}
                   </div>
                   <h3 className="text-green-dark font-semibold mb-1">{item.title}</h3>
-                  <p className="text-gray-muted text-sm mb-4 flex-1">{item.desc}</p>
-                  {item.external ? (
-                    <a href={item.href} target="_blank" rel="noopener noreferrer"
+                  <p className="text-gray-muted text-sm mb-4 flex-1">{item.description}</p>
+                  {item.isExternal ? (
+                    <a href={item.url} target="_blank" rel="noopener noreferrer"
                       className="btn-outline text-sm justify-center">
-                      {item.action} <ArrowRight className="w-3 h-3" />
+                      {item.buttonLabel || "Donate"} <ArrowRight className="w-3 h-3" />
                     </a>
                   ) : (
-                    <Link href={item.href} className="btn-outline text-sm justify-center">
-                      {item.action} <ArrowRight className="w-3 h-3" />
+                    <Link href={item.url || "/contact"} className="btn-outline text-sm justify-center">
+                      {item.buttonLabel || "Donate"} <ArrowRight className="w-3 h-3" />
                     </Link>
                   )}
                 </div>
@@ -124,7 +125,7 @@ export default function DonatePage() {
           </div>
         </section>
 
-        {/* Monthly giving */}
+        {/* Monthly giving — now Sanity-driven tiers */}
         <section className="section-padding bg-green-dark">
           <div className="container-max">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center max-w-4xl mx-auto">
@@ -136,20 +137,14 @@ export default function DonatePage() {
                   allows us to plan ahead, hire instructors, and serve more youth consistently.
                 </p>
                 <div className="flex flex-col gap-3 mb-6">
-                  {[
-                    { amt: "$10/mo", impact: "provides snacks for 2 students every week" },
-                    { amt: "$25/mo", impact: "covers art supplies for an entire class monthly" },
-                    { amt: "$50/mo", impact: "sponsors one student through a full program" },
-                  ].map(item => (
-                    <div key={item.amt} className="flex items-start gap-3">
+                  {tiers.map((item: any) => (
+                    <div key={item.amount} className="flex items-start gap-3">
                       <RefreshCw className="w-4 h-4 text-amber mt-0.5 shrink-0" />
-                      <p className="text-green-light text-sm"><span className="font-bold text-white">{item.amt}</span> {item.impact}</p>
+                      <p className="text-green-light text-sm"><span className="font-bold text-white">{item.amount}</span> {item.impact}</p>
                     </div>
                   ))}
                 </div>
-                <a href="https://www.paypal.com/donate/?hosted_button_id=XSHDRCQ2L66JW"
-                  target="_blank" rel="noopener noreferrer"
-                  className="btn-amber inline-flex">
+                <a href={paypalUrl} target="_blank" rel="noopener noreferrer" className="btn-amber inline-flex">
                   <RefreshCw className="w-4 h-4" /> Set Up Monthly Giving
                 </a>
               </div>
