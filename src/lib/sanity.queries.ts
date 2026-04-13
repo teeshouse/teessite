@@ -49,14 +49,18 @@ export const IMPACT_STATS_QUERY = groq`
 `
 export const PROGRAMS_QUERY = groq`
   *[_type == "program"] | order(year desc, title asc) {
-    _id, title, slug, status, year, category, description, featured,
-    image { asset->{ url } }
+    _id, title, slug, status, year, category, featured,
+    description[] { ..., _type == "image" => { ..., asset->{ url } } },
+    image { asset->{ url }, alt },
+    gallery[] { alt, caption, asset->{ url } }
   }
 `
 export const FEATURED_PROGRAMS_QUERY = groq`
   *[_type == "program" && featured == true] | order(year desc) {
-    _id, title, slug, status, year, category, description,
-    image { asset->{ url } }
+    _id, title, slug, status, year, category,
+    description[] { ..., _type == "image" => { ..., asset->{ url } } },
+    image { asset->{ url }, alt },
+    gallery[] { alt, caption, asset->{ url } }
   }
 `
 export const NEWS_QUERY = groq`
@@ -92,15 +96,18 @@ export const VOLUNTEER_ROLES_QUERY = groq`
 export const EVENTS_QUERY = groq`
   *[_type == "event"] | order(date asc) {
     _id, title, slug, date, endDate, location, virtual, virtualLink,
-    description, registrationLink, free, cost, featured, status, tags,
-    image { asset->{ url } }
+    description[] { ..., _type == "image" => { ..., asset->{ url } } },
+    registrationLink, free, cost, featured, status, tags,
+    image { asset->{ url } },
+    gallery[] { alt, caption, asset->{ url } }
   }
 `
 export const UPCOMING_EVENTS_QUERY = groq`
   *[_type == "event" && status == "upcoming"] | order(date asc) {
     _id, title, slug, date, endDate, location, virtual,
     registrationLink, free, cost, featured,
-    image { asset->{ url } }
+    image { asset->{ url } },
+    gallery[] { alt, caption, asset->{ url } }
   }
 `
 export const TEAM_QUERY = groq`
