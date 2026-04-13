@@ -27,9 +27,8 @@ export function getResend(): Resend | null {
 // DNS access to teeshouse.org, this can be swapped to mail.teeshouse.org.
 export const FROM   = "Tee’s House <noreply@teeshousepensacola.org>"
 // NOTIFY is the destination mailbox — Resend sends to any valid address,
-// it does NOT need to match the FROM domain. info@mail.teeshouse.org is
-// a real working inbox, so notifications land there today.
-export const NOTIFY = "info@mail.teeshouse.org"
+// it does NOT need to match the FROM domain.
+export const NOTIFY = "info@teeshouse.org"
 
 // Brand palette (kept in sync with tailwind.config.ts)
 const BRAND = {
@@ -142,7 +141,7 @@ function renderHtml(args: NotifyArgs): string {
           <p style="margin:0;font-size:11px;color:${BRAND.grayMuted};line-height:1.5;">
             Automated notification from <strong style="color:${BRAND.greenDark};">teeshousepensacola.org</strong>.
             This submission is also stored in Supabase.
-            <br>Tee&rsquo;s House Inc. &middot; 7823 Bay Meadows Dr, Pensacola, FL 32507 &middot; 501(c)(3)
+            <br>Tee&rsquo;s House Inc. &middot; Pensacola, FL &middot; 501(c)(3)
           </p>
         </td></tr>
       </table>

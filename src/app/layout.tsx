@@ -24,7 +24,7 @@ const sd = {
   "name": "Tee’s House Inc.", "url": "https://www.teeshousepensacola.org",
   "description": "Empowering communities in Northwest Florida.",
   "address": { "@type": "PostalAddress", "addressLocality": "Pensacola", "addressRegion": "FL" },
-  "telephone": "850-291-1888", "email": "info@mail.teeshouse.org"
+  "telephone": "850-291-1888", "email": "info@teeshouse.org"
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

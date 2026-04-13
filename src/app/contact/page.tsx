@@ -78,8 +78,8 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <p className="font-semibold text-gray-body">Email</p>
-                      <a href="mailto:info@mail.teeshouse.org" className="text-gray-muted text-sm hover:text-green-mid transition-colors">
-                        info@mail.teeshouse.org
+                      <a href="mailto:info@teeshouse.org" className="text-gray-muted text-sm hover:text-green-mid transition-colors">
+                        info@teeshouse.org
                       </a>
                     </div>
                   </li>

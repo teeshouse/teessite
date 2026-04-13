@@ -42,7 +42,7 @@ export default async function GalleryPage() {
                 <Camera className="w-12 h-12 text-amber mx-auto mb-4" />
                 <h2 className="text-green-dark mb-3">Photos Coming Soon</h2>
                 <p className="text-gray-muted mb-6">Our gallery is being built. Check back soon!</p>
-                <Link href="/programs" className="btn-primary">See Our Programs <ArrowRight className="w-4 h-4" /></Link>
+                <Link href="/community-impact" className="btn-primary">See Our Programs <ArrowRight className="w-4 h-4" /></Link>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

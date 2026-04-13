@@ -27,8 +27,8 @@ const FALLBACK = {
   heroSubtext:    "Tee’s House Inc. is a 501(c)(3) nonprofit cultivating youth development through hands-on learning experiences in Pensacola, Florida.",
   missionTagline: "Planting seeds of knowledge, creativity, and community.",
   phone:          "850.291.1888",
-  email:          "info@mail.teeshouse.org",
-  address:        "7823 Bay Meadows Dr, Pensacola, FL 32507",
+  email:          "info@teeshouse.org",
+  address:        "Pensacola, FL",
 }
 
 const FALLBACK_STATS = [
@@ -67,7 +67,7 @@ export default async function HomePage() {
             {s.heroSubtext}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/programs" className="btn-amber">
+            <Link href="/community-impact" className="btn-amber">
               {programsLabels.homeHeroCta} <ArrowRight className="w-4 h-4" />
             </Link>
             <Link href="/donate" className="btn-outline-white">
@@ -122,7 +122,7 @@ export default async function HomePage() {
                     </div>
                     <div className="p-5">
                       <h3 className="text-green-dark text-lg mb-2">{p.title}</h3>
-                      <Link href="/programs" className="inline-flex items-center gap-1 text-sm font-semibold text-amber hover:text-amber-dark transition-colors">
+                      <Link href="/community-impact" className="inline-flex items-center gap-1 text-sm font-semibold text-amber hover:text-amber-dark transition-colors">
                         Learn More <ArrowRight className="w-3 h-3" />
                       </Link>
                     </div>
@@ -130,7 +130,7 @@ export default async function HomePage() {
                 ))}
               </div>
               <div className="text-center mt-10">
-                <Link href="/programs" className="btn-primary">
+                <Link href="/community-impact" className="btn-primary">
                   {programsLabels.homeListCta} <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
@@ -208,11 +208,11 @@ export default async function HomePage() {
               <a href="tel:8502911888" className="flex items-center gap-2 hover:text-amber transition-colors">
                 <Phone className="w-4 h-4 text-amber" />{s.phone || "850.291.1888"}
               </a>
-              <a href="mailto:info@mail.teeshouse.org" className="flex items-center gap-2 hover:text-amber transition-colors">
-                <Mail className="w-4 h-4 text-amber" />{s.email || "info@mail.teeshouse.org"}
+              <a href="mailto:info@teeshouse.org" className="flex items-center gap-2 hover:text-amber transition-colors">
+                <Mail className="w-4 h-4 text-amber" />{s.email || "info@teeshouse.org"}
               </a>
               <span className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-amber shrink-0" />{s.address || "7823 Bay Meadows Dr, Pensacola, FL 32507"}
+                <MapPin className="w-4 h-4 text-amber shrink-0" />{s.address || "Pensacola, FL"}
               </span>
             </div>
           </div>

@@ -286,7 +286,7 @@ export default function VolunteerPage() {
               </div>
               {status==="error"&&(
                 <p className="text-red-500 text-sm text-center">
-                  Something went wrong. Please email us at info@mail.teeshouse.org
+                  Something went wrong. Please email us at info@teeshouse.org
                 </p>
               )}
               <button onClick={handleSubmit} disabled={status==="loading"}

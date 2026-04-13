@@ -4,6 +4,15 @@ const nextConfig = {
     remotePatterns: [
       { protocol: "https", hostname: "cdn.sanity.io", pathname: "/images/**" }
     ]
-  }
+  },
+  async redirects() {
+    return [
+      {
+        source: "/programs",
+        destination: "/community-impact",
+        permanent: true,
+      },
+    ]
+  },
 }
 export default nextConfig

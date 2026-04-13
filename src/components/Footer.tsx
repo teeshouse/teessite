@@ -63,7 +63,7 @@ export default async function Footer() {
             <h4 className="text-white font-semibold mb-3 text-xs uppercase tracking-widest">Explore</h4>
             <ul className="space-y-2">
               {[
-                { label: labels.navLabel,        href: "/programs" },
+                { label: labels.navLabel,        href: "/community-impact" },
                 { label: pages.events.navLabel,  href: "/events"   },
                 { label: pages.news.navLabel,    href: "/news"     },
                 { label: pages.gallery.navLabel, href: "/gallery"  },
@@ -98,11 +98,11 @@ export default async function Footer() {
           <a href="tel:8502911888" className="flex items-center gap-2 text-green-light text-sm">
             <Phone className="w-4 h-4 text-amber shrink-0" />850.291.1888
           </a>
-          <a href="mailto:info@mail.teeshouse.org" className="flex items-center gap-2 text-green-light text-sm">
-            <Mail className="w-4 h-4 text-amber shrink-0" />info@mail.teeshouse.org
+          <a href="mailto:info@teeshouse.org" className="flex items-center gap-2 text-green-light text-sm">
+            <Mail className="w-4 h-4 text-amber shrink-0" />info@teeshouse.org
           </a>
           <span className="flex items-center gap-2 text-green-light text-sm">
-            <MapPin className="w-4 h-4 text-amber shrink-0" />7823 Bay Meadows Dr, Pensacola, FL 32507
+            <MapPin className="w-4 h-4 text-amber shrink-0" />Pensacola, FL
           </span>
         </div>
 
@@ -133,7 +133,7 @@ export default async function Footer() {
             <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-widest">Programs</h4>
             <ul className="space-y-2">
               {[
-                { label: labels.navLabel,        href: "/programs" },
+                { label: labels.navLabel,        href: "/community-impact" },
                 { label: pages.events.navLabel,  href: "/events"   },
                 { label: pages.news.navLabel,    href: "/news"     },
                 { label: pages.gallery.navLabel, href: "/gallery"  },
@@ -170,13 +170,13 @@ export default async function Footer() {
                 </a>
               </li>
               <li>
-                <a href="mailto:info@mail.teeshouse.org" className="flex items-start gap-2 text-green-light text-sm hover:text-amber transition-colors">
-                  <Mail className="w-4 h-4 text-amber mt-0.5 shrink-0" />info@mail.teeshouse.org
+                <a href="mailto:info@teeshouse.org" className="flex items-start gap-2 text-green-light text-sm hover:text-amber transition-colors">
+                  <Mail className="w-4 h-4 text-amber mt-0.5 shrink-0" />info@teeshouse.org
                 </a>
               </li>
               <li>
                 <span className="flex items-start gap-2 text-green-light text-sm">
-                  <MapPin className="w-4 h-4 text-amber mt-0.5 shrink-0" />7823 Bay Meadows Dr<br />Pensacola, FL 32507
+                  <MapPin className="w-4 h-4 text-amber mt-0.5 shrink-0" />Pensacola, FL
                 </span>
               </li>
             </ul>
