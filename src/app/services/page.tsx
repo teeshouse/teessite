@@ -63,25 +63,45 @@ const SERVICE_TIERS = [
   },
 ]
 
-/* ── Kit fallbacks (until Tierra adds them in Sanity) ──────── */
-const FALLBACK_KITS = [
-  { title: "Seed Starter Kit",           description: "Everything a young grower needs to start their first garden \u2014 seeds, soil pods, a mini planter, and a step-by-step grow guide." },
-  { title: "Creative Expression Kit",    description: "Art supplies, journal prompts, and a curated activity booklet designed to spark imagination and self-expression in youth." },
-  { title: "Wellness & Mindfulness Kit", description: "Guided breathing exercises, a stress ball, affirmation cards, and a wellness journal \u2014 tools for mental health and self-care." },
+/* ── Kit data from Tierra's Kit Showcase ───────────────────── */
+const KITS = [
+  {
+    name: "Growth with Confidence",
+    subtitle: "Garden Kit",
+    tagline: "Start your gardening journey with ease. Perfect for beginners ready to grow something real.",
+    icon: Leaf,
+    items: ["Planting guide", "Planting pot", "Nutrient-rich soil", "2 packs of seeds"],
+  },
+  {
+    name: "Create & Bloom",
+    subtitle: "Art Kit",
+    tagline: "A space dedicated purely to creativity \u2014 no rules, just expression.",
+    icon: ShoppingBag,
+    items: ["Pre-sketched canvas", "Choice of art supplies (crayons, markers, watercolor, or colored pencils)", "Small creativity journal"],
+  },
+  {
+    name: "Grow & Glow",
+    subtitle: "Ag & Arts Kit",
+    tagline: "Where creativity meets growth \u2014 design, plant, and express all in one experience.",
+    icon: Heart,
+    items: ["Planting guide", "Planting pot", "Nutrient-rich soil", "2 packs of seeds", "Pot decorating supplies", "Small creative journal", "\"Share with Tee\" creative prompt"],
+  },
+  {
+    name: "Thrive Monthly",
+    subtitle: "Subscription Kit",
+    tagline: "An ongoing experience delivered to inspire growth, creativity, and connection every month.",
+    icon: Package,
+    isSubscription: true,
+    items: ["Ag & Arts Kit*", "Tee's House Club access", "\"Share with Tee\" community challenge", "Seasonal seeds", "Creative wellness sheet"],
+    notes: ["*One per subscription", "**Monthly subscription received through snail mail"],
+  },
 ]
-
-const KIT_ICONS: Record<string, typeof Leaf> = {
-  "Seed Starter Kit": Leaf, "Creative Expression Kit": ShoppingBag, "Wellness & Mindfulness Kit": Heart,
-}
 
 export default async function ServicesPage() {
   const [settings, allServices] = await Promise.all([
     getSiteSettings(),
     getServices() as Promise<Service[]>,
   ])
-
-  const kits = allServices.filter(s => s.category === "kit")
-  const displayKits = kits.length > 0 ? kits : FALLBACK_KITS
 
   const phone = settings?.phone || "850.291.1888"
 
@@ -176,7 +196,7 @@ export default async function ServicesPage() {
           </div>
         </section>
 
-        {/* Kits */}
+        {/* Kit Showcase */}
         <section className="section-padding bg-green-light">
           <div className="container-max">
             <div className="text-center mb-12">
@@ -186,27 +206,42 @@ export default async function ServicesPage() {
                 Curated kits that bring the Tee&rsquo;s House experience home &mdash; perfect for families, classrooms, and community groups.
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {displayKits.map((item: any) => {
-                const Icon = KIT_ICONS[item.title] || Package
-                const imgUrl = item.image?.asset?.url
-                return (
-                  <div key={item.title} className="card p-8 text-center hover:-translate-y-1 transition-transform duration-300">
-                    {imgUrl ? (
-                      <div className="relative w-full h-48 rounded-lg overflow-hidden mb-5">
-                        <Image src={imgUrl} alt={item.image?.alt || item.title} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover" />
-                      </div>
-                    ) : (
-                      <div className="w-14 h-14 bg-green-light rounded-full flex items-center justify-center mx-auto mb-5">
-                        <Icon className="w-7 h-7 text-green-mid" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+              {KITS.map((kit) => (
+                <div key={kit.name}
+                  className={`card overflow-hidden hover:-translate-y-1 transition-transform duration-300
+                    ${kit.isSubscription ? "md:col-span-2 border-2 border-amber" : ""}`}>
+                  <div className={`flex items-center gap-4 p-5 ${kit.isSubscription ? "bg-amber/10" : "bg-white"}`}>
+                    <div className={`w-12 h-12 rounded-full flex items-center justify-center shrink-0
+                      ${kit.isSubscription ? "bg-amber/20" : "bg-green-light"}`}>
+                      <kit.icon className={`w-6 h-6 ${kit.isSubscription ? "text-amber" : "text-green-mid"}`} />
+                    </div>
+                    <div>
+                      <h3 className="text-green-dark text-lg font-bold leading-tight">{kit.name}</h3>
+                      <p className="text-amber text-sm font-semibold">{kit.subtitle}</p>
+                    </div>
+                  </div>
+                  <div className="p-5 pt-0">
+                    <p className="text-xs font-bold uppercase tracking-widest text-gray-muted mt-4 mb-3">What&rsquo;s Included{kit.isSubscription ? " Each Month" : ""}:</p>
+                    <ul className="space-y-2 mb-4">
+                      {kit.items.map((item) => (
+                        <li key={item} className="flex items-start gap-2 text-sm text-gray-body">
+                          <Check className="w-4 h-4 text-green-mid shrink-0 mt-0.5" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    {kit.notes && (
+                      <div className="text-xs text-gray-muted space-y-0.5 mb-3">
+                        {kit.notes.map((n) => <p key={n}>{n}</p>)}
                       </div>
                     )}
-                    <h3 className="text-green-dark text-xl mb-3">{item.title}</h3>
-                    {item.price && <p className="text-amber font-semibold text-sm mb-2">{item.price}</p>}
-                    <p className="text-gray-muted text-sm leading-relaxed">{item.description}</p>
+                    <p className="text-sm text-gray-muted italic border-t border-gray-border pt-3">
+                      {kit.tagline}
+                    </p>
                   </div>
-                )
-              })}
+                </div>
+              ))}
             </div>
           </div>
         </section>
