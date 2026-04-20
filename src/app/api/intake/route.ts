@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
     const supabase = createClient(supabaseUrl, supabaseKey)
 
     const { error: dbError } = await supabase
-      .from("client_intake")
+      .from("intake_submissions")
       .insert([{
         name,
         email,
