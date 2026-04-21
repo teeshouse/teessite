@@ -26,7 +26,7 @@ const REFERRAL_OPTIONS = [
 
 export default function IntakeForm() {
   const [form, setForm] = useState({
-    name: "", email: "", phone: "", dob: "",
+    name: "", email: "", phone: "",
     address: "", city: "", state: "", zip: "",
     interests: [] as string[],
     referralSource: "",
@@ -131,11 +131,6 @@ export default function IntakeForm() {
                   type="tel" placeholder="850-000-0000"
                   value={form.phone} onChange={e => set("phone", e.target.value)} />
                 {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
-              </div>
-              <div>
-                <label className="form-label">Date of Birth</label>
-                <input className="form-input" type="date"
-                  value={form.dob} onChange={e => set("dob", e.target.value)} />
               </div>
             </div>
           </div>

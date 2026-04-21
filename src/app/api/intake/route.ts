@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
     const {
-      name, email, phone, dob,
+      name, email, phone,
       address, city, state, zip,
       interests, referralSource, goals, notes,
     } = body
@@ -47,7 +47,6 @@ export async function POST(req: NextRequest) {
         name,
         email,
         phone:           phone || null,
-        dob:             dob || null,
         address:         address || null,
         city:            city || null,
         state:           state || null,
@@ -66,7 +65,6 @@ export async function POST(req: NextRequest) {
 
     await notifyInfo({
       subject: `New client intake: ${name}`,
-      replyTo: email,
       intro:   "A new client intake form was submitted.",
       fields: [
         { label: "Name",     value: name },

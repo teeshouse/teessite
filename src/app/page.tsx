@@ -35,7 +35,7 @@ const FALLBACK_STATS = [
   { label: "Youth Served",       value: "150+" },
   { label: "Programs Delivered", value: "12"   },
   { label: "Volunteers",         value: "40+"  },
-  { label: "Years of Impact",    value: "5+"   },
+  { label: "Years of Impact",    value: "2+"   },
 ]
 
 export default async function HomePage() {

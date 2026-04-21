@@ -53,7 +53,7 @@ export default async function NewsPage() {
                   for the latest from Tee’s House.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Link href="/community-impact" className="btn-primary">Our Programs <ArrowRight className="w-4 h-4" /></Link>
+                  <Link href="/community-impact" className="btn-primary">Community Impact <ArrowRight className="w-4 h-4" /></Link>
                   <Link href="/contact"  className="btn-outline">Contact Us <ArrowRight className="w-4 h-4" /></Link>
                 </div>
               </div>

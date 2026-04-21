@@ -57,7 +57,6 @@ export async function POST(req: NextRequest) {
     // are logged, but its return value never affects the user-facing response.
     await notifyInfo({
       subject: `New contact form: ${subject || "(no subject)"}`,
-      replyTo: email,
       intro:   `A new message was submitted through the contact form.`,
       fields: [
         { label: "Name",    value: name },
