@@ -70,7 +70,6 @@ export async function POST(req: NextRequest) {
         { label: "Name",     value: name },
         { label: "Email",    value: email },
         { label: "Phone",    value: phone || "(none)" },
-        { label: "DOB",      value: dob || "(none)" },
         { label: "Location", value: [address, city, state, zip].filter(Boolean).join(", ") || "(none)" },
         { label: "Interests", value: (interests || []).join(", ") || "(none)" },
         { label: "Referral", value: referralSource || "(none)" },
