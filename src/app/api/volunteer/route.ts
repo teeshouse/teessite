@@ -73,7 +73,6 @@ export async function POST(req: NextRequest) {
 
     await notifyInfo({
       subject: `New volunteer application: ${name}`,
-      replyTo: email,
       intro:   `A new volunteer application was submitted.`,
       fields: [
         { label: "Name",       value: name },
