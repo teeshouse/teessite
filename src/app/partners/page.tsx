@@ -81,7 +81,7 @@ export default async function PartnersPage() {
               })
             )}
             <div className="card p-10 text-center mt-8 bg-amber-light">
-              <h2 className="text-green-dark mb-3">Become a Partner</h2>
+              <h2 className="text-green-dark mb-3">Become a Sponsor</h2>
               <p className="text-gray-muted max-w-lg mx-auto mb-6">
                 Your organization can help us grow. From in-kind donations to program sponsorships,
                 there are many ways to partner with Tee’s House.
