@@ -70,7 +70,7 @@ const KITS = [
     subtitle: "Garden Kit",
     tagline: "Start your gardening journey with ease. Perfect for beginners ready to grow something real.",
     icon: Leaf,
-    items: ["Planting guide", "Planting pot", "Nutrient-rich soil", "2 packs of seeds"],
+    items: ["Planting Guide", "Planting Pot", "Nutrient-rich soil", "2 packs of seeds"],
   },
   {
     name: "Create & Bloom",
@@ -84,7 +84,7 @@ const KITS = [
     subtitle: "Ag & Arts Kit",
     tagline: "Where creativity meets growth \u2014 design, plant, and express all in one experience.",
     icon: Heart,
-    items: ["Planting guide", "Planting pot", "Nutrient-rich soil", "2 packs of seeds", "Pot Decorating supplies", "Small creative journal", "\"Share with Tee\" creative prompt"],
+    items: ["Planting Guide", "Planting pot", "Nutrient-rich soil", "2 packs of seeds", "Pot Decorating supplies", "Small creative journal", "\"Share with Tee\" creative prompt"],
   },
   {
     name: "Thrive Monthly",
