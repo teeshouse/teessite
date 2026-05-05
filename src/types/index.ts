@@ -77,10 +77,24 @@ export interface HomePageSettings {
   heroImage?: { asset?: { url?: string } }
 }
 export interface Service {
-  _id: string; title: string; description: string
-  category: "kit" | "service"; price?: string
+  _id: string
+  title: string
+  category: "kit" | "service"
+  price?: string
+  priceNote?: string
+  badge?: string
+  tierNumber?: number
+  features?: string[]
+  extras?: string[]
+  tagline?: string
+  items?: string[]
+  kitNotes?: string[]
+  isSubscription?: boolean
+  comingSoon?: boolean
+  paypalUrl?: string
   image?: { asset?: { url?: string }; alt?: string }
-  featured?: boolean; order?: number
+  featured?: boolean
+  order?: number
 }
 export interface SiteSettings {
   heroHeadline: string; heroSubtext: string; missionTagline: string

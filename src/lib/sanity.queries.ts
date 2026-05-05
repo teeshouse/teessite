@@ -163,7 +163,9 @@ export const DOWNLOADS_QUERY = groq`
 `
 export const SERVICES_QUERY = groq`
   *[_type == "service"] | order(order asc) {
-    _id, title, description, category, price, featured, order,
+    _id, title, category, price, priceNote, badge, tierNumber, featured, order,
+    tagline, items, kitNotes, isSubscription, comingSoon, paypalUrl,
+    features, extras,
     image { asset->{ url }, alt }
   }
 `
