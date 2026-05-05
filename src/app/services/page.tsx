@@ -21,7 +21,7 @@ const SERVICE_TIERS = [
   {
     tier: 1,
     name: "Workshops",
-    price: "$250 per session",
+    price: "$10 per person",
     color: "green-mid",
     features: [
       "Introduction to gardening practices",
