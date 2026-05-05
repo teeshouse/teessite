@@ -77,7 +77,7 @@ const KITS = [
     subtitle: "Art Kit",
     tagline: "A space dedicated purely to creativity \u2014 no rules, just expression.",
     icon: ShoppingBag,
-    items: ["Pre-sketched canvas", "Art supplies",
+    items: ["Pre-sketched canvas", "Art supplies", "Small creativity journal"],
   },
   {
     name: "Grow & Glow",
