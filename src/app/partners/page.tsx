@@ -86,7 +86,7 @@ export default async function PartnersPage() {
                 Your organization can help us grow. From in-kind donations to program sponsorships,
                 there are many ways to partner with Tee’s House.
               </p>
-              <Link href="/contact" className="btn-primary">Partner With Us <ArrowRight className="w-4 h-4" /></Link>
+              <Link href="/contact" className="btn-primary">Contact Us <ArrowRight className="w-4 h-4" /></Link>
             </div>
           </div>
         </section>
