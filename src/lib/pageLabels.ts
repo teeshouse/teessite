@@ -45,6 +45,13 @@ export const DEFAULT_PAGE_LABELS: Record<PageLabelsKey, Required<PageLabelFields
     metaTitle:       "Gallery | Tee\u2019s House Inc.",
     metaDescription: "Photos from Tee\u2019s House programs, events, and community moments in Pensacola, FL.",
   },
+  partners: {
+    navLabel:        "Partners",
+    pageTitle:       "Partners and Sponsors",
+    pageKicker:      "Together We Grow",
+    metaTitle:       "Partners & Sponsors | Tee\u2019s House Inc.",
+    metaDescription: "Organizations and individuals who make Tee\u2019s House programs possible in Pensacola, FL.",
+  },
 }
 
 /**
@@ -74,9 +81,10 @@ export function resolveAllPageLabels(
   settings: Pick<SiteSettings, "pageLabels"> | null | undefined,
 ): Record<PageLabelsKey, Required<PageLabelFields>> {
   return {
-    about:   resolvePageLabels("about",   settings),
-    events:  resolvePageLabels("events",  settings),
-    news:    resolvePageLabels("news",    settings),
-    gallery: resolvePageLabels("gallery", settings),
+    about:    resolvePageLabels("about",    settings),
+    events:   resolvePageLabels("events",   settings),
+    news:     resolvePageLabels("news",     settings),
+    gallery:  resolvePageLabels("gallery",  settings),
+    partners: resolvePageLabels("partners", settings),
   }
 }

@@ -3,14 +3,15 @@ import Image from "next/image"
 import Link from "next/link"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
-import { getPartners } from "@/lib/sanity.fetch"
+import { getPartners, getSiteSettings } from "@/lib/sanity.fetch"
+import { resolvePageLabels } from "@/lib/pageLabels"
 import { ArrowRight, ExternalLink } from "lucide-react"
 
 export const revalidate = 60
 
-export const metadata: Metadata = {
-  title: "Partners and Sponsors | Tee’s House Inc.",
-  description: "Our partners and sponsors who make Tee’s House programs possible."
+export async function generateMetadata(): Promise<Metadata> {
+  const labels = resolvePageLabels("partners", await getSiteSettings())
+  return { title: labels.metaTitle, description: labels.metaDescription }
 }
 
 const TIER_LABELS: Record<string, string> = {
@@ -22,7 +23,8 @@ const TIER_LABELS: Record<string, string> = {
 const TIERS = ["platinum", "gold", "silver", "community"]
 
 export default async function PartnersPage() {
-  const partners = await getPartners()
+  const [partners, settings] = await Promise.all([getPartners(), getSiteSettings()])
+  const labels = resolvePageLabels("partners", settings)
 
   return (
     <>
@@ -30,8 +32,8 @@ export default async function PartnersPage() {
       <main>
         <section className="bg-green-dark text-white py-20 px-4">
           <div className="container-max text-center">
-            <span className="text-amber font-semibold text-sm uppercase tracking-widest">Together We Grow</span>
-            <h1 className="text-white mt-3 mb-4 text-4xl md:text-5xl">Partners and Sponsors</h1>
+            <span className="text-amber font-semibold text-sm uppercase tracking-widest">{labels.pageKicker}</span>
+            <h1 className="text-white mt-3 mb-4 text-4xl md:text-5xl">{labels.pageTitle}</h1>
             <p className="text-green-light text-lg max-w-xl mx-auto">
               Our work is made possible by organizations and individuals who believe in our mission.
             </p>

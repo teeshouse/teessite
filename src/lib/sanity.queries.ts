@@ -20,7 +20,8 @@ export const SITE_SETTINGS_QUERY = groq`
       about   { navLabel, pageTitle, pageKicker, metaTitle, metaDescription },
       events  { navLabel, pageTitle, pageKicker, metaTitle, metaDescription },
       news    { navLabel, pageTitle, pageKicker, metaTitle, metaDescription },
-      gallery { navLabel, pageTitle, pageKicker, metaTitle, metaDescription }
+      gallery  { navLabel, pageTitle, pageKicker, metaTitle, metaDescription },
+      partners { navLabel, pageTitle, pageKicker, metaTitle, metaDescription }
     },
     donatePage {
       fundraisingGoal, fundraisingRaised, fundraisingDonors,

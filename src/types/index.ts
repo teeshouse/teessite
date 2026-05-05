@@ -42,10 +42,11 @@ export interface PageLabelFields {
   metaDescription?: string
 }
 export interface PageLabelsSettings {
-  about?:   PageLabelFields
-  events?:  PageLabelFields
-  news?:    PageLabelFields
-  gallery?: PageLabelFields
+  about?:    PageLabelFields
+  events?:   PageLabelFields
+  news?:     PageLabelFields
+  gallery?:  PageLabelFields
+  partners?: PageLabelFields
 }
 export type PageLabelsKey = keyof PageLabelsSettings
 export interface GivingOption {
