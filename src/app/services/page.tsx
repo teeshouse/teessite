@@ -77,14 +77,14 @@ const KITS = [
     subtitle: "Art Kit",
     tagline: "A space dedicated purely to creativity \u2014 no rules, just expression.",
     icon: ShoppingBag,
-    items: ["Pre-sketched canvas", "Choice of art supplies (crayons, markers, watercolor, or colored pencils)", "Small creativity journal"],
+    items: ["Pre-sketched canvas", "Art supplies",
   },
   {
     name: "Grow & Glow",
     subtitle: "Ag & Arts Kit",
     tagline: "Where creativity meets growth \u2014 design, plant, and express all in one experience.",
     icon: Heart,
-    items: ["Planting guide", "Planting pot", "Nutrient-rich soil", "2 packs of seeds", "Pot decorating supplies", "Small creative journal", "\"Share with Tee\" creative prompt"],
+    items: ["Planting guide", "Planting pot", "Nutrient-rich soil", "2 packs of seeds", "Pot Decorating supplies", "Small creative journal", "\"Share with Tee\" creative prompt"],
   },
   {
     name: "Thrive Monthly",
@@ -92,7 +92,7 @@ const KITS = [
     tagline: "An ongoing experience delivered to inspire growth, creativity, and connection every month.",
     icon: Package,
     isSubscription: true,
-    items: ["Ag & Arts Kit*", "Tee's House Club access", "\"Share with Tee\" community challenge", "Seasonal seeds", "Creative wellness sheet"],
+    items: ["Ag & Arts Kit*", "Tee's House Club Access", "Seasonal seeds", "Creative Wellness Sheet"],
     notes: ["*One per subscription", "**Monthly subscription received through snail mail"],
   },
 ]
