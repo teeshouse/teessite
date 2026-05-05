@@ -211,7 +211,7 @@ export default async function ServicesPage() {
             </div>
             <div className="text-center mb-6">
               <span className="inline-flex items-center gap-2 bg-amber/10 border border-amber text-amber text-sm font-semibold px-4 py-2 rounded-full">
-                <Sparkles className="w-4 h-4" /> Coming Soon &mdash; Pre-sales open last 2 weeks of May &bull; Debut in June
+                <Sparkles className="w-4 h-4" /> Coming Soon &mdash; Pre-Sales start in May 2026 &bull;
               </span>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
