@@ -79,7 +79,7 @@ const FALLBACK_KITS: Service[] = [
     _id: "k4", category: "kit", title: "Thrive Monthly",
     price: "Subscription Kit", comingSoon: true, isSubscription: true,
     tagline: "An ongoing experience delivered to inspire growth, creativity, and connection every month.",
-    items: ["Ag & Arts Kit*", "Tee’s House Club Access", "Seasonal seeds", "Creative Wellness Sheet"],
+    items: ["Ag & Arts Kit*", "A2 Club Access", "Seasonal seeds", "Creative Wellness Sheet"],
     kitNotes: ["*One per subscription", "**Monthly subscription received through snail mail"],
   },
 ]
