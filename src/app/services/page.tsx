@@ -112,7 +112,7 @@ export default async function ServicesPage() {
             style={{ backgroundImage: "radial-gradient(circle at 30% 60%, #4A7C2F 0%, transparent 50%), radial-gradient(circle at 70% 20%, #C8860A 0%, transparent 40%)" }} />
           <div className="container-max relative text-center">
             <span className="text-amber font-semibold text-sm uppercase tracking-widest">Growing Knowledge, Cultivating Community</span>
-            <h1 className="text-white mt-3 mb-4 text-4xl md:text-5xl">Products &amp; Services</h1>
+            <h1 className="text-white mt-3 mb-4 text-4xl md:text-5xl">Fundraisers &amp; Offerings</h1>
             <p className="text-green-light text-lg max-w-2xl mx-auto">
               From single workshops to full program implementation, we bring hands-on agriculture and education experiences to your school, organization, or community.
             </p>
@@ -123,7 +123,7 @@ export default async function ServicesPage() {
         <section className="section-padding bg-white">
           <div className="container-max">
             <div className="text-center mb-14">
-              <span className="text-amber font-semibold text-sm uppercase tracking-widest">Service Tiers</span>
+              <span className="text-amber font-semibold text-sm uppercase tracking-widest">Offering Tiers</span>
               <h2 className="text-green-dark mt-3">Choose Your Level of Support</h2>
               <p className="text-gray-muted max-w-lg mx-auto mt-2">
                 Each tier builds on the last. Start with a single workshop or go all-in with a full seasonal program.
@@ -198,7 +198,7 @@ export default async function ServicesPage() {
             {anyComingSoon && (
               <div className="text-center mb-6">
                 <span className="inline-flex items-center gap-2 bg-amber/10 border border-amber text-amber text-sm font-semibold px-4 py-2 rounded-full">
-                  <Sparkles className="w-4 h-4" /> Coming Soon &mdash; Pre-sales open last 2 weeks of May &bull; Debut in June
+                  <Sparkles className="w-4 h-4" /> Coming Soon
                 </span>
               </div>
             )}
