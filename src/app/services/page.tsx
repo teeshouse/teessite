@@ -59,7 +59,7 @@ const FALLBACK_TIERS: Service[] = [
 const FALLBACK_KITS: Service[] = [
   {
     _id: "k1", category: "kit", title: "Growth with Confidence",
-    price: "Garden Kit", comingSoon: true,
+    price: "Ag Kit", comingSoon: true,
     tagline: "Start your gardening journey with ease. Perfect for beginners ready to grow something real.",
     items: ["Planting Guide", "Planting Pot", "Nutrient-rich soil", "2 packs of seeds"],
   },
