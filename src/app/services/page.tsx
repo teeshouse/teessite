@@ -10,7 +10,7 @@ import type { Service } from "@/types"
 export const revalidate = 60
 
 export const metadata: Metadata = {
-  title:       "Products & Services | Tee’s House Inc.",
+  title:       "Fundraisers & Offerings | Tee’s House Inc.",
   description: "Workshops, program support, full implementation, and curated kits from Tee’s House Inc. in Pensacola, FL.",
 }
 
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 const FALLBACK_TIERS: Service[] = [
   {
     _id: "t1", category: "service", tierNumber: 1, title: "Workshops",
-    price: "$250 per session",
+    price: "starting at $10 per person",
     features: [
       "Introduction to gardening practices",
       "Basic topics (soil, planting, watering, seasonal awareness)",
