@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 const FALLBACK_TIERS: Service[] = [
   {
     _id: "t1", category: "service", tierNumber: 1, title: "Workshops",
-    price: "starting at $10 per person",
+    price: "Donation request of $10 per person",
     features: [
       "Introduction to gardening practices",
       "Basic topics (soil, planting, watering, seasonal awareness)",
