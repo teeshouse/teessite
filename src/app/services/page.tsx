@@ -73,7 +73,7 @@ const FALLBACK_KITS: Service[] = [
     _id: "k3", category: "kit", title: "Grow & Glow",
     price: "Ag & Arts Kit", comingSoon: true,
     tagline: "Where creativity meets growth — design, plant, and express all in one experience.",
-    items: ["Planting Guide", "Planting pot", "Nutrient-rich soil", "2 packs of seeds", "Pot decorating supplies", "Small creative journal", "“Share with Tee” creative prompt"],
+    items: ["Planting Guide", "Planting pot", "Nutrient-rich soil", "2 packs of seeds", "Pot decorating supplies", "Small creative journal", "A2 Creative Prompt"],
   },
   {
     _id: "k4", category: "kit", title: "Thrive Monthly",
