@@ -67,8 +67,8 @@ export default async function ProgramsPage() {
             <p className="font-display italic text-green-dark text-xl md:text-2xl leading-relaxed">
               At Tee’s House, we believe growth begins with connection between people, purpose, and the planet.
               Each program we create is designed to nourish the mind, the body, and the spirit while building
-              stronger, more resilient communities. Our work in 2025 reflects the heart of that mission,
-              weaving together science, creativity, agriculture, and the arts to help young leaders blossom.
+              stronger, more resilient communities. Our work reflects the heart of that mission,
+              weaving together agriculture and arts to help young leaders blossom.
             </p>
           </div>
         </section>
