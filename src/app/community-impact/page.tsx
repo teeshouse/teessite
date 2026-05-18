@@ -127,14 +127,14 @@ export default async function ProgramsPage() {
                   </div>
                   <div className="md:order-1">
                     <span className="badge-current mb-4 inline-block">Current 2026</span>
-                    <h3 className="text-green-dark text-2xl mb-4">Mobile Garden</h3>
+                    <h3 className="text-green-dark text-2xl mb-4">Creative Arts Club</h3>
                     <p className="text-gray-muted leading-relaxed mb-4">
-                      Through our Mobile Garden, Tee’s House provides a safe, expressive space for
-                      community members to explore and actual garden creation experience.
+                      Through our Creative Arts Club, Tee’s House provides a safe, expressive space for
+                      community members to explore and capture a unique experience of creative arts & cultural expression.
                     </p>
                     <p className="text-gray-muted leading-relaxed">
-                      Participants captivate themselves in an immersive hands-on experience that assist
-                      them with fighting food insecurity at the start of their seed planting exploration.
+                      Participants captivate themselves in an immersive experience exploring different creative
+                      artist in song, dance, poetry and creativeness.
                     </p>
                   </div>
                 </div>
