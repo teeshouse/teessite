@@ -78,7 +78,7 @@ export default async function ProgramsPage() {
           <div className="container-max">
             <div className="text-center mb-12">
               <span className="text-amber font-semibold text-sm uppercase tracking-widest">Active Now</span>
-              <h2 className="text-green-dark mt-3">Current 2025 Programs</h2>
+              <h2 className="text-green-dark mt-3">Current 2026 Programs</h2>
             </div>
 
             {hasContent && current.length > 0 ? (
@@ -107,8 +107,8 @@ export default async function ProgramsPage() {
                     <Image src={STATIC.agArts} alt="Agriculture and Arts Enrichment" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
                   </div>
                   <div>
-                    <span className="badge-current mb-4 inline-block">Current 2025</span>
-                    <h3 className="text-green-dark text-2xl mb-4">Agriculture and Arts Enrichment</h3>
+                    <span className="badge-current mb-4 inline-block">Current 2026</span>
+                    <h3 className="text-green-dark text-2xl mb-4">A2 (Agriculture & Arts) Club</h3>
                     <p className="text-gray-muted leading-relaxed mb-4">
                       Our ongoing school partnerships continue to blossom. Tee’s House has been actively involved
                       in implementing agriculture and arts enrichment that enhances traditional learning with
@@ -126,16 +126,15 @@ export default async function ProgramsPage() {
                     <Image src={STATIC.drama} alt="Drama and Poetry Club" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
                   </div>
                   <div className="md:order-1">
-                    <span className="badge-current mb-4 inline-block">Current 2025</span>
-                    <h3 className="text-green-dark text-2xl mb-4">Drama and Poetry Club (Grades 3-5)</h3>
+                    <span className="badge-current mb-4 inline-block">Current 2026</span>
+                    <h3 className="text-green-dark text-2xl mb-4">Mobile Garden</h3>
                     <p className="text-gray-muted leading-relaxed mb-4">
-                      Through our Drama and Poetry Club, Tee’s House provides a safe, expressive space for
-                      students in grades 3-5 to explore their voices and share their stories.
+                      Through our Mobile Garden, Tee’s House provides a safe, expressive space for
+                      community members to explore and actual garden creation experience.
                     </p>
                     <p className="text-gray-muted leading-relaxed">
-                      Participants study the works of notable poets, create original pieces, and perform for
-                      peers and families, building confidence and communication skills that extend far beyond
-                      the classroom.
+                      Participants captivate themselves in an immersive hands-on experience that assist
+                      them with fighting food insecurity at the start of their seed planting exploration.
                     </p>
                   </div>
                 </div>
@@ -152,7 +151,7 @@ export default async function ProgramsPage() {
                 <span className="badge-upcoming mb-4 inline-block">Coming 2026</span>
                 <h2 className="text-white mb-4">Looking Ahead to 2026</h2>
                 <p className="text-white/90 leading-relaxed mb-4">
-                  As we reflect on an incredible year of growth, we are also preparing something extraordinary --
+                  As we reflect on an incredible year of growth, we are also preparing something extraordinary -
                   a first-of-its-kind program launching in 2026.
                 </p>
                 <p className="text-white/90 leading-relaxed mb-6">
