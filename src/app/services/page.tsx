@@ -112,76 +112,10 @@ export default async function ServicesPage() {
             style={{ backgroundImage: "radial-gradient(circle at 30% 60%, #4A7C2F 0%, transparent 50%), radial-gradient(circle at 70% 20%, #C8860A 0%, transparent 40%)" }} />
           <div className="container-max relative text-center">
             <span className="text-amber font-semibold text-sm uppercase tracking-widest">Growing Knowledge, Cultivating Community</span>
-            <h1 className="text-white mt-3 mb-4 text-4xl md:text-5xl">Products &amp; Services</h1>
+            <h1 className="text-white mt-3 mb-4 text-4xl md:text-5xl">Fundraisers &amp; Offerings</h1>
             <p className="text-green-light text-lg max-w-2xl mx-auto">
               From single workshops to full program implementation, we bring hands-on agriculture and education experiences to your school, organization, or community.
             </p>
-          </div>
-        </section>
-
-        {/* Service Tiers */}
-        <section className="section-padding bg-white">
-          <div className="container-max">
-            <div className="text-center mb-14">
-              <span className="text-amber font-semibold text-sm uppercase tracking-widest">Service Tiers</span>
-              <h2 className="text-green-dark mt-3">Choose Your Level of Support</h2>
-              <p className="text-gray-muted max-w-lg mx-auto mt-2">
-                Each tier builds on the last. Start with a single workshop or go all-in with a full seasonal program.
-              </p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-              {tiers.map((tier, idx) => {
-                const tierNum = tier.tierNumber ?? (idx + 1)
-                const isDark  = tierNum === 3
-                const isPopular = !!tier.badge
-                return (
-                  <div key={tier._id}
-                    className={`relative card overflow-hidden flex flex-col ${isPopular ? "border-2 border-amber ring-2 ring-amber/20" : ""}`}>
-                    {tier.badge && (
-                      <div className="bg-amber text-white text-xs font-bold uppercase tracking-wider text-center py-1.5">
-                        <Star className="w-3 h-3 inline -mt-0.5 mr-1" />{tier.badge}
-                      </div>
-                    )}
-                    <div className={`p-6 ${tierNum === 1 ? "bg-green-light" : tierNum === 2 ? "bg-amber/10" : "bg-green-dark text-white"}`}>
-                      <p className="text-xs font-bold uppercase tracking-widest mb-1 text-amber">Tier {tierNum}</p>
-                      <h3 className={`text-2xl font-display font-bold ${isDark ? "text-white" : "text-green-dark"}`}>{tier.title}</h3>
-                      <p className={`text-sm mt-2 font-semibold ${isDark ? "text-green-light" : "text-gray-body"}`}>{tier.price}</p>
-                      {tier.priceNote && (
-                        <p className={`text-xs mt-1 ${isDark ? "text-green-light/70" : "text-gray-muted"}`}>{tier.priceNote}</p>
-                      )}
-                    </div>
-                    <div className="p-6 flex-1 flex flex-col">
-                      <ul className="space-y-3 flex-1">
-                        {(tier.features || []).map((f) => (
-                          <li key={f} className="flex items-start gap-2 text-sm text-gray-body">
-                            <Check className="w-4 h-4 text-green-mid shrink-0 mt-0.5" /><span>{f}</span>
-                          </li>
-                        ))}
-                      </ul>
-                      {tier.extras && tier.extras.length > 0 && (
-                        <div className="mt-5 pt-4 border-t border-gray-border">
-                          <p className="text-xs font-bold uppercase tracking-widest text-amber mb-3">
-                            <Sparkles className="w-3 h-3 inline -mt-0.5 mr-1" />Optional Enhancements
-                          </p>
-                          <ul className="space-y-2">
-                            {tier.extras.map((e) => (
-                              <li key={e} className="flex items-start gap-2 text-sm text-gray-muted">
-                                <Check className="w-4 h-4 text-amber shrink-0 mt-0.5" /><span>{e}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-                      <Link href="/contact"
-                        className={`mt-6 text-sm text-center py-3 rounded-lg font-semibold transition-colors
-                          ${isPopular ? "btn-amber w-full justify-center" : "btn-outline w-full justify-center"}`}>
-                        {tierNum === 3 ? "Request a Quote" : "Get Started"}
-                      </Link>
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
           </div>
         </section>
 
@@ -261,6 +195,72 @@ export default async function ServicesPage() {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Service Tiers */}
+        <section className="section-padding bg-white">
+          <div className="container-max">
+            <div className="text-center mb-14">
+              <span className="text-amber font-semibold text-sm uppercase tracking-widest">Service Tiers</span>
+              <h2 className="text-green-dark mt-3">Choose Your Level of Support</h2>
+              <p className="text-gray-muted max-w-lg mx-auto mt-2">
+                Each tier builds on the last. Start with a single workshop or go all-in with a full seasonal program.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              {tiers.map((tier, idx) => {
+                const tierNum = tier.tierNumber ?? (idx + 1)
+                const isDark  = tierNum === 3
+                const isPopular = !!tier.badge
+                return (
+                  <div key={tier._id}
+                    className={`relative card overflow-hidden flex flex-col ${isPopular ? "border-2 border-amber ring-2 ring-amber/20" : ""}`}>
+                    {tier.badge && (
+                      <div className="bg-amber text-white text-xs font-bold uppercase tracking-wider text-center py-1.5">
+                        <Star className="w-3 h-3 inline -mt-0.5 mr-1" />{tier.badge}
+                      </div>
+                    )}
+                    <div className={`p-6 ${tierNum === 1 ? "bg-green-light" : tierNum === 2 ? "bg-amber/10" : "bg-green-dark text-white"}`}>
+                      <p className="text-xs font-bold uppercase tracking-widest mb-1 text-amber">Tier {tierNum}</p>
+                      <h3 className={`text-2xl font-display font-bold ${isDark ? "text-white" : "text-green-dark"}`}>{tier.title}</h3>
+                      <p className={`text-sm mt-2 font-semibold ${isDark ? "text-green-light" : "text-gray-body"}`}>{tier.price}</p>
+                      {tier.priceNote && (
+                        <p className={`text-xs mt-1 ${isDark ? "text-green-light/70" : "text-gray-muted"}`}>{tier.priceNote}</p>
+                      )}
+                    </div>
+                    <div className="p-6 flex-1 flex flex-col">
+                      <ul className="space-y-3 flex-1">
+                        {(tier.features || []).map((f) => (
+                          <li key={f} className="flex items-start gap-2 text-sm text-gray-body">
+                            <Check className="w-4 h-4 text-green-mid shrink-0 mt-0.5" /><span>{f}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      {tier.extras && tier.extras.length > 0 && (
+                        <div className="mt-5 pt-4 border-t border-gray-border">
+                          <p className="text-xs font-bold uppercase tracking-widest text-amber mb-3">
+                            <Sparkles className="w-3 h-3 inline -mt-0.5 mr-1" />Optional Enhancements
+                          </p>
+                          <ul className="space-y-2">
+                            {tier.extras.map((e) => (
+                              <li key={e} className="flex items-start gap-2 text-sm text-gray-muted">
+                                <Check className="w-4 h-4 text-amber shrink-0 mt-0.5" /><span>{e}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                      <Link href="/contact"
+                        className={`mt-6 text-sm text-center py-3 rounded-lg font-semibold transition-colors
+                          ${isPopular ? "btn-amber w-full justify-center" : "btn-outline w-full justify-center"}`}>
+                        {tierNum === 3 ? "Request a Quote" : "Get Started"}
+                      </Link>
+                    </div>
+                  </div>
+                )
+              })}
             </div>
           </div>
         </section>
