@@ -10,7 +10,7 @@ import type { Service } from "@/types"
 export const revalidate = 60
 
 export const metadata: Metadata = {
-  title:       "Products & Services | Tee’s House Inc.",
+  title:       "Fundraisers & Offerings | Tee’s House Inc.",
   description: "Workshops, program support, full implementation, and curated kits from Tee’s House Inc. in Pensacola, FL.",
 }
 
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 const FALLBACK_TIERS: Service[] = [
   {
     _id: "t1", category: "service", tierNumber: 1, title: "Workshops",
-    price: "$250 per session",
+    price: "Donation request of $10 per person",
     features: [
       "Introduction to gardening practices",
       "Basic topics (soil, planting, watering, seasonal awareness)",
@@ -59,7 +59,7 @@ const FALLBACK_TIERS: Service[] = [
 const FALLBACK_KITS: Service[] = [
   {
     _id: "k1", category: "kit", title: "Growth with Confidence",
-    price: "Garden Kit", comingSoon: true,
+    price: "Ag Kit", comingSoon: true,
     tagline: "Start your gardening journey with ease. Perfect for beginners ready to grow something real.",
     items: ["Planting Guide", "Planting Pot", "Nutrient-rich soil", "2 packs of seeds"],
   },
@@ -73,13 +73,13 @@ const FALLBACK_KITS: Service[] = [
     _id: "k3", category: "kit", title: "Grow & Glow",
     price: "Ag & Arts Kit", comingSoon: true,
     tagline: "Where creativity meets growth — design, plant, and express all in one experience.",
-    items: ["Planting Guide", "Planting pot", "Nutrient-rich soil", "2 packs of seeds", "Pot decorating supplies", "Small creative journal", "“Share with Tee” creative prompt"],
+    items: ["Planting Guide", "Planting pot", "Nutrient-rich soil", "2 packs of seeds", "Pot decorating supplies", "Small creative journal", "A2 Creative Prompt"],
   },
   {
     _id: "k4", category: "kit", title: "Thrive Monthly",
     price: "Subscription Kit", comingSoon: true, isSubscription: true,
     tagline: "An ongoing experience delivered to inspire growth, creativity, and connection every month.",
-    items: ["Ag & Arts Kit*", "Tee’s House Club Access", "Seasonal seeds", "Creative Wellness Sheet"],
+    items: ["Ag & Arts Kit*", "A2 Club Access", "Seasonal seeds", "Creative Wellness Sheet"],
     kitNotes: ["*One per subscription", "**Monthly subscription received through snail mail"],
   },
 ]
@@ -120,7 +120,7 @@ export default async function ServicesPage() {
         </section>
 
         {/* Kit Showcase */}
-        <section className="section-padding bg-green-light">
+        <section className="section-padding bg-white">
           <div className="container-max">
             <div className="text-center mb-12">
               <span className="text-amber font-semibold text-sm uppercase tracking-widest">Take Home the Mission</span>
@@ -132,7 +132,7 @@ export default async function ServicesPage() {
             {anyComingSoon && (
               <div className="text-center mb-6">
                 <span className="inline-flex items-center gap-2 bg-amber/10 border border-amber text-amber text-sm font-semibold px-4 py-2 rounded-full">
-                  <Sparkles className="w-4 h-4" /> Coming Soon &mdash; Pre-sales open last 2 weeks of May &bull; Debut in June
+                  <Sparkles className="w-4 h-4" /> Coming Soon
                 </span>
               </div>
             )}
@@ -200,10 +200,10 @@ export default async function ServicesPage() {
         </section>
 
         {/* Service Tiers */}
-        <section className="section-padding bg-white">
+        <section className="section-padding bg-green-light">
           <div className="container-max">
             <div className="text-center mb-14">
-              <span className="text-amber font-semibold text-sm uppercase tracking-widest">Service Tiers</span>
+              <span className="text-amber font-semibold text-sm uppercase tracking-widest">Offering Tiers</span>
               <h2 className="text-green-dark mt-3">Choose Your Level of Support</h2>
               <p className="text-gray-muted max-w-lg mx-auto mt-2">
                 Each tier builds on the last. Start with a single workshop or go all-in with a full seasonal program.
@@ -222,7 +222,7 @@ export default async function ServicesPage() {
                         <Star className="w-3 h-3 inline -mt-0.5 mr-1" />{tier.badge}
                       </div>
                     )}
-                    <div className={`p-6 ${tierNum === 1 ? "bg-green-light" : tierNum === 2 ? "bg-amber/10" : "bg-green-dark text-white"}`}>
+                    <div className={`p-6 ${tierNum === 1 ? "bg-white" : tierNum === 2 ? "bg-amber/10" : "bg-green-dark text-white"}`}>
                       <p className="text-xs font-bold uppercase tracking-widest mb-1 text-amber">Tier {tierNum}</p>
                       <h3 className={`text-2xl font-display font-bold ${isDark ? "text-white" : "text-green-dark"}`}>{tier.title}</h3>
                       <p className={`text-sm mt-2 font-semibold ${isDark ? "text-green-light" : "text-gray-body"}`}>{tier.price}</p>
