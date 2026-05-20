@@ -13,5 +13,6 @@
 next-env.d.ts
 bootstrap-teeshouse.ps1
 
-# Claude Code local settings (per-developer, not shared)
+# Claude Code — keep local only to prevent prompt injection via public repo
+CLAUDE.md
 .claude/settings.local.json
