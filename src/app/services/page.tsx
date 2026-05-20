@@ -58,29 +58,17 @@ const FALLBACK_TIERS: Service[] = [
 /* ── Fallback kits (used until Tierra adds them in Sanity) ─────────── */
 const FALLBACK_KITS: Service[] = [
   {
-    _id: "k1", category: "kit", title: "Growth with Confidence",
-    price: "Ag Kit", comingSoon: true,
-    tagline: "Start your gardening journey with ease. Perfect for beginners ready to grow something real.",
-    items: ["Planting Guide", "Planting Pot", "Nutrient-rich soil", "2 packs of seeds"],
-  },
-  {
-    _id: "k2", category: "kit", title: "Create & Bloom",
-    price: "Art Kit", comingSoon: true,
-    tagline: "A space dedicated purely to creativity — no rules, just expression.",
-    items: ["Pre-sketched canvas", "Art supplies", "Small creativity journal"],
-  },
-  {
     _id: "k3", category: "kit", title: "Grow & Glow",
-    price: "Ag & Arts Kit", comingSoon: true,
-    tagline: "Where creativity meets growth — design, plant, and express all in one experience.",
+    price: "Starting at $14.99", comingSoon: true,
+    tagline: "Where creativity meets growth — design, plant, and express all in one experience. For local pickup ONLY.",
     items: ["Planting Guide", "Planting pot", "Nutrient-rich soil", "2 packs of seeds", "Pot decorating supplies", "Small creative journal", "A2 Creative Prompt"],
   },
   {
     _id: "k4", category: "kit", title: "Thrive Monthly",
-    price: "Subscription Kit", comingSoon: true, isSubscription: true,
+    price: "Starting at $19.99", comingSoon: true, isSubscription: true,
     tagline: "An ongoing experience delivered to inspire growth, creativity, and connection every month.",
     items: ["Ag & Arts Kit*", "A2 Club Access", "Seasonal seeds", "Creative Wellness Sheet"],
-    kitNotes: ["*One per subscription", "**Monthly subscription received through snail mail"],
+    kitNotes: ["*One per subscription", "Monthly subscription of $4.99 after 1st payment", "**Received through snail mail"],
   },
 ]
 
