@@ -61,7 +61,7 @@ const FALLBACK_KITS: Service[] = [
     _id: "k3", category: "kit", title: "Grow & Glow (Ag & Art Kit)",
     price: "Starting at $14.99", comingSoon: true,
     tagline: "Where creativity meets growth — design, plant, and express all in one experience.",
-    items: ["Planting Guide", "Planting Pot", "Nutrient-rich soil", "2 packs of seeds", "Acrylic Paint + Brush", "Creative Journal", "A2 Creative Prompt"],
+    items: ["Planting Guide", "Planting Pot", "Nutrient-rich soil", "2 packs of seeds", "Acrylic Paint + Brush", "Creative Journal"],
   },
   {
     _id: "k4", category: "kit", title: "Thrive Monthly (Monthly Subscription Club)",
