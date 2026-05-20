@@ -58,17 +58,17 @@ const FALLBACK_TIERS: Service[] = [
 /* ── Fallback kits (used until Tierra adds them in Sanity) ─────────── */
 const FALLBACK_KITS: Service[] = [
   {
-    _id: "k3", category: "kit", title: "Grow & Glow",
+    _id: "k3", category: "kit", title: "Grow & Glow (Ag & Art Kit)",
     price: "Starting at $14.99", comingSoon: true,
-    tagline: "Where creativity meets growth — design, plant, and express all in one experience. For local pickup ONLY.",
+    tagline: "Where creativity meets growth — design, plant, and express all in one experience.",
     items: ["Planting Guide", "Planting pot", "Nutrient-rich soil", "2 packs of seeds", "Pot decorating supplies", "Small creative journal", "A2 Creative Prompt"],
   },
   {
-    _id: "k4", category: "kit", title: "Thrive Monthly",
+    _id: "k4", category: "kit", title: "Thrive Monthly (Monthly Subscription Club)",
     price: "Starting at $19.99", comingSoon: true, isSubscription: true,
     tagline: "An ongoing experience delivered to inspire growth, creativity, and connection every month.",
     items: ["Ag & Arts Kit*", "A2 Club Access", "Seasonal seeds", "Creative Wellness Sheet"],
-    kitNotes: ["*One per subscription", "Monthly subscription of $4.99 after 1st payment", "**Received through snail mail"],
+    kitNotes: ["*One per subscription", "**Monthly subscription of $4.99 after initial payment", "***Received through snail mail"],
   },
 ]
 
