@@ -191,7 +191,7 @@ export default async function ServicesPage() {
         <section className="section-padding bg-green-light">
           <div className="container-max">
             <div className="text-center mb-14">
-              <span className="text-amber font-semibold text-sm uppercase tracking-widest">Offering Tiers</span>
+              <span className="text-amber font-semibold text-sm uppercase tracking-widest">Tier Offerings</span>
               <h2 className="text-green-dark mt-3">Choose Your Level of Support</h2>
               <p className="text-gray-muted max-w-lg mx-auto mt-2">
                 Each tier builds on the last. Start with a single workshop or go all-in with a full seasonal program.
