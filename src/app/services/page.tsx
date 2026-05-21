@@ -59,13 +59,13 @@ const FALLBACK_TIERS: Service[] = [
 const FALLBACK_KITS: Service[] = [
   {
     _id: "k3", category: "kit", title: "Grow & Glow (Ag & Art Kit)",
-    price: "Starting at $14.99", comingSoon: true,
+    price: "$14.99 (shipping rates may apply)", comingSoon: true,
     tagline: "Where creativity meets growth — design, plant, and express all in one experience.",
     items: ["Planting Guide", "Planting Pot", "Nutrient-rich soil", "2 packs of seeds", "Acrylic Paint + Brush", "Creative Journal"],
   },
   {
     _id: "k4", category: "kit", title: "Thrive Monthly (Monthly Subscription Club)",
-    price: "Starting at $4.99 monthly*", comingSoon: true, isSubscription: true,
+    price: "$4.99 monthly*", comingSoon: true, isSubscription: true,
     tagline: "An ongoing experience delivered to inspire growth, creativity, and connection every month.",
     items: ["Ag & Arts Kit**", "A2 Club Access", "Seasonal seeds", "Creative Wellness Sheet"],
     kitNotes: ["*Monthly subscription of $4.99 after first initial payment of $19.99", "**One per subscription"],
