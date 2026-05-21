@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next"
+import type { Metadata } from "next"
 import Image from "next/image"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
@@ -30,7 +30,7 @@ export default async function GalleryPage() {
             <span className="text-amber font-semibold text-sm uppercase tracking-widest">{labels.pageKicker}</span>
             <h1 className="text-white mt-3 mb-4 text-4xl md:text-5xl">{labels.pageTitle}</h1>
             <p className="text-green-light text-lg max-w-xl mx-auto">
-              Moments from our programs, events, and community â€” captured in photos.
+              Moments from our programs, events, and community &mdash; captured in photos.
             </p>
           </div>
         </section>
