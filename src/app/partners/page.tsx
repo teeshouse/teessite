@@ -15,12 +15,13 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const TIER_LABELS: Record<string, string> = {
-  platinum:  "Root Supporter",
-  gold:      "Sprout Partner",
-  silver:    "Bloom Builder",
-  community: "Harvest Champion"
+  root:  "Root Supporter",
+  sprout:      "Sprout Partner",
+  bloom:    "Bloom Builder",
+  harvest: "Harvest Champion",
+  community: "Community Supporter"
 }
-const TIERS = ["platinum", "gold", "silver", "community"]
+const TIERS = ["root", "sprout", "bloom", "harvest", "community"]
 
 export default async function PartnersPage() {
   const [partners, settings] = await Promise.all([getPartners(), getSiteSettings()])
