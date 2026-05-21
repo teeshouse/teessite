@@ -15,7 +15,12 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const CDN = "https://cdn.sanity.io/images/zbeb0ctt/production"
-const PLACEHOLDER = `${CDN}/aa3166c4742d84e1137865a365dcfd41de898dca-2048x2048.jpg`
+const PLACEHOLDER = `${CDN}/aa3166c4742d84e1137865a365dcfd41de898dca-2048x2048.jpg?w=800&q=70&auto=format&fit=max`
+
+function thumbUrl(url: string | undefined) {
+  if (!url) return PLACEHOLDER
+  return `${url}?w=800&q=70&auto=format&fit=max`
+}
 
 export default async function GalleryPage() {
   const [albums, settings] = await Promise.all([getGallery(), getSiteSettings()])
@@ -50,7 +55,7 @@ export default async function GalleryPage() {
                   <Link key={album._id} href={`/gallery/${album.slug?.current}`} className="card overflow-hidden group hover:-translate-y-1 transition-transform duration-300 block">
                     <div className="relative h-56 overflow-hidden">
                       <Image
-                        src={album.coverImage?.asset?.url || PLACEHOLDER}
+                        src={thumbUrl(album.coverImage?.asset?.url)}
                         alt={album.title} fill
                         sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                         className="object-cover group-hover:scale-105 transition-transform duration-500"

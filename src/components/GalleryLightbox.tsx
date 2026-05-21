@@ -4,6 +4,12 @@ import { useState, useEffect, useCallback } from "react"
 import Image from "next/image"
 import { X, ChevronLeft, ChevronRight } from "lucide-react"
 
+/** Ask Sanity CDN for a resized/compressed version instead of the raw upload */
+function sanityThumb(url: string, width: number, quality = 75) {
+  if (!url || !url.includes("cdn.sanity.io")) return url
+  return `${url}?w=${width}&q=${quality}&auto=format&fit=max`
+}
+
 export type GalleryPhoto = {
   caption?: string
   image?: { asset?: { url?: string } }
@@ -48,7 +54,7 @@ export default function GalleryLightbox({ photos }: { photos: GalleryPhoto[] }) 
           >
             {photo.image?.asset?.url && (
               <Image
-                src={photo.image.asset.url}
+                src={sanityThumb(photo.image.asset.url, 600)}
                 alt={photo.caption || `Photo ${idx + 1}`}
                 fill
                 sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
@@ -99,7 +105,7 @@ export default function GalleryLightbox({ photos }: { photos: GalleryPhoto[] }) 
           >
             <div className="relative w-full h-[70vh]">
               <Image
-                src={photos[lightbox].image?.asset?.url || ""}
+                src={sanityThumb(photos[lightbox].image?.asset?.url || "", 1400, 85)}
                 alt={photos[lightbox].caption || `Photo ${lightbox + 1}`}
                 fill
                 sizes="100vw"
