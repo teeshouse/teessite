@@ -15,10 +15,10 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const TIER_LABELS: Record<string, string> = {
-  platinum:  "Platinum Partners",
-  gold:      "Gold Partners",
-  silver:    "Silver Partners",
-  community: "Community Partners"
+  platinum:  "Root Supporter",
+  gold:      "Sprout Partner",
+  silver:    "Bloom Builder",
+  community: "Harvest Champion"
 }
 const TIERS = ["platinum", "gold", "silver", "community"]
 
