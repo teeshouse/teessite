@@ -108,7 +108,7 @@ export default async function ProgramsPage() {
                   </div>
                   <div>
                     <span className="badge-current mb-4 inline-block">Current 2026</span>
-                    <h3 className="text-green-dark text-2xl mb-4">A2 (Agriculture & Arts) Club</h3>
+                    <h3 className="text-green-dark text-2xl mb-4">Agriculture & Arts Club (A2) Club</h3>
                     <p className="text-gray-muted leading-relaxed mb-4">
                       Our ongoing school partnerships continue to blossom. Tee’s House has been actively involved
                       in implementing agriculture and arts enrichment that enhances traditional learning with
