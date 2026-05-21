@@ -58,7 +58,7 @@ const FALLBACK_TIERS: Service[] = [
 /* ── Fallback kits (used until Tierra adds them in Sanity) ─────────── */
 const FALLBACK_KITS: Service[] = [
   {
-    _id: "k3", category: "kit", title: "Grow & Glow (Ag & Art Kit)",
+    _id: "k3", category: "kit", title: "Grow & Glow (Ag & Arts Kit)",
     price: "$14.99 (shipping rates may apply)", comingSoon: true,
     tagline: "Where creativity meets growth — design, plant, and express all in one experience.",
     items: ["Planting Guide", "Planting Pot", "Nutrient-rich soil", "2 packs of seeds", "Acrylic Paint + Brush", "Creative Journal"],
