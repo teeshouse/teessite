@@ -34,6 +34,7 @@ export async function POST(req: NextRequest) {
     // covered by the layout revalidation for /news and /pages).
     revalidatePath("/news", "layout")
     revalidatePath("/pages", "layout")
+    revalidatePath("/gallery", "layout")
 
     return NextResponse.json({ revalidated: true, paths, timestamp: Date.now() })
   } catch (err) {

@@ -6,7 +6,7 @@ import {
   NEWS_QUERY, FEATURED_NEWS_QUERY, NEWS_BY_SLUG_QUERY,
   VOLUNTEER_ROLES_QUERY, EVENTS_QUERY, UPCOMING_EVENTS_QUERY,
   TEAM_QUERY, TESTIMONIALS_QUERY, PARTNERS_QUERY,
-  GALLERY_QUERY, FAQS_QUERY, PAGES_QUERY,
+  GALLERY_QUERY, GALLERY_BY_SLUG_QUERY, FAQS_QUERY, PAGES_QUERY,
   PAGE_BY_SLUG_QUERY, ANNUAL_REPORTS_QUERY,
   SERVICES_QUERY, DOWNLOADS_QUERY
 } from "./sanity.queries"
@@ -24,6 +24,9 @@ export async function getTeam()            { try { return await sanityClient.fet
 export async function getTestimonials()    { try { return await sanityClient.fetch(TESTIMONIALS_QUERY) }     catch { return [] } }
 export async function getPartners()        { try { return await sanityClient.fetch(PARTNERS_QUERY) }         catch { return [] } }
 export async function getGallery()         { try { return await sanityClient.fetch(GALLERY_QUERY) }          catch { return [] } }
+export async function getGalleryBySlug(slug: string) {
+  try { return await sanityClient.fetch(GALLERY_BY_SLUG_QUERY, { slug }) } catch { return null }
+}
 export async function getFaqs()            { try { return await sanityClient.fetch(FAQS_QUERY) }             catch { return [] } }
 export async function getPages()           { try { return await sanityClient.fetch(PAGES_QUERY) }            catch { return [] } }
 export async function getDownloads()       { try { return await sanityClient.fetch(DOWNLOADS_QUERY) }        catch { return [] } }

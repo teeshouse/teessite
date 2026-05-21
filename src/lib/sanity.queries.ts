@@ -136,6 +136,13 @@ export const GALLERY_QUERY = groq`
     photos[] { caption, image { asset->{ url } } }
   }
 `
+export const GALLERY_BY_SLUG_QUERY = groq`
+  *[_type == "galleryAlbum" && slug.current == $slug][0] {
+    _id, title, slug, date, description, featured, program, tags,
+    coverImage { asset->{ url } },
+    photos[] { caption, image { asset->{ url } } }
+  }
+`
 export const FAQS_QUERY = groq`
   *[_type == "faq" && active == true] | order(order asc) {
     _id, question, answer, category, order
