@@ -34,7 +34,7 @@ export default async function Navbar() {
       label: "More",
       children: [
         { label: pages.gallery.navLabel, href: "/gallery"       },
-        { label: "Fundraisers & Offerings", href: "/services"     },
+        { label: "Fundraisers & Offerings", href: "/fundraising-offerings" },
         { label: "Partners & Sponsors",  href: "/partners"      },
         { label: "Transparency",         href: "/transparency"  },
         { label: "FAQ",                  href: "/faq"           },

@@ -102,39 +102,61 @@ export default async function ProgramsPage() {
               </div>
             ) : (
               <div className="space-y-16">
+                {/* Community Garden */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
                   <div className="relative h-96 rounded-card overflow-hidden shadow-card-hover">
-                    <Image src={STATIC.agArts} alt="Agriculture and Arts Enrichment" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
+                    <Image src={STATIC.community} alt="Community Garden" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
                   </div>
                   <div>
                     <span className="badge-current mb-4 inline-block">Current 2026</span>
-                    <h3 className="text-green-dark text-2xl mb-4">Agriculture & Arts Club (A2) Club</h3>
+                    <h3 className="text-green-dark text-2xl mb-4">Community Garden</h3>
                     <p className="text-gray-muted leading-relaxed mb-4">
-                      Our ongoing school partnerships continue to blossom. Tee’s House has been actively involved
-                      in implementing agriculture and arts enrichment that enhances traditional learning with
-                      creative, hands-on experiences.
+                      Our Community Garden serves as a living classroom where participants of all ages come together
+                      to grow fresh produce, build sustainable habits, and strengthen community bonds through the
+                      shared experience of cultivation.
                     </p>
                     <p className="text-gray-muted leading-relaxed">
-                      Through lessons in planting, painting, and creative expression, students learn about
-                      sustainability, teamwork, and self-expression while strengthening their connection to
-                      the environment and their community.
+                      From planting seeds to harvesting crops, participants develop practical agriculture skills
+                      while connecting with the environment and each other.
                     </p>
                   </div>
                 </div>
+                {/* Mobile Garden */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
                   <div className="md:order-2 relative h-96 rounded-card overflow-hidden shadow-card-hover">
-                    <Image src={STATIC.drama} alt="Drama and Poetry Club" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
+                    <Image src={STATIC.agArts} alt="Mobile Garden" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
                   </div>
                   <div className="md:order-1">
                     <span className="badge-current mb-4 inline-block">Current 2026</span>
-                    <h3 className="text-green-dark text-2xl mb-4">Creative Arts Club</h3>
+                    <h3 className="text-green-dark text-2xl mb-4">Mobile Garden</h3>
                     <p className="text-gray-muted leading-relaxed mb-4">
-                      Through our Creative Arts Club, Tee’s House provides a safe, expressive space for
-                      community members to explore and capture a unique experience of creative arts & cultural expression.
+                      The Tee&apos;s House Mobile Garden brings agriculture education directly to schools, community
+                      events, and organizations throughout the Pensacola area &mdash; removing barriers and making
+                      hands-on learning accessible wherever it&apos;s needed most.
                     </p>
                     <p className="text-gray-muted leading-relaxed">
-                      Participants captivate themselves in an immersive experience exploring different creative
-                      artist in song, dance, poetry and creativeness.
+                      Participants experience the joy of planting, tending, and harvesting in a portable
+                      garden environment designed to spark curiosity and connection.
+                    </p>
+                  </div>
+                </div>
+                {/* A2 Club */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+                  <div className="relative h-96 rounded-card overflow-hidden shadow-card-hover">
+                    <Image src={STATIC.drama} alt="A2 Club" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
+                  </div>
+                  <div>
+                    <span className="badge-current mb-4 inline-block">Current 2026</span>
+                    <h3 className="text-green-dark text-2xl mb-4">A2 Club</h3>
+                    <p className="text-gray-muted leading-relaxed mb-4">
+                      The Agriculture &amp; Arts (A2) Club is our signature school partnership program, weaving together
+                      hands-on growing experiences with creative expression to give students a holistic,
+                      enriching education beyond the traditional classroom.
+                    </p>
+                    <p className="text-gray-muted leading-relaxed">
+                      Through lessons in planting, painting, and creative discovery, students develop
+                      sustainability awareness, teamwork, and self-expression while deepening their connection
+                      to the environment and their community.
                     </p>
                   </div>
                 </div>
@@ -199,6 +221,9 @@ export default async function ProgramsPage() {
             ) : (
               <div className="space-y-16">
                 {[
+                  { img: STATIC.drama, title: "Creative Arts Club",
+                    p1: "Through the Creative Arts Club, Tee’s House provided a safe, expressive space for community members to explore creative arts and cultural expression through song, dance, poetry, and creativity.",
+                    p2: "Participants immersed themselves in an inspiring experience that celebrated artistic voice and community connection." },
                   { img: STATIC.steam, title: "STEAM Future Leaders of Northwest Florida",
                     p1: "This year marked a major milestone as Tee’s House spearheaded the creation of the STEAM Future Leaders of NWFL 2025 Cohort, an innovative five-week experience that blended science, technology, engineering, arts, and mathematics through real-world learning.",
                     p2: "Throughout the program, youth explored hands-on discovery in a way that connected education to everyday life. Participants cultivated curiosity, leadership, and teamwork." },
@@ -207,7 +232,7 @@ export default async function ProgramsPage() {
                     p2: "Students examined plant science, created art inspired by nature, and learned how growing food can nurture both the body and the imagination." },
                   { img: STATIC.nutrition, title: "Nutrition Course: From Garden to Smoothie",
                     p1: "In 2025, Tee’s House hosted an engaging nutrition course that taught students about healthy eating and homegrown ingredients.",
-                    p2: "The course combined wellness education with practical skills, reminding everyone that nourishment can be both simple and joyful when it begins with the earth." }
+                    p2: "The course combined wellness education with practical skills, reminding everyone that nourishment can be both simple and joyful when it begins with the earth." },
                 ].map((item, i) => (
                   <div key={item.title} className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
                     <div className={`relative h-96 rounded-card overflow-hidden shadow-card-hover ${i % 2 !== 0 ? "md:order-2" : ""}`}>

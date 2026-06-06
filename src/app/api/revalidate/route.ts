@@ -25,6 +25,7 @@ export async function POST(req: NextRequest) {
       "/transparency",
       "/contact",
       "/services",
+      "/fundraising-offerings",
       "/intake",
     ]
     paths.forEach(p => revalidatePath(p))

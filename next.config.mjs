@@ -12,6 +12,11 @@ const nextConfig = {
         destination: "/community-impact",
         permanent: true,
       },
+      {
+        source: "/services",
+        destination: "/fundraising-offerings",
+        permanent: true,
+      },
     ]
   },
 }
