@@ -73,13 +73,13 @@ const FALLBACK_KITS: Service[] = [
   },
 ]
 
-/* ── PayPal button config keyed by kit _id ───────────────────────── */
-// k3 = Grow & Glow LOCAL PICKUP (subscription plan)
-// k4 = Thrive Monthly (hosted buttons: LOCAL PICKUP + SHIPPED)
+/* ── PayPal button config ────────────────────────────────────────── */
+// Grow & Glow  → two hosted buttons (LOCAL PICKUP + SHIPPED)
+// Thrive Monthly → subscription plan
 const KIT_PAYPAL_ID = {
-  GROW_GLOW_PLAN:        "P-82334933UJ9682141NIQ7ODY",
-  THRIVE_LOCAL_BUTTON:   "PJMQNK5E38MPE",
-  THRIVE_SHIPPED_BUTTON: "S66GE99273PQQ",
+  GROW_GLOW_LOCAL_BUTTON:   "PJMQNK5E38MPE",
+  GROW_GLOW_SHIPPED_BUTTON: "S66GE99273PQQ",
+  THRIVE_MONTHLY_PLAN:      "P-82334933UJ9682141NIQ7ODY",
 }
 
 export default async function FundraisingPage() {
@@ -174,14 +174,14 @@ export default async function FundraisingPage() {
                     {/* PayPal buttons */}
                     <div className="mt-4 flex-1 flex flex-col justify-end">
                       {kit._id === "k3" || kit.title === "Grow & Glow" ? (
-                        /* Grow & Glow — subscription button (local pickup) */
-                        <PayPalSubscriptionButton planId={KIT_PAYPAL_ID.GROW_GLOW_PLAN} />
-                      ) : kit._id === "k4" || kit.title === "Thrive Monthly" ? (
-                        /* Thrive Monthly — two hosted buttons */
+                        /* Grow & Glow — two hosted buttons (local pickup + shipped) */
                         <div className="space-y-4">
-                          <PayPalHostedButton buttonId={KIT_PAYPAL_ID.THRIVE_LOCAL_BUTTON} label="Local Pickup" />
-                          <PayPalHostedButton buttonId={KIT_PAYPAL_ID.THRIVE_SHIPPED_BUTTON} label="Shipped" />
+                          <PayPalHostedButton buttonId={KIT_PAYPAL_ID.GROW_GLOW_LOCAL_BUTTON} label="Local Pickup" />
+                          <PayPalHostedButton buttonId={KIT_PAYPAL_ID.GROW_GLOW_SHIPPED_BUTTON} label="Shipped" />
                         </div>
+                      ) : kit._id === "k4" || kit.title === "Thrive Monthly" ? (
+                        /* Thrive Monthly — subscription button */
+                        <PayPalSubscriptionButton planId={KIT_PAYPAL_ID.THRIVE_MONTHLY_PLAN} />
                       ) : kit.paypalUrl ? (
                         <a href={kit.paypalUrl} target="_blank" rel="noopener noreferrer"
                           className="btn-amber text-sm py-2 w-full justify-center">
