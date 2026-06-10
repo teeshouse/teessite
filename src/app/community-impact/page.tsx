@@ -149,9 +149,10 @@ export default async function ProgramsPage() {
                     <span className="badge-current mb-4 inline-block">Current 2026</span>
                     <h3 className="text-green-dark text-2xl mb-4">A2 Club</h3>
                     <p className="text-gray-muted leading-relaxed mb-4">
-                      The Agriculture &amp; Arts (A2) Club is our signature school partnership program, weaving together
-                      hands-on growing experiences with creative expression to give students a holistic,
-                      enriching education beyond the traditional classroom.
+                      The Agriculture &amp; Arts (A2) Club is a Tee's House hybrid enrichment access that combines
+                      in-person and virtual learning experiences focused on gardening, creative expression, wellness,
+                      and life skills development. The A2 Club creates meaningful experiences that empower youth, families,
+                      and community members to grow, create, and thrive.
                     </p>
                     <p className="text-gray-muted leading-relaxed">
                       Through lessons in planting, painting, and creative discovery, students develop
