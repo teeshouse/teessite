@@ -59,10 +59,10 @@ const FALLBACK_TIERS: Service[] = [
 /* ── Fallback kits ───────────────────────────────────────────────── */
 const FALLBACK_KITS: Service[] = [
   {
-    _id: "k3", category: "kit", title: "Grow & Glow",
+    _id: "k3", category: "kit", title: "Grow & Glow (Ag & Arts Kit)",
     price: "Starting at $14.99",
     tagline: "Where creativity meets growth — design, plant, and express all in one experience. For local pickup ONLY.",
-    items: ["Planting Guide", "Planting pot", "Nutrient-rich soil", "2 packs of seeds", "Pot decorating supplies", "Small creative journal", "A2 Creative Prompt"],
+    items: ["Planting Guide", "Planting pot", "Nutrient-rich soil", "2 packs of seeds", "Pot decorating supplies", "Small creative journal"],
   },
   {
     _id: "k4", category: "kit", title: "Thrive Monthly",
