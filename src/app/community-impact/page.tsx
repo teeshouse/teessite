@@ -155,7 +155,7 @@ export default async function ProgramsPage() {
                       and community members to grow, create, and thrive.
                     </p>
                     <p className="text-gray-muted leading-relaxed">
-                      Through lessons in planting, painting, and creative discovery, students develop
+                      Through experience of collaborating in planting, painting, and creative discovery, REGARDLESS OF LOCATION, club members develop
                       sustainability awareness, teamwork, and self-expression while deepening their connection
                       to the environment and their community.
                     </p>
