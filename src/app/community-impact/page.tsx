@@ -104,8 +104,8 @@ export default async function ProgramsPage() {
               <div className="space-y-16">
                 {/* Community Garden */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-                  <div className="relative h-96 rounded-card overflow-hidden shadow-card-hover">
-                    <Image src="/images/community-garden.png" alt="Community Garden" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
+                  <div className="relative h-[480px] rounded-card overflow-hidden shadow-card-hover bg-green-light">
+                    <Image src="/images/community-garden.png" alt="Community Garden" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-contain" />
                   </div>
                   <div>
                     <span className="badge-current mb-4 inline-block">Current 2026</span>
@@ -123,8 +123,8 @@ export default async function ProgramsPage() {
                 </div>
                 {/* Mobile Garden */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-                  <div className="md:order-2 relative h-96 rounded-card overflow-hidden shadow-card-hover">
-                    <Image src="/images/mobile-garden.png" alt="Mobile Garden" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
+                  <div className="md:order-2 relative h-[480px] rounded-card overflow-hidden shadow-card-hover bg-white">
+                    <Image src="/images/mobile-garden.png" alt="Mobile Garden" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-contain" />
                   </div>
                   <div className="md:order-1">
                     <span className="badge-current mb-4 inline-block">Current 2026</span>
