@@ -226,7 +226,7 @@ export default async function ProgramsPage() {
             ) : (
               <div className="space-y-16">
                 {[
-                  { img: STATIC.drama, title: "Creative Arts Club",
+                  { img: "/images/creative-arts-club.jpg", title: "Creative Arts Club",
                     p1: "Through the Creative Arts Club, Tee’s House provided a safe, expressive space for community members to explore creative arts and cultural expression through song, dance, poetry, and creativity.",
                     p2: "Participants immersed themselves in an inspiring experience that celebrated artistic voice and community connection." },
                   { img: STATIC.steam, title: "STEAM Future Leaders of Northwest Florida",
