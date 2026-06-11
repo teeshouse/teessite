@@ -123,9 +123,13 @@ export default async function ProgramsPage() {
                 </div>
                 {/* Mobile Garden */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-                  <div className="md:order-2 relative h-[480px] rounded-card overflow-hidden shadow-card-hover bg-white">
-                    <Image src="/images/mobile-garden.png" alt="Mobile Garden" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-contain" />
-                  </div>
+                  <a href="/images/mobile-garden.png" target="_blank" rel="noopener noreferrer"
+                    className="md:order-2 relative h-[480px] rounded-card overflow-hidden shadow-card-hover bg-white block group cursor-zoom-in">
+                    <Image src="/images/mobile-garden.png" alt="Mobile Garden" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-contain group-hover:scale-105 transition-transform duration-300" />
+                    <div className="absolute bottom-3 right-3 bg-green-dark/70 text-white text-xs font-semibold px-3 py-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+                      Click to view full flyer
+                    </div>
+                  </a>
                   <div className="md:order-1">
                     <span className="badge-current mb-4 inline-block">Current 2026</span>
                     <h3 className="text-green-dark text-2xl mb-4">Mobile Garden</h3>
