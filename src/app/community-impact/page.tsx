@@ -23,7 +23,6 @@ const CDN = "https://cdn.sanity.io/images/zbeb0ctt/production"
 const STATIC = {
   hero:       `${CDN}/aa3166c4742d84e1137865a365dcfd41de898dca-2048x2048.jpg`,
   agArts:     `${CDN}/d849d6072cf5ef6e1b989b58751d39a5c9db6429-791x1024.png`,
-  drama:      `${CDN}/fb1285155215793f7f340a26881f59dc7a39ea80-1024x1024.png`,
   teaser2026: `${CDN}/867597c1f3179b3dded2f23d5e40b650394730d4-1024x1024.png`,
   steam:      `${CDN}/12d97e682a4bcfaf6bffd975049995ef053d2912-791x1024.png`,
   sciAgArts:  `${CDN}/9c348db91699c9ead8a73d1eaf6138ae3ddb5f7a-791x1024.png`,
@@ -147,7 +146,7 @@ export default async function ProgramsPage() {
                 {/* A2 Club */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
                   <div className="relative h-96 rounded-card overflow-hidden shadow-card-hover">
-                    <Image src={STATIC.drama} alt="A2 Club" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
+                    <Image src="/images/a2-club.jpg" alt="A2 Club" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
                   </div>
                   <div>
                     <span className="badge-current mb-4 inline-block">Current 2026</span>
