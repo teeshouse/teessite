@@ -23,7 +23,6 @@ const CDN = "https://cdn.sanity.io/images/zbeb0ctt/production"
 const STATIC = {
   hero:       `${CDN}/aa3166c4742d84e1137865a365dcfd41de898dca-2048x2048.jpg`,
   agArts:     `${CDN}/d849d6072cf5ef6e1b989b58751d39a5c9db6429-791x1024.png`,
-  teaser2026: `${CDN}/867597c1f3179b3dded2f23d5e40b650394730d4-1024x1024.png`,
   steam:      `${CDN}/12d97e682a4bcfaf6bffd975049995ef053d2912-791x1024.png`,
   sciAgArts:  `${CDN}/9c348db91699c9ead8a73d1eaf6138ae3ddb5f7a-791x1024.png`,
   nutrition:  `${CDN}/bb4ea2ce4eeb41f0d3d59e90835d29115b73dcd8-1024x1024.png`,
@@ -166,32 +165,6 @@ export default async function ProgramsPage() {
                 </div>
               </div>
             )}
-          </div>
-        </section>
-
-        {/* 2026 Teaser */}
-        <section className="section-padding bg-amber overflow-hidden">
-          <div className="container-max">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-              <div>
-                <span className="badge-upcoming mb-4 inline-block">Coming 2026</span>
-                <h2 className="text-white mb-4">Looking Ahead to 2026</h2>
-                <p className="text-white/90 leading-relaxed mb-4">
-                  As we reflect on an incredible year of growth, we are also preparing something extraordinary -
-                  a first-of-its-kind program launching in 2026.
-                </p>
-                <p className="text-white/90 leading-relaxed mb-6">
-                  This initiative will expand our vision by merging educational enrichment with supportive
-                  workforce development practices that prepare youth not just for education, but for life.
-                </p>
-                <Link href="/contact" className="btn-outline-white inline-flex">
-                  Stay Informed <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-              <div className="relative h-80 rounded-card overflow-hidden shadow-card-hover">
-                <Image src={STATIC.teaser2026} alt="2026 program preview" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
-              </div>
-            </div>
           </div>
         </section>
 
