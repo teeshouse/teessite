@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server"
-import { createMiddlewareSupabase } from "@/lib/supabase-server"
+import { createMiddlewareSupabase } from "@/lib/supabase-middleware"
 
 /**
  * Refreshes the Supabase session cookie and redirects unauthenticated
