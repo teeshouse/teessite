@@ -6,14 +6,13 @@ const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
 /**
  * Cookie-backed Supabase client for use in Server Components and Route
- * Handlers — reads/refreshes the logged-in user's session via cookies
- * (set by middleware.ts), respects RLS as that user.
- *
- * Deliberately kept in its own file, separate from createMiddlewareSupabase
- * (see supabase-middleware.ts): next/headers's cookies() is not supported
- * inside Edge Middleware, and merely importing a module that references it
- * is enough to crash middleware at runtime (MIDDLEWARE_INVOCATION_FAILED)
- * even if the importing code never calls it.
+ * Handlers — reads the logged-in user's session via cookies, respects RLS
+ * as that user. There's no middleware.ts refreshing the session cookie on
+ * every request (deliberately removed — it required a Supabase client in
+ * Vercel's Edge runtime, which kept crashing with
+ * MIDDLEWARE_INVOCATION_FAILED); requireAdmin()/requirePortalUser() in
+ * auth-guard.ts are the sole enforcement point, and sessions simply expire
+ * and require re-login rather than silently refreshing.
  */
 export function createServerSupabase() {
   const cookieStore = cookies()
