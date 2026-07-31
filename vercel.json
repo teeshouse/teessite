@@ -4,6 +4,18 @@
     {
       "path": "/api/ping",
       "schedule": "0 12 * * *"
+    },
+    {
+      "path": "/api/mentorship/cron/checkin",
+      "schedule": "0 13 * * *"
+    },
+    {
+      "path": "/api/mentorship/cron/nudge-digest",
+      "schedule": "0 14 * * *"
+    },
+    {
+      "path": "/api/mentorship/cron/consent-renewal",
+      "schedule": "0 15 * * *"
     }
   ]
 }

@@ -31,7 +31,7 @@ export const FROM   = "Tee’s House <noreply@teeshousepensacola.org>"
 export const NOTIFY = "info@teeshouse.org"
 
 // Brand palette (kept in sync with tailwind.config.ts)
-const BRAND = {
+export const BRAND = {
   greenDark:  "#2D5016",
   greenMid:   "#4A7C2F",
   greenLight: "#EAF2E3",
@@ -42,6 +42,54 @@ const BRAND = {
   grayBorder: "#E5E7EB",
   cream:      "#FBF6EF",
 } as const
+
+export function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;")
+}
+
+/**
+ * Shared branded shell (header/footer chrome) used by both notifyInfo and
+ * sendUserEmail, so the two email paths look like they came from the same
+ * place instead of duplicating the header/footer markup.
+ */
+function renderShell(args: { title: string; headerSubtitle: string; bodyHtml: string }): string {
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>${escapeHtml(args.title)}</title>
+</head>
+<body style="margin:0;padding:0;background:${BRAND.greenLight};font-family:Inter,-apple-system,Segoe UI,Roboto,Arial,sans-serif;">
+  <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background:${BRAND.greenLight};padding:24px 12px;">
+    <tr><td align="center">
+      <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(45,80,22,0.08);">
+        <!-- Header -->
+        <tr><td style="background:${BRAND.greenDark};padding:28px 28px 24px;">
+          <div style="font-family:Lora,Georgia,serif;font-size:22px;font-weight:700;color:#ffffff;letter-spacing:-0.01em;">Tee&rsquo;s House Inc.</div>
+          <div style="font-size:12px;color:${BRAND.greenLight};margin-top:4px;letter-spacing:0.04em;">${escapeHtml(args.headerSubtitle)}</div>
+        </td></tr>
+        <!-- Body -->
+        <tr><td style="padding:28px;">
+          ${args.bodyHtml}
+        </td></tr>
+        <!-- Footer -->
+        <tr><td style="background:${BRAND.cream};padding:18px 28px;border-top:1px solid ${BRAND.grayBorder};">
+          <p style="margin:0;font-size:11px;color:${BRAND.grayMuted};line-height:1.5;">
+            Tee&rsquo;s House Inc. &middot; Pensacola, FL &middot; 501(c)(3)
+          </p>
+        </td></tr>
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`
+}
 
 /** A single key/value row to render in the email body. */
 export interface Field {
@@ -66,15 +114,6 @@ export interface NotifyArgs {
    */
   text?:    string
   replyTo?: string
-}
-
-function escapeHtml(s: string): string {
-  return s
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;")
 }
 
 /** Build the branded HTML body. Table-based layout for Gmail compatibility. */
@@ -111,44 +150,18 @@ function renderHtml(args: NotifyArgs): string {
        <p style="margin:12px 0 0;text-align:center;font-size:12px;color:${BRAND.grayMuted};">Or just hit Reply — it will go to ${escapeHtml(args.replyTo)}</p>`
     : ""
 
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>${escapeHtml(args.subject)}</title>
-</head>
-<body style="margin:0;padding:0;background:${BRAND.greenLight};font-family:Inter,-apple-system,Segoe UI,Roboto,Arial,sans-serif;">
-  <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background:${BRAND.greenLight};padding:24px 12px;">
-    <tr><td align="center">
-      <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(45,80,22,0.08);">
-        <!-- Header -->
-        <tr><td style="background:${BRAND.greenDark};padding:28px 28px 24px;">
-          <div style="font-family:Lora,Georgia,serif;font-size:22px;font-weight:700;color:#ffffff;letter-spacing:-0.01em;">Tee&rsquo;s House Inc.</div>
-          <div style="font-size:12px;color:${BRAND.greenLight};margin-top:4px;letter-spacing:0.04em;">New submission from teeshousepensacola.org</div>
-        </td></tr>
-        <!-- Body -->
-        <tr><td style="padding:28px;">
-          <h1 style="margin:0 0 16px;font-family:Lora,Georgia,serif;font-size:20px;line-height:1.3;color:${BRAND.greenDark};">${escapeHtml(args.subject)}</h1>
+  const bodyHtml = `<h1 style="margin:0 0 16px;font-family:Lora,Georgia,serif;font-size:20px;line-height:1.3;color:${BRAND.greenDark};">${escapeHtml(args.subject)}</h1>
           ${intro}
           ${fieldsTable}
           ${bodyBlock}
           ${legacy}
-          ${replyCta}
-        </td></tr>
-        <!-- Footer -->
-        <tr><td style="background:${BRAND.cream};padding:18px 28px;border-top:1px solid ${BRAND.grayBorder};">
-          <p style="margin:0;font-size:11px;color:${BRAND.grayMuted};line-height:1.5;">
-            Automated notification from <strong style="color:${BRAND.greenDark};">teeshousepensacola.org</strong>.
-            This submission is also stored in Supabase.
-            <br>Tee&rsquo;s House Inc. &middot; Pensacola, FL &middot; 501(c)(3)
-          </p>
-        </td></tr>
-      </table>
-    </td></tr>
-  </table>
-</body>
-</html>`
+          ${replyCta}`
+
+  return renderShell({
+    title: args.subject,
+    headerSubtitle: "New submission from teeshousepensacola.org",
+    bodyHtml,
+  })
 }
 
 /** Build the plain-text fallback body. */
@@ -173,9 +186,9 @@ function renderText(args: NotifyArgs): string {
 }
 
 /**
- * Best-effort email notification. Never throws: if Resend is disabled or
- * the API call fails, we log and return false so the caller can still
- * succeed with the persisted DB row.
+ * Best-effort email notification to the org inbox (NOTIFY). Never throws:
+ * if Resend is disabled or the API call fails, we log and return false so
+ * the caller can still succeed with the persisted DB row.
  */
 export async function notifyInfo(args: NotifyArgs): Promise<boolean> {
   const client = getResend()
@@ -196,6 +209,68 @@ export async function notifyInfo(args: NotifyArgs): Promise<boolean> {
     return true
   } catch (err) {
     console.error("Resend threw:", err)
+    return false
+  }
+}
+
+export interface UserEmailArgs {
+  to: string
+  subject: string
+  /** Large heading inside the card, e.g. "Confirm your consent". */
+  heading: string
+  bodyHtml: string
+  bodyText: string
+  cta?: { label: string; href: string }
+  replyTo?: string
+}
+
+/**
+ * Best-effort email sent TO an end user (parent, mentor, mentee) rather than
+ * the fixed org inbox — used for consent requests, portal invites, session
+ * reminders, certificates, nudges/digests. Same lazy-client/never-throw
+ * contract as notifyInfo.
+ */
+export async function sendUserEmail(args: UserEmailArgs): Promise<boolean> {
+  const client = getResend()
+  if (!client) return false
+
+  const ctaHtml = args.cta
+    ? `<table role="presentation" cellpadding="0" cellspacing="0" style="margin:24px 0 4px;">
+         <tr><td style="border-radius:8px;background:${BRAND.greenDark};">
+           <a href="${escapeHtml(args.cta.href)}" style="display:inline-block;padding:14px 28px;font-family:Inter,Arial,sans-serif;font-size:15px;font-weight:600;color:#ffffff;text-decoration:none;">${escapeHtml(args.cta.label)}</a>
+         </td></tr>
+       </table>`
+    : ""
+
+  const bodyHtml = `<h1 style="margin:0 0 16px;font-family:Lora,Georgia,serif;font-size:20px;line-height:1.3;color:${BRAND.greenDark};">${escapeHtml(args.heading)}</h1>
+    <div style="font-size:15px;line-height:1.6;color:${BRAND.grayBody};">${args.bodyHtml}</div>
+    ${ctaHtml}`
+
+  const html = renderShell({
+    title: args.subject,
+    headerSubtitle: "Mentorship Program",
+    bodyHtml,
+  })
+
+  const ctaText = args.cta ? `\n${args.cta.label}: ${args.cta.href}\n` : ""
+  const text = `${args.bodyText}${ctaText}`
+
+  try {
+    const res = await client.emails.send({
+      from:    FROM,
+      to:      args.to,
+      subject: args.subject,
+      text,
+      html,
+      replyTo: args.replyTo,
+    })
+    if (res.error) {
+      console.error("Resend send error (sendUserEmail):", res.error)
+      return false
+    }
+    return true
+  } catch (err) {
+    console.error("Resend threw (sendUserEmail):", err)
     return false
   }
 }
