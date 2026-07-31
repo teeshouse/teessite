@@ -7,6 +7,9 @@ import { supabaseAdmin } from "@/lib/supabase"
 export async function GET() {
   const cookieStore = cookies()
   const allCookieNames = cookieStore.getAll().map(c => c.name)
+  const authCookie = cookieStore.getAll().find(c => c.name.includes("auth-token"))
+  const authCookieValuePrefix = authCookie?.value.slice(0, 60) ?? null
+  const authCookieValueLength = authCookie?.value.length ?? null
 
   const supabase = createServerSupabase()
   const { data: { user }, error: userError } = await supabase.auth.getUser()
@@ -21,6 +24,8 @@ export async function GET() {
 
   return NextResponse.json({
     allCookieNames,
+    authCookieValuePrefix,
+    authCookieValueLength,
     userFound: Boolean(user),
     userId: user?.id ?? null,
     userEmail: user?.email ?? null,
