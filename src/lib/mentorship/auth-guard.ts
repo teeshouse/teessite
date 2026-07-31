@@ -1,21 +1,36 @@
 import type { NextRequest } from "next/server"
-import { createServerSupabase } from "@/lib/supabase-server"
+import { cookies } from "next/headers"
 import { supabaseAdmin } from "@/lib/supabase"
+import { SESSION_COOKIE } from "@/lib/mentorship/session-cookie"
 
 interface GuardOk<T> { error: null; user: T }
 interface GuardErr { error: { message: string; status: number }; user: null }
 type GuardResult<T> = GuardOk<T> | GuardErr
 
 /**
- * Call at the top of every admin-only API route. Middleware only checks
- * "is there a session" — this does the authoritative admin_users lookup,
- * so unauthenticated AND non-admin callers both get rejected here. This is
- * the direct fix for ITGC's GET/PATCH mentorship/mentors routes, which had
- * no auth guard at all.
+ * Reads the raw access-token cookie set by /api/mentorship/auth/login and
+ * validates it directly against Supabase's Auth server. No @supabase/ssr
+ * cookie codec involved — see the login route's comment for why that was
+ * dropped (a known unresolved upstream incompatibility with Next.js's
+ * cookies() API that caused "Auth session missing!" despite a present,
+ * valid-looking cookie).
+ */
+async function getSessionUser() {
+  const token = cookies().get(SESSION_COOKIE)?.value
+  if (!token) return null
+  const { data, error } = await supabaseAdmin.auth.getUser(token)
+  if (error || !data.user) return null
+  return data.user
+}
+
+/**
+ * Call at the top of every admin-only API route and the admin layout. Does
+ * the authoritative admin_users lookup, so unauthenticated AND non-admin
+ * callers both get rejected here. This is the direct fix for ITGC's
+ * GET/PATCH mentorship/mentors routes, which had no auth guard at all.
  */
 export async function requireAdmin(): Promise<GuardResult<{ id: string; email: string }>> {
-  const supabase = createServerSupabase()
-  const { data: { user } } = await supabase.auth.getUser()
+  const user = await getSessionUser()
 
   if (!user) {
     return { error: { message: "Not authenticated", status: 401 }, user: null }
@@ -47,8 +62,7 @@ interface PortalUser {
  * primary check for clean error responses).
  */
 export async function requirePortalUser(): Promise<GuardResult<PortalUser>> {
-  const supabase = createServerSupabase()
-  const { data: { user } } = await supabase.auth.getUser()
+  const user = await getSessionUser()
 
   if (!user) {
     return { error: { message: "Not authenticated", status: 401 }, user: null }

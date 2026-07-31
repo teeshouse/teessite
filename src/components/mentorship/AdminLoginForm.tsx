@@ -2,7 +2,6 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { Loader2 } from "lucide-react"
-import { createBrowserSupabase } from "@/lib/supabase-browser"
 
 export default function AdminLoginForm() {
   const router = useRouter()
@@ -14,10 +13,14 @@ export default function AdminLoginForm() {
   async function handleSubmit() {
     setStatus("loading")
     setErrorMsg("")
-    const supabase = createBrowserSupabase()
-    const { error } = await supabase.auth.signInWithPassword({ email, password })
-    if (error) {
-      setErrorMsg(error.message)
+    const res = await fetch("/api/mentorship/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    })
+    const data = await res.json()
+    if (!res.ok) {
+      setErrorMsg(data.error || "Sign in failed")
       setStatus("error")
       return
     }

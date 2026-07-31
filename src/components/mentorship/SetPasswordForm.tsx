@@ -1,17 +1,15 @@
 "use client"
-import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
+import { useState, useEffect, useRef } from "react"
+import { createClient, type SupabaseClient } from "@supabase/supabase-js"
 import { Loader2, CheckCircle } from "lucide-react"
-import { createBrowserSupabase } from "@/lib/supabase-browser"
 
 /**
  * supabase.auth.admin.generateLink() (invites, password recovery) always
  * redirects here with tokens in the URL hash fragment (#access_token=...).
- * @supabase/ssr's cookie-based browser client is built around a
- * server-exchanged-code SSR pattern, not automatic hash detection — relying
- * on detectSessionInUrl here silently found nothing even on fresh, valid
- * links. So we parse the hash ourselves and call setSession() explicitly,
- * which is deterministic regardless of flowType/storage-adapter quirks.
+ * Uses a plain, non-persisted supabase-js client (not @supabase/ssr) — see
+ * git history on auth-guard.ts/login route for why the SSR cookie client
+ * was dropped entirely. This client only needs to hold the session
+ * in-memory long enough to call setSession() then updateUser().
  */
 function parseHashTokens(): { access_token: string; refresh_token: string } | null {
   const hash = typeof window !== "undefined" ? window.location.hash : ""
@@ -24,38 +22,37 @@ function parseHashTokens(): { access_token: string; refresh_token: string } | nu
 }
 
 export default function SetPasswordForm() {
-  const router = useRouter()
+  const clientRef = useRef<SupabaseClient | null>(null)
   const [ready, setReady] = useState(false)
   const [hasSession, setHasSession] = useState(false)
+  const [email, setEmail] = useState<string | null>(null)
   const [password, setPassword] = useState("")
   const [confirm, setConfirm] = useState("")
   const [status, setStatus] = useState<"idle" | "saving" | "done" | "error">("idle")
   const [errorMsg, setErrorMsg] = useState("")
 
   useEffect(() => {
-    const supabase = createBrowserSupabase()
-    const tokens = parseHashTokens()
+    const client = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      { auth: { persistSession: false, autoRefreshToken: false } }
+    )
+    clientRef.current = client
 
-    async function establishSession() {
-      if (tokens) {
-        const { error } = await supabase.auth.setSession(tokens)
-        if (!error) {
-          // Drop the tokens from the URL — no reason to leave them visible
-          // in the address bar/history once the session is established.
-          window.history.replaceState(null, "", window.location.pathname)
-          setHasSession(true)
-          setReady(true)
-          return
-        }
-      }
-      // Fallback: maybe a session already exists (e.g. page refresh after
-      // the hash was already consumed and cleared above).
-      const { data } = await supabase.auth.getSession()
-      setHasSession(Boolean(data.session))
+    const tokens = parseHashTokens()
+    if (!tokens) {
       setReady(true)
+      return
     }
 
-    establishSession()
+    client.auth.setSession(tokens).then(({ data, error }) => {
+      if (!error && data.session) {
+        window.history.replaceState(null, "", window.location.pathname)
+        setEmail(data.session.user.email ?? null)
+        setHasSession(true)
+      }
+      setReady(true)
+    })
   }, [])
 
   async function handleSubmit() {
@@ -69,19 +66,29 @@ export default function SetPasswordForm() {
       setStatus("error")
       return
     }
+    const client = clientRef.current
+    if (!client) return
+
     setStatus("saving")
-    const supabase = createBrowserSupabase()
-    const { error } = await supabase.auth.updateUser({ password })
+    const { error } = await client.auth.updateUser({ password })
     if (error) {
       setErrorMsg(error.message)
       setStatus("error")
       return
     }
+
+    // Auto sign-in with the password they just set, so they don't have to
+    // type it twice. If this fails for some reason they can still just log
+    // in normally with the password they just chose.
+    if (email) {
+      await fetch("/api/mentorship/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      })
+    }
+
     setStatus("done")
-    setTimeout(() => {
-      router.push("/mentorship/portal")
-      router.refresh()
-    }, 1500)
   }
 
   if (!ready) {
@@ -98,9 +105,13 @@ export default function SetPasswordForm() {
   }
   if (status === "done") {
     return (
-      <div className="card p-8 text-center">
-        <CheckCircle className="w-12 h-12 text-green-mid mx-auto mb-4" />
-        <p className="text-green-dark">Password set! Redirecting to your portal...</p>
+      <div className="card p-8 text-center space-y-4">
+        <CheckCircle className="w-12 h-12 text-green-mid mx-auto mb-1" />
+        <p className="text-green-dark">Password set!</p>
+        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+          <a href="/mentorship/portal" className="btn-primary">Go to My Portal</a>
+          <a href="/mentorship/admin" className="btn-outline">Go to Admin Dashboard</a>
+        </div>
       </div>
     )
   }

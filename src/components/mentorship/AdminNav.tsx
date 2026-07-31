@@ -1,7 +1,6 @@
 "use client"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
-import { createBrowserSupabase } from "@/lib/supabase-browser"
 
 const links = [
   { label: "Applications", href: "/mentorship/admin/applications" },
@@ -16,8 +15,7 @@ export default function AdminNav() {
   const router = useRouter()
 
   async function signOut() {
-    const supabase = createBrowserSupabase()
-    await supabase.auth.signOut()
+    await fetch("/api/mentorship/auth/logout", { method: "POST" })
     router.push("/mentorship/admin/login")
     router.refresh()
   }
