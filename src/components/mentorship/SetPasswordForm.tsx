@@ -5,10 +5,24 @@ import { Loader2, CheckCircle } from "lucide-react"
 import { createBrowserSupabase } from "@/lib/supabase-browser"
 
 /**
- * The Supabase browser client auto-detects the access token in the URL
- * hash on mount (detectSessionInUrl, on by default) — this component just
- * confirms a session exists, then lets the user set their password.
+ * supabase.auth.admin.generateLink() (invites, password recovery) always
+ * redirects here with tokens in the URL hash fragment (#access_token=...).
+ * @supabase/ssr's cookie-based browser client is built around a
+ * server-exchanged-code SSR pattern, not automatic hash detection — relying
+ * on detectSessionInUrl here silently found nothing even on fresh, valid
+ * links. So we parse the hash ourselves and call setSession() explicitly,
+ * which is deterministic regardless of flowType/storage-adapter quirks.
  */
+function parseHashTokens(): { access_token: string; refresh_token: string } | null {
+  const hash = typeof window !== "undefined" ? window.location.hash : ""
+  if (!hash) return null
+  const params = new URLSearchParams(hash.slice(1))
+  const access_token = params.get("access_token")
+  const refresh_token = params.get("refresh_token")
+  if (!access_token || !refresh_token) return null
+  return { access_token, refresh_token }
+}
+
 export default function SetPasswordForm() {
   const router = useRouter()
   const [ready, setReady] = useState(false)
@@ -20,10 +34,28 @@ export default function SetPasswordForm() {
 
   useEffect(() => {
     const supabase = createBrowserSupabase()
-    supabase.auth.getSession().then(({ data }) => {
+    const tokens = parseHashTokens()
+
+    async function establishSession() {
+      if (tokens) {
+        const { error } = await supabase.auth.setSession(tokens)
+        if (!error) {
+          // Drop the tokens from the URL — no reason to leave them visible
+          // in the address bar/history once the session is established.
+          window.history.replaceState(null, "", window.location.pathname)
+          setHasSession(true)
+          setReady(true)
+          return
+        }
+      }
+      // Fallback: maybe a session already exists (e.g. page refresh after
+      // the hash was already consumed and cleared above).
+      const { data } = await supabase.auth.getSession()
       setHasSession(Boolean(data.session))
       setReady(true)
-    })
+    }
+
+    establishSession()
   }, [])
 
   async function handleSubmit() {
