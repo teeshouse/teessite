@@ -110,7 +110,7 @@ export default function SetPasswordForm() {
         <p className="text-green-dark">Password set!</p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <a href="/mentorship/portal" className="btn-primary">Go to My Portal</a>
-          <a href="/mentorship/admin" className="btn-outline">Go to Admin Dashboard</a>
+          <a href="/mentorship/admin/applications" className="btn-outline">Go to Admin Dashboard</a>
         </div>
       </div>
     )
