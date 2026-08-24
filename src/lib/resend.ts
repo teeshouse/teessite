@@ -22,10 +22,11 @@ export function getResend(): Resend | null {
   return _client
 }
 
-// FROM domain must be verified in Resend. We verify teeshousepensacola.org
-// because that's the domain we currently control DNS for. Once we gain
-// DNS access to teeshouse.org, this can be swapped to mail.teeshouse.org.
-export const FROM   = "Tee’s House <noreply@teeshousepensacola.org>"
+// FROM domain must be verified in Resend. teeshouse.org is now verified
+// there (teeshousepensacola.org was only ever an alias domain, never
+// verified — every notification email had been silently failing to send
+// since launch until this was caught and fixed).
+export const FROM   = "Tee’s House <noreply@teeshouse.org>"
 // NOTIFY is the destination mailbox — Resend sends to any valid address,
 // it does NOT need to match the FROM domain.
 export const NOTIFY = "info@teeshouse.org"
