@@ -3,17 +3,13 @@ import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import VolunteerForm from "@/components/VolunteerForm"
 import { roles } from "@/lib/volunteerRoles"
-import { Sprout, Package, Palette, CalendarDays, BookOpen, DollarSign, Megaphone, ClipboardList } from "lucide-react"
+import { Sprout, Package, Palette, CalendarDays } from "lucide-react"
 
 const Icons: Record<string, typeof Sprout> = {
-  "Gardening / Urban Farming":      Sprout,
-  "Food Distribution":               Package,
-  "Creative Arts":                   Palette,
-  "Event Support":                   CalendarDays,
-  "Workshop Support & Education":    BookOpen,
-  "Fundraising & Development":       DollarSign,
-  "Community Outreach & Ambassador": Megaphone,
-  "Administrative":                  ClipboardList,
+  "Field Maintenance Gardener":    Sprout,
+  "Field Distribution Support":    Package,
+  "Workshop Facilitator":          Palette,
+  "Community Outreach Ambassador": CalendarDays,
 }
 
 export const metadata = {

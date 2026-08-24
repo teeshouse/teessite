@@ -7,10 +7,21 @@ import { roles } from "@/lib/volunteerRoles"
 const daysOfWeek = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
 const timeSlots  = ["Morning (8 AM - 12 PM)","Afternoon (12 PM - 4 PM)","Evening (4 PM - 7 PM)"]
 const bgOptions  = ["Yes","No","I'd like to learn more before committing"]
+const educationOptions = [
+  "Less than High School",
+  "High School Diploma / GED",
+  "Some College",
+  "Associate Degree",
+  "Bachelor's Degree",
+  "Master's Degree",
+  "Doctorate / Professional Degree",
+  "Prefer not to say",
+]
 
 type FormData = {
   name: string; email: string; phone: string
   roles: string[]; skills: string
+  education: string
   days: string[]; times: string[]
   backgroundCheck: string
   emergencyName: string; emergencyPhone: string; emergencyRelation: string
@@ -19,7 +30,7 @@ type FormData = {
 }
 
 const empty: FormData = {
-  name:"",email:"",phone:"",roles:[],skills:"",days:[],times:[],
+  name:"",email:"",phone:"",roles:[],skills:"",education:"",days:[],times:[],
   backgroundCheck:"",emergencyName:"",emergencyPhone:"",emergencyRelation:"",notes:"",
   website:""
 }
@@ -46,6 +57,7 @@ export default function VolunteerForm() {
     if (!form.phone.trim())             e.phone = "Required"
     if (!form.roles.length)             e.roles = "Select at least one role"
     if (!form.skills.trim())            e.skills = "Required"
+    if (!form.education)                e.education = "Required"
     if (!form.days.length)              e.days = "Select at least one day"
     if (!form.times.length)             e.times = "Select at least one time"
     if (!form.backgroundCheck)          e.backgroundCheck = "Required"
@@ -148,6 +160,18 @@ export default function VolunteerForm() {
               placeholder="Share any relevant skills, certifications, or past volunteer experience."
               value={form.skills} onChange={e=>set("skills",e.target.value)}/>
             {errors.skills&&<p className="text-red-500 text-xs mt-1">{errors.skills}</p>}
+          </div>
+          {/* Education */}
+          <div>
+            <h3 className="text-green-dark mb-4 pb-2 border-b border-gray-border">Highest Level of Education Completed *</h3>
+            <select className={`form-input ${errors.education?"border-red-400":""}`}
+              value={form.education} onChange={e=>set("education",e.target.value)}>
+              <option value="" disabled>Select an option</option>
+              {educationOptions.map(o=>(
+                <option key={o} value={o}>{o}</option>
+              ))}
+            </select>
+            {errors.education&&<p className="text-red-500 text-xs mt-1">{errors.education}</p>}
           </div>
           {/* Availability */}
           <div>

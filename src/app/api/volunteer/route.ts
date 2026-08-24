@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
     const {
-      name, email, phone, roles, skills,
+      name, email, phone, roles, skills, education,
       days, times, backgroundCheck,
       emergencyName, emergencyPhone, emergencyRelation, notes
     } = body
@@ -51,6 +51,7 @@ export async function POST(req: NextRequest) {
         phone:              phone || null,
         roles:              roles || [],
         skills:             skills || null,
+        education:          education || null,
         days:               days || [],
         times:              times || [],
         background_check:   backgroundCheck || false,
@@ -79,6 +80,7 @@ export async function POST(req: NextRequest) {
         { label: "Email",      value: email },
         { label: "Phone",      value: phone || "(none)" },
         { label: "Roles",      value: (roles || []).join(", ") || "(none)" },
+        { label: "Education",  value: education || "(none)" },
         { label: "Days",       value: (days  || []).join(", ") || "(none)" },
         { label: "Times",      value: (times || []).join(", ") || "(none)" },
         { label: "BG check",   value: backgroundCheck ? "Yes" : "Not answered" },
