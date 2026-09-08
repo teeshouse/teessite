@@ -141,7 +141,7 @@ export default function VolunteerForm() {
           </div>
           {/* Roles */}
           <div>
-            <h3 className="text-green-dark mb-4 pb-2 border-b border-gray-border">Volunteer Interests *</h3>
+            <h3 className="text-green-dark mb-4 pb-2 border-b border-gray-border">Volunteer Interest *</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {roles.map(r=>(
                 <label key={r.title} className="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-green-light transition-colors">
