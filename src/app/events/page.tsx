@@ -69,8 +69,8 @@ export default async function EventsPage() {
             <div className="container-max text-center">
               <div className="card p-16 max-w-lg mx-auto">
                 <Calendar className="w-12 h-12 text-amber mx-auto mb-4" />
-                <h2 className="text-green-dark mb-3">Events Coming Soon</h2>
-                <p className="text-gray-muted mb-6">Check back soon or contact us to learn about upcoming events.</p>
+                <h2 className="text-green-dark mb-3">Events Listed Above</h2>
+                <p className="text-gray-muted mb-6">Looking for us to support an event, contact us so we can see how to best support.</p>
                 <Link href="/contact" className="btn-primary">Contact Us <ArrowRight className="w-4 h-4" /></Link>
               </div>
             </div>
