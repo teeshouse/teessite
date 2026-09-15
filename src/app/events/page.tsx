@@ -44,6 +44,26 @@ export default async function EventsPage() {
           </div>
         </section>
 
+        <section className="section-padding bg-white">
+          <div className="container-max">
+            <div className="text-center mb-12">
+              <span className="text-amber font-semibold text-sm uppercase tracking-widest">Full Schedule</span>
+              <h2 className="text-green-dark mt-3">Community Calendar</h2>
+            </div>
+            <div className="max-w-4xl mx-auto rounded-card overflow-hidden shadow-card-hover">
+              <iframe
+                src="https://calendar.google.com/calendar/embed?src=c_8f58cec817bfa15be8fddbbce0c9a634e485223cc236ffed0ae094549c599bc8%40group.calendar.google.com&ctz=America%2FChicago"
+                style={{ border: 0 }}
+                width="100%"
+                height={600}
+                frameBorder={0}
+                scrolling="no"
+                title="Tee's House Community Calendar"
+              />
+            </div>
+          </div>
+        </section>
+
         {events.length === 0 ? (
           <section className="section-padding bg-green-light">
             <div className="container-max text-center">
