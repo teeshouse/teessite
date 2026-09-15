@@ -8,7 +8,7 @@ import { Sprout, Package, Palette, CalendarDays } from "lucide-react"
 const Icons: Record<string, typeof Sprout> = {
   "Field Maintenance Gardener":    Sprout,
   "Field Distribution Support":    Package,
-  "Workshop Facilitator":          Palette,
+  "Program Facilitator":           Palette,
   "Community Outreach Ambassador": CalendarDays,
 }
 
