@@ -6,7 +6,7 @@ import { roles } from "@/lib/volunteerRoles"
 import { Sprout, Package, Palette, CalendarDays } from "lucide-react"
 
 const Icons: Record<string, typeof Sprout> = {
-  "Field Maintenance Gardener":    Sprout,
+  "Field Maintenance":             Sprout,
   "Field Distribution Support":    Package,
   "Program Facilitator":           Palette,
   "Community Outreach Ambassador": CalendarDays,
