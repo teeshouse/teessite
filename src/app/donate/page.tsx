@@ -46,9 +46,9 @@ export default async function DonatePage() {
 
   const goal     = d.fundraisingGoal     ?? 25000
   const raised   = d.fundraisingRaised   ?? 6200
-  const donors   = d.fundraisingDonors   ?? 62
-  const label    = d.fundraisingLabel    ?? "2026 STEAM Future Leaders Fund"
-  const deadline = d.fundraisingDeadline ?? "August 31, 2026"
+  const donors   = d.fundraisingDonors   ?? 13
+  const label    = d.fundraisingLabel    ?? "Agriculture and Arts Programming Future Fund"
+  const deadline = d.fundraisingDeadline ?? "May 2027"
   const giving   = d.givingOptions?.length ? d.givingOptions : FALLBACK_GIVING
   const tiers    = d.monthlyTiers?.length  ? d.monthlyTiers  : FALLBACK_TIERS
   const paypalUrl = s.paypalDonateLink || "https://www.paypal.com/donate/?hosted_button_id=XSHDRCQ2L66JW"
