@@ -9,9 +9,10 @@ interface Props {
   donors:  number
   label:   string
   deadline?: string
+  note?: string
 }
 
-export default function DonationThermometer({ goal, raised, donors, label, deadline }: Props) {
+export default function DonationThermometer({ goal, raised, donors, label, deadline, note }: Props) {
   const [animated, setAnimated] = useState(0)
   const pct = Math.min(Math.round((raised / goal) * 100), 100)
 
@@ -24,7 +25,8 @@ export default function DonationThermometer({ goal, raised, donors, label, deadl
     <div className="card p-8 max-w-2xl mx-auto text-center">
       <span className="text-amber font-semibold text-sm uppercase tracking-widest">Fundraising Goal</span>
       <h3 className="text-green-dark text-2xl mt-2 mb-2">{label}</h3>
-      {deadline && <p className="text-gray-muted text-sm mb-6">Goal deadline: {deadline}</p>}
+      {deadline && <p className={`text-gray-muted text-sm ${note ? "mb-2" : "mb-6"}`}>Goal deadline: {deadline}</p>}
+      {note && <p className="text-gray-muted text-sm mb-6 italic">{note}</p>}
 
       {/* Progress bar */}
       <div className="relative h-8 bg-green-light rounded-full overflow-hidden mb-4">

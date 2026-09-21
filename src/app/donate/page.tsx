@@ -48,7 +48,8 @@ export default async function DonatePage() {
   const raised   = d.fundraisingRaised   ?? 16190
   const donors   = d.fundraisingDonors   ?? 13
   const label    = d.fundraisingLabel    ?? "Agriculture and Arts Programming Future Fund"
-  const deadline = d.fundraisingDeadline ?? "May 2027"
+  const deadline = d.fundraisingDeadline ?? "October 2027"
+  const note     = d.fundraisingNote     ?? "Programming includes full-scale programming at 6 different schools."
   const giving   = d.givingOptions?.length ? d.givingOptions : FALLBACK_GIVING
   const tiers    = d.monthlyTiers?.length  ? d.monthlyTiers  : FALLBACK_TIERS
   const paypalUrl = s.paypalDonateLink || "https://www.paypal.com/donate/?hosted_button_id=XSHDRCQ2L66JW"
@@ -90,6 +91,7 @@ export default async function DonatePage() {
               donors={donors}
               label={label}
               deadline={deadline}
+              note={note}
             />
           </div>
         </section>

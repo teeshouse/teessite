@@ -25,7 +25,7 @@ export const SITE_SETTINGS_QUERY = groq`
     },
     donatePage {
       fundraisingGoal, fundraisingRaised, fundraisingDonors,
-      fundraisingLabel, fundraisingDeadline,
+      fundraisingLabel, fundraisingDeadline, fundraisingNote,
       givingOptions[] { title, description, buttonLabel, url, isExternal },
       monthlyTiers[]  { amount, impact }
     },

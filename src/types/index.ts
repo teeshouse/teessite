@@ -57,7 +57,7 @@ export interface MonthlyTier {
 }
 export interface DonatePageSettings {
   fundraisingGoal?: number; fundraisingRaised?: number; fundraisingDonors?: number
-  fundraisingLabel?: string; fundraisingDeadline?: string
+  fundraisingLabel?: string; fundraisingDeadline?: string; fundraisingNote?: string
   givingOptions?: GivingOption[]
   monthlyTiers?: MonthlyTier[]
 }
