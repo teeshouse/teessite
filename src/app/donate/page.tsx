@@ -44,8 +44,8 @@ export default async function DonatePage() {
   const s: Partial<SiteSettings> = settings || {}
   const d = s.donatePage || {}
 
-  const goal     = d.fundraisingGoal     ?? 25000
-  const raised   = d.fundraisingRaised   ?? 6200
+  const goal     = d.fundraisingGoal     ?? 139293
+  const raised   = d.fundraisingRaised   ?? 16190
   const donors   = d.fundraisingDonors   ?? 13
   const label    = d.fundraisingLabel    ?? "Agriculture and Arts Programming Future Fund"
   const deadline = d.fundraisingDeadline ?? "May 2027"
