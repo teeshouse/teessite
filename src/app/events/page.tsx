@@ -52,7 +52,7 @@ export default async function EventsPage() {
             </div>
             <div className="max-w-4xl mx-auto rounded-card overflow-hidden shadow-card-hover">
               <iframe
-                src="https://calendar.google.com/calendar/embed?src=c_8f58cec817bfa15be8fddbbce0c9a634e485223cc236ffed0ae094549c599bc8%40group.calendar.google.com&ctz=America%2FChicago"
+                src="https://calendar.google.com/calendar/embed?src=c_df6ae3016b52e6753bf783b70192f69c378af8956baa7ee1f61a837f51f1e07f%40group.calendar.google.com&ctz=America%2FChicago"
                 style={{ border: 0 }}
                 width="100%"
                 height={600}
