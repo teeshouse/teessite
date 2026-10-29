@@ -69,7 +69,7 @@ const FALLBACK_KITS: Service[] = [
     price: "Starting at $19.99", isSubscription: true,
     tagline: "An ongoing experience delivered to inspire growth, creativity, and connection every month.",
     items: ["Ag & Arts Kit*", "Garden Club Access", "Seasonal Seeds", "Creator Sheets"],
-    kitNotes: ["*One per subscription", "**Monthly subscription of $9.99 after setup", "***Snail Mail Delivery"],
+    kitNotes: ["*One kit per subscription", "**Snail Mail Delivery", "***Monthly subscription of $9.99 after setup"],
   },
 ]
 
