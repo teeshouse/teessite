@@ -68,8 +68,8 @@ const FALLBACK_KITS: Service[] = [
     _id: "k4", category: "kit", title: "Thrive Monthly",
     price: "Starting at $19.99", isSubscription: true,
     tagline: "An ongoing experience delivered to inspire growth, creativity, and connection every month.",
-    items: ["Ag & Arts Kit*", "A2 Club Access", "Seasonal seeds", "Creative Wellness Sheet"],
-    kitNotes: ["*One per subscription", "Monthly subscription of $4.99 after 1st payment", "**Received through snail mail"],
+    items: ["Ag & Arts Kit*", "Garden Club Access", "Seasonal Seeds", "Creator Sheets"],
+    kitNotes: ["*One per subscription", "**Monthly subscription of $9.99 after setup", "***Snail Mail Delivery"],
   },
 ]
 
