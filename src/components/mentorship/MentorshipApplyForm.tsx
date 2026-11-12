@@ -3,7 +3,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { CheckCircle, Loader2 } from "lucide-react"
 
-const gradeLevels = ["Elementary School", "Middle School", "High School", "Recent Graduate"]
+const gradeLevels = ["High School", "Current Student", "Some College", "Associate Degree", "Bachelor's Degree", "Master's Degree"]
 const interests = [
   "Gardening & Urban Farming", "Creative Arts", "Leadership Development",
   "Career Exploration", "Life Skills", "Nutrition & Wellness",
