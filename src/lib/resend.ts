@@ -115,6 +115,8 @@ export interface NotifyArgs {
    */
   text?:    string
   replyTo?: string
+  /** Files sent with the email, e.g. an applicant's résumé. */
+  attachments?: { filename: string; content: Buffer }[]
 }
 
 /** Build the branded HTML body. Table-based layout for Gmail compatibility. */
@@ -202,6 +204,7 @@ export async function notifyInfo(args: NotifyArgs): Promise<boolean> {
       text:    renderText(args),
       html:    renderHtml(args),
       replyTo: args.replyTo,
+      attachments: args.attachments,
     })
     if (res.error) {
       console.error("Resend send error:", res.error)

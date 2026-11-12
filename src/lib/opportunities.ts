@@ -25,6 +25,10 @@ export const HELP_ME_FIND_A_FIT = { id: "help-me-find-a-fit", title: "Help me fi
 
 export const OPPORTUNITY_SELECT_EVENT = "opportunity-select"
 
+// Vercel rejects request bodies over 4.5 MB, so keep the résumé comfortably under that.
+export const RESUME_MAX_BYTES = 4 * 1024 * 1024
+export const RESUME_EXTENSIONS = ["pdf", "doc", "docx"]
+
 export const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 export const timeSlots  = ["Morning (8 AM - 12 PM)", "Afternoon (12 PM - 4 PM)", "Evening (4 PM - 7 PM)"]
 export const bgOptions  = ["Yes", "No", "I'd like to learn more before committing"]

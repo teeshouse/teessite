@@ -1,10 +1,10 @@
 "use client"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { CheckCircle, Loader2 } from "lucide-react"
 import {
   OPPORTUNITY_SELECT_EVENT, daysOfWeek, timeSlots, bgOptions, creditOptions, educationOptions,
-  kindSections, type FormOption,
+  kindSections, RESUME_MAX_BYTES, RESUME_EXTENSIONS, type FormOption,
 } from "@/lib/opportunities"
 
 type FormData = {
@@ -12,7 +12,7 @@ type FormData = {
   name: string; email: string; phone: string
   days: string[]; times: string[]
   statement: string
-  education: string; academicCredit: string; resumeLink: string
+  education: string; academicCredit: string
   backgroundCheck: string
   notes: string
   website: string
@@ -20,7 +20,7 @@ type FormData = {
 
 const empty: FormData = {
   opportunityId:"",otherRoles:"",name:"",email:"",phone:"",days:[],times:[],statement:"",
-  education:"",academicCredit:"",resumeLink:"",backgroundCheck:"",notes:"",website:""
+  education:"",academicCredit:"",backgroundCheck:"",notes:"",website:""
 }
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -31,6 +31,9 @@ export default function VolunteerForm({ options }: { options: FormOption[] }) {
   const [errors, setErrors]   = useState<Partial<Record<keyof FormData,string>>>({})
   const [serverError, setServerError] = useState("")
   const [submittedTitle, setSubmittedTitle] = useState("")
+  const [resume, setResume]   = useState<File | null>(null)
+  const [resumeError, setResumeError] = useState("")
+  const resumeInput = useRef<HTMLInputElement>(null)
 
   const selected       = options.find(o => o.id === form.opportunityId)
   const showEducation  = selected?.kind === "internship" || selected?.kind === "paid"
@@ -61,6 +64,21 @@ export default function VolunteerForm({ options }: { options: FormOption[] }) {
     }))
     setErrors(e => ({ ...e, [key]: "" }))
   }
+  function pickResume(file: File | null) {
+    if (!file) { clearResume(); return }
+    const ext = file.name.split(".").pop()?.toLowerCase() ?? ""
+    if (!RESUME_EXTENSIONS.includes(ext)) {
+      clearResume(); setResumeError("Please upload a PDF, DOC, or DOCX file.")
+    } else if (file.size > RESUME_MAX_BYTES) {
+      clearResume(); setResumeError("That file is too large. Please upload a file under 4 MB.")
+    } else {
+      setResumeError(""); setResume(file)
+    }
+  }
+  function clearResume() {
+    setResume(null); setResumeError("")
+    if (resumeInput.current) resumeInput.current.value = ""
+  }
   function validate() {
     const e: Partial<Record<keyof FormData,string>> = {}
     if (!selected)                        e.opportunityId = "Please choose an opportunity"
@@ -72,8 +90,6 @@ export default function VolunteerForm({ options }: { options: FormOption[] }) {
     if (!form.statement.trim())           e.statement = "Required"
     if (showEducation && !form.education) e.education = "Required"
     if (showCredit && !form.academicCredit) e.academicCredit = "Required"
-    if (showResume && form.resumeLink.trim() && !/^https?:\/\//i.test(form.resumeLink.trim()))
-                                          e.resumeLink = "Enter a link starting with http:// or https://"
     if (showScreening && !form.backgroundCheck) e.backgroundCheck = "Required"
     setErrors(e)
     return Object.keys(e).length === 0
@@ -95,23 +111,22 @@ export default function VolunteerForm({ options }: { options: FormOption[] }) {
       website:       form.website,
       ...(showEducation && { education: form.education }),
       ...(showCredit    && { academicCredit: form.academicCredit }),
-      ...(showResume    && { resumeLink: form.resumeLink }),
       ...(showScreening && { backgroundCheck: form.backgroundCheck }),
     }
+    const data = new FormData()
+    data.append("payload", JSON.stringify(payload))
+    if (showResume && resume) data.append("resume", resume)
     try {
-      const res = await fetch("/api/volunteer", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      })
+      const res = await fetch("/api/volunteer", { method: "POST", body: data })
       if (!res.ok) {
-        const data = await res.json().catch(() => null)
-        setServerError(typeof data?.error === "string" ? data.error : "")
+        const err = await res.json().catch(() => null)
+        setServerError(typeof err?.error === "string" ? err.error : "")
         throw new Error()
       }
       setSubmittedTitle(selected?.title || "")
       setStatus("success")
       setForm(empty)
+      clearResume()
     } catch { setStatus("error") }
   }
 
@@ -266,10 +281,18 @@ export default function VolunteerForm({ options }: { options: FormOption[] }) {
                 )}
                 {showResume && (
                   <div>
-                    <label htmlFor="resumeLink" className="form-label">Link to your résumé (optional)</label>
-                    <input id="resumeLink" type="url" className={`form-input ${errors.resumeLink?"border-red-400":""}`}
-                      placeholder="https://" value={form.resumeLink} onChange={e=>set("resumeLink",e.target.value)}/>
-                    {errors.resumeLink&&<p className="text-red-500 text-xs mt-1">{errors.resumeLink}</p>}
+                    <label htmlFor="resume" className="form-label">Upload your résumé (optional)</label>
+                    <input id="resume" ref={resumeInput} type="file" accept=".pdf,.doc,.docx"
+                      className="block w-full text-sm text-gray-body file:mr-4 file:rounded-lg file:border-0 file:bg-green-light file:px-4 file:py-2 file:text-sm file:font-semibold file:text-green-dark hover:file:bg-green-mid/20"
+                      onChange={e=>pickResume(e.target.files?.[0] ?? null)}/>
+                    <p className="text-xs text-gray-muted mt-1">PDF, DOC, or DOCX, up to 4 MB.</p>
+                    {resume && (
+                      <p className="text-sm text-gray-body mt-2">
+                        Selected: <span className="font-semibold">{resume.name}</span>{" "}
+                        <button type="button" onClick={clearResume} className="text-amber underline ml-2">Remove</button>
+                      </p>
+                    )}
+                    {resumeError&&<p className="text-red-500 text-xs mt-1">{resumeError}</p>}
                   </div>
                 )}
                 {showScreening && (
