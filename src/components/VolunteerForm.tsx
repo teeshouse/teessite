@@ -1,83 +1,115 @@
 "use client"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import { CheckCircle, Loader2 } from "lucide-react"
-import { roles } from "@/lib/volunteerRoles"
-
-const daysOfWeek = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
-const timeSlots  = ["Morning (8 AM - 12 PM)","Afternoon (12 PM - 4 PM)","Evening (4 PM - 7 PM)"]
-const bgOptions  = ["Yes","No","I'd like to learn more before committing"]
-const educationOptions = [
-  "Less than High School",
-  "High School Diploma / GED",
-  "Some College",
-  "Associate Degree",
-  "Bachelor's Degree",
-  "Master's Degree",
-  "Doctorate / Professional Degree",
-  "Prefer not to say",
-]
+import {
+  OPPORTUNITY_SELECT_EVENT, daysOfWeek, timeSlots, bgOptions, creditOptions, educationOptions,
+  kindSections, type FormOption,
+} from "@/lib/opportunities"
 
 type FormData = {
+  opportunityId: string; otherRoles: string
   name: string; email: string; phone: string
-  roles: string[]; skills: string
-  education: string
   days: string[]; times: string[]
+  statement: string
+  education: string; academicCredit: string; resumeLink: string
   backgroundCheck: string
-  emergencyName: string; emergencyPhone: string; emergencyRelation: string
   notes: string
   website: string
 }
 
 const empty: FormData = {
-  name:"",email:"",phone:"",roles:[],skills:"",education:"",days:[],times:[],
-  backgroundCheck:"",emergencyName:"",emergencyPhone:"",emergencyRelation:"",notes:"",
-  website:""
+  opportunityId:"",otherRoles:"",name:"",email:"",phone:"",days:[],times:[],statement:"",
+  education:"",academicCredit:"",resumeLink:"",backgroundCheck:"",notes:"",website:""
 }
 
-export default function VolunteerForm() {
-  const [form, setForm]     = useState<FormData>(empty)
-  const [status, setStatus] = useState<"idle"|"loading"|"success"|"error">("idle")
-  const [errors, setErrors] = useState<Partial<Record<keyof FormData,string>>>({})
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+export default function VolunteerForm({ options }: { options: FormOption[] }) {
+  const [form, setForm]       = useState<FormData>(empty)
+  const [status, setStatus]   = useState<"idle"|"loading"|"success"|"error">("idle")
+  const [errors, setErrors]   = useState<Partial<Record<keyof FormData,string>>>({})
+  const [serverError, setServerError] = useState("")
+  const [submittedTitle, setSubmittedTitle] = useState("")
+
+  const selected       = options.find(o => o.id === form.opportunityId)
+  const showEducation  = selected?.kind === "internship" || selected?.kind === "paid"
+  const showCredit     = selected?.kind === "internship"
+  const showResume     = selected?.kind === "internship" || selected?.kind === "paid"
+  const showScreening  = Boolean(selected)
+
+  useEffect(() => {
+    function onSelect(e: Event) {
+      const id = (e as CustomEvent<string>).detail
+      if (options.some(o => o.id === id)) {
+        setForm(f => ({ ...f, opportunityId: id }))
+        setErrors(er => ({ ...er, opportunityId: "" }))
+      }
+    }
+    window.addEventListener(OPPORTUNITY_SELECT_EVENT, onSelect)
+    return () => window.removeEventListener(OPPORTUNITY_SELECT_EVENT, onSelect)
+  }, [options])
 
   function set(key: keyof FormData, value: string) {
     setForm(f => ({ ...f, [key]: value }))
     setErrors(e => ({ ...e, [key]: "" }))
   }
-  function toggle(key: "roles"|"days"|"times", value: string) {
+  function toggle(key: "days"|"times", value: string) {
     setForm(f => ({
       ...f,
       [key]: f[key].includes(value) ? f[key].filter(v => v !== value) : [...f[key], value]
     }))
+    setErrors(e => ({ ...e, [key]: "" }))
   }
   function validate() {
     const e: Partial<Record<keyof FormData,string>> = {}
-    if (!form.name.trim())              e.name = "Required"
-    if (!form.email.trim())             e.email = "Required"
-    if (!form.phone.trim())             e.phone = "Required"
-    if (!form.roles.length)             e.roles = "Select at least one role"
-    if (!form.skills.trim())            e.skills = "Required"
-    if (!form.education)                e.education = "Required"
-    if (!form.days.length)              e.days = "Select at least one day"
-    if (!form.times.length)             e.times = "Select at least one time"
-    if (!form.backgroundCheck)          e.backgroundCheck = "Required"
-    if (!form.emergencyName.trim())     e.emergencyName = "Required"
-    if (!form.emergencyPhone.trim())    e.emergencyPhone = "Required"
-    if (!form.emergencyRelation.trim()) e.emergencyRelation = "Required"
-    if (!form.notes.trim())             e.notes = "Required"
+    if (!selected)                        e.opportunityId = "Please choose an opportunity"
+    if (!form.name.trim())                e.name = "Required"
+    if (!form.email.trim())               e.email = "Required"
+    else if (!emailPattern.test(form.email.trim())) e.email = "Enter a valid email address"
+    if (!form.days.length)                e.days = "Select at least one day"
+    if (!form.times.length)               e.times = "Select at least one time"
+    if (!form.statement.trim())           e.statement = "Required"
+    if (showEducation && !form.education) e.education = "Required"
+    if (showCredit && !form.academicCredit) e.academicCredit = "Required"
+    if (showResume && form.resumeLink.trim() && !/^https?:\/\//i.test(form.resumeLink.trim()))
+                                          e.resumeLink = "Enter a link starting with http:// or https://"
+    if (showScreening && !form.backgroundCheck) e.backgroundCheck = "Required"
     setErrors(e)
     return Object.keys(e).length === 0
   }
   async function handleSubmit() {
     if (!validate()) return
     setStatus("loading")
+    setServerError("")
+    const payload = {
+      opportunityId: form.opportunityId,
+      otherRoles:    form.otherRoles,
+      name:          form.name,
+      email:         form.email,
+      phone:         form.phone,
+      days:          form.days,
+      times:         form.times,
+      statement:     form.statement,
+      notes:         form.notes,
+      website:       form.website,
+      ...(showEducation && { education: form.education }),
+      ...(showCredit    && { academicCredit: form.academicCredit }),
+      ...(showResume    && { resumeLink: form.resumeLink }),
+      ...(showScreening && { backgroundCheck: form.backgroundCheck }),
+    }
     try {
       const res = await fetch("/api/volunteer", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form)
+        body: JSON.stringify(payload)
       })
-      if (!res.ok) throw new Error()
+      if (!res.ok) {
+        const data = await res.json().catch(() => null)
+        setServerError(typeof data?.error === "string" ? data.error : "")
+        throw new Error()
+      }
+      setSubmittedTitle(selected?.title || "")
       setStatus("success")
       setForm(empty)
     } catch { setStatus("error") }
@@ -85,12 +117,13 @@ export default function VolunteerForm() {
 
   if (status === "success") {
     return (
-      <section className="section-padding bg-green-light min-h-[60vh] flex items-center">
+      <section id="apply" className="section-padding bg-green-light min-h-[60vh] flex items-center scroll-mt-24">
         <div className="container-max text-center">
           <CheckCircle className="w-16 h-16 text-green-mid mx-auto mb-4" />
-          <h2 className="text-green-dark mb-3">Thank You for Volunteering!</h2>
+          <h2 className="text-green-dark mb-3">Thank You!</h2>
           <p className="text-gray-muted max-w-md mx-auto mb-6">
-            We have received your interest form and will be in touch soon to match you with the perfect opportunity.
+            We have received your submission{submittedTitle ? <> for <strong>{submittedTitle}</strong></> : null} and
+            will be in touch soon with next steps.
           </p>
           <Link href="/" className="btn-primary">Back to Home</Link>
         </div>
@@ -99,12 +132,14 @@ export default function VolunteerForm() {
   }
 
   return (
-    <section className="section-padding bg-white">
+    <section id="apply" className="section-padding bg-white scroll-mt-24">
       <div className="container-max max-w-3xl">
         <div className="text-center mb-10">
-          <span className="text-amber font-semibold text-sm uppercase tracking-widest">Apply Now</span>
-          <h2 className="text-green-dark mt-3">Volunteer Interest Form</h2>
-          <p className="text-gray-muted mt-2">Complete the form so we can get you plugged in to the right opportunity.</p>
+          <span className="text-amber font-semibold text-sm uppercase tracking-widest">Get Started</span>
+          <h2 className="text-green-dark mt-3">Apply or Express Interest</h2>
+          <p className="text-gray-muted mt-2">
+            Choose an opportunity and tell us a little about yourself. We collect emergency contact details during onboarding.
+          </p>
         </div>
         <div className="card p-8 space-y-6">
           {/* Honeypot: hidden from real users, bots fill it and get silently dropped server-side */}
@@ -114,6 +149,29 @@ export default function VolunteerForm() {
               <input type="text" tabIndex={-1} autoComplete="off"
                 value={form.website} onChange={e=>set("website",e.target.value)}/>
             </label>
+          </div>
+          {/* Opportunity */}
+          <div>
+            <label htmlFor="opportunity" className="form-label">Which opportunity are you most interested in? *</label>
+            <select id="opportunity" className={`form-input ${errors.opportunityId?"border-red-400":""}`}
+              value={form.opportunityId} onChange={e=>set("opportunityId",e.target.value)}>
+              <option value="" disabled>Select an opportunity</option>
+              {kindSections.map(s => {
+                const group = options.filter(o => o.kind === s.kind)
+                return group.length > 0 && (
+                  <optgroup key={s.kind} label={s.heading}>
+                    {group.map(o => <option key={o.id} value={o.id}>{o.title}</option>)}
+                  </optgroup>
+                )
+              })}
+              <optgroup label="Not sure yet">
+                {options.filter(o => o.kind === "general").map(o => <option key={o.id} value={o.id}>{o.title}</option>)}
+              </optgroup>
+            </select>
+            {errors.opportunityId&&<p className="text-red-500 text-xs mt-1">{errors.opportunityId}</p>}
+            <label htmlFor="otherRoles" className="form-label mt-4">Other roles you would consider (optional)</label>
+            <input id="otherRoles" className="form-input" placeholder="e.g. Program Facilitator, Community Outreach Ambassador"
+              value={form.otherRoles} onChange={e=>set("otherRoles",e.target.value)}/>
           </div>
           {/* Personal */}
           <div>
@@ -132,46 +190,11 @@ export default function VolunteerForm() {
                 {errors.email&&<p className="text-red-500 text-xs mt-1">{errors.email}</p>}
               </div>
               <div>
-                <label className="form-label">Phone *</label>
-                <input className={`form-input ${errors.phone?"border-red-400":""}`}
+                <label className="form-label">Phone (optional)</label>
+                <input className="form-input"
                   type="tel" placeholder="850-000-0000" value={form.phone} onChange={e=>set("phone",e.target.value)}/>
-                {errors.phone&&<p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
               </div>
             </div>
-          </div>
-          {/* Roles */}
-          <div>
-            <h3 className="text-green-dark mb-4 pb-2 border-b border-gray-border">Volunteer Interest *</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {roles.map(r=>(
-                <label key={r.title} className="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-green-light transition-colors">
-                  <input type="checkbox" className="w-4 h-4 accent-green-mid"
-                    checked={form.roles.includes(r.title)} onChange={()=>toggle("roles",r.title)}/>
-                  <span className="text-sm text-gray-body">{r.title}</span>
-                </label>
-              ))}
-            </div>
-            {errors.roles&&<p className="text-red-500 text-xs mt-1">{errors.roles}</p>}
-          </div>
-          {/* Skills */}
-          <div>
-            <h3 className="text-green-dark mb-4 pb-2 border-b border-gray-border">Background & Skills *</h3>
-            <textarea className={`form-input min-h-[100px] ${errors.skills?"border-red-400":""}`}
-              placeholder="Share any relevant skills, certifications, or past volunteer experience."
-              value={form.skills} onChange={e=>set("skills",e.target.value)}/>
-            {errors.skills&&<p className="text-red-500 text-xs mt-1">{errors.skills}</p>}
-          </div>
-          {/* Education */}
-          <div>
-            <h3 className="text-green-dark mb-4 pb-2 border-b border-gray-border">Highest Level of Education Completed *</h3>
-            <select className={`form-input ${errors.education?"border-red-400":""}`}
-              value={form.education} onChange={e=>set("education",e.target.value)}>
-              <option value="" disabled>Select an option</option>
-              {educationOptions.map(o=>(
-                <option key={o} value={o}>{o}</option>
-              ))}
-            </select>
-            {errors.education&&<p className="text-red-500 text-xs mt-1">{errors.education}</p>}
           </div>
           {/* Availability */}
           <div>
@@ -180,6 +203,7 @@ export default function VolunteerForm() {
             <div className="flex flex-wrap gap-2 mb-4">
               {daysOfWeek.map(day=>(
                 <button key={day} type="button" onClick={()=>toggle("days",day)}
+                  aria-pressed={form.days.includes(day)}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors border-2
                     ${form.days.includes(day)?"bg-green-dark text-white border-green-dark":"bg-white text-gray-muted border-gray-border hover:border-green-mid"}`}>
                   {day.slice(0,3)}
@@ -199,63 +223,90 @@ export default function VolunteerForm() {
             </div>
             {errors.times&&<p className="text-red-500 text-xs mt-1">{errors.times}</p>}
           </div>
-          {/* Background check */}
+          {/* Statement of interest */}
           <div>
-            <h3 className="text-green-dark mb-4 pb-2 border-b border-gray-border">Background Check *</h3>
-            <p className="text-sm text-gray-muted mb-3">Are you willing to undergo a Level 2 background screening if required?</p>
-            <div className="flex flex-col gap-2">
-              {bgOptions.map(o=>(
-                <label key={o} className="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-green-light transition-colors">
-                  <input type="radio" name="bgCheck" className="w-4 h-4 accent-green-mid"
-                    checked={form.backgroundCheck===o} onChange={()=>set("backgroundCheck",o)}/>
-                  <span className="text-sm text-gray-body">{o}</span>
-                </label>
-              ))}
-            </div>
-            {errors.backgroundCheck&&<p className="text-red-500 text-xs mt-1">{errors.backgroundCheck}</p>}
+            <h3 className="text-green-dark mb-4 pb-2 border-b border-gray-border">Statement of Interest *</h3>
+            <textarea className={`form-input min-h-[100px] ${errors.statement?"border-red-400":""}`}
+              placeholder="Tell us briefly why you are interested and share any relevant skills or experience."
+              value={form.statement} onChange={e=>set("statement",e.target.value)}/>
+            {errors.statement&&<p className="text-red-500 text-xs mt-1">{errors.statement}</p>}
           </div>
-          {/* Emergency */}
-          <div>
-            <h3 className="text-green-dark mb-4 pb-2 border-b border-gray-border">Emergency Contact</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div>
-                <label className="form-label">Name *</label>
-                <input className={`form-input ${errors.emergencyName?"border-red-400":""}`}
-                  placeholder="Full name" value={form.emergencyName} onChange={e=>set("emergencyName",e.target.value)}/>
-                {errors.emergencyName&&<p className="text-red-500 text-xs mt-1">{errors.emergencyName}</p>}
-              </div>
-              <div>
-                <label className="form-label">Phone *</label>
-                <input className={`form-input ${errors.emergencyPhone?"border-red-400":""}`}
-                  type="tel" placeholder="850-000-0000" value={form.emergencyPhone} onChange={e=>set("emergencyPhone",e.target.value)}/>
-                {errors.emergencyPhone&&<p className="text-red-500 text-xs mt-1">{errors.emergencyPhone}</p>}
-              </div>
-              <div>
-                <label className="form-label">Relationship *</label>
-                <input className={`form-input ${errors.emergencyRelation?"border-red-400":""}`}
-                  placeholder="e.g. Spouse, Parent" value={form.emergencyRelation} onChange={e=>set("emergencyRelation",e.target.value)}/>
-                {errors.emergencyRelation&&<p className="text-red-500 text-xs mt-1">{errors.emergencyRelation}</p>}
+          {/* Role-specific questions */}
+          {(showEducation || showCredit || showResume || showScreening) && (
+            <div>
+              <h3 className="text-green-dark mb-4 pb-2 border-b border-gray-border">About This Opportunity</h3>
+              <div className="space-y-5">
+                {showEducation && (
+                  <div>
+                    <label htmlFor="education" className="form-label">Highest Level of Education Completed *</label>
+                    <select id="education" className={`form-input ${errors.education?"border-red-400":""}`}
+                      value={form.education} onChange={e=>set("education",e.target.value)}>
+                      <option value="" disabled>Select an option</option>
+                      {educationOptions.map(o=>(
+                        <option key={o} value={o}>{o}</option>
+                      ))}
+                    </select>
+                    {errors.education&&<p className="text-red-500 text-xs mt-1">{errors.education}</p>}
+                  </div>
+                )}
+                {showCredit && (
+                  <div>
+                    <p className="form-label">Are you seeking academic credit for this internship? *</p>
+                    <div className="flex flex-wrap gap-2">
+                      {creditOptions.map(o=>(
+                        <label key={o} className="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-green-light transition-colors">
+                          <input type="radio" name="academicCredit" className="w-4 h-4 accent-green-mid"
+                            checked={form.academicCredit===o} onChange={()=>set("academicCredit",o)}/>
+                          <span className="text-sm text-gray-body">{o}</span>
+                        </label>
+                      ))}
+                    </div>
+                    {errors.academicCredit&&<p className="text-red-500 text-xs mt-1">{errors.academicCredit}</p>}
+                  </div>
+                )}
+                {showResume && (
+                  <div>
+                    <label htmlFor="resumeLink" className="form-label">Link to your résumé (optional)</label>
+                    <input id="resumeLink" type="url" className={`form-input ${errors.resumeLink?"border-red-400":""}`}
+                      placeholder="https://" value={form.resumeLink} onChange={e=>set("resumeLink",e.target.value)}/>
+                    {errors.resumeLink&&<p className="text-red-500 text-xs mt-1">{errors.resumeLink}</p>}
+                  </div>
+                )}
+                {showScreening && (
+                  <div>
+                    <p className="form-label">A Level 2 background screening is required for all roles. Are you willing to complete it? *</p>
+                    <div className="flex flex-col gap-2">
+                      {bgOptions.map(o=>(
+                        <label key={o} className="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-green-light transition-colors">
+                          <input type="radio" name="bgCheck" className="w-4 h-4 accent-green-mid"
+                            checked={form.backgroundCheck===o} onChange={()=>set("backgroundCheck",o)}/>
+                          <span className="text-sm text-gray-body">{o}</span>
+                        </label>
+                      ))}
+                    </div>
+                    {errors.backgroundCheck&&<p className="text-red-500 text-xs mt-1">{errors.backgroundCheck}</p>}
+                  </div>
+                )}
               </div>
             </div>
-          </div>
+          )}
           {/* Notes */}
           <div>
-            <h3 className="text-green-dark mb-4 pb-2 border-b border-gray-border">Final Notes *</h3>
-            <textarea className={`form-input min-h-[80px] ${errors.notes?"border-red-400":""}`}
+            <h3 className="text-green-dark mb-4 pb-2 border-b border-gray-border">Additional Notes (optional)</h3>
+            <textarea className="form-input min-h-[80px]"
               placeholder="Is there anything else you'd like us to know?"
               value={form.notes} onChange={e=>set("notes",e.target.value)}/>
-            {errors.notes&&<p className="text-red-500 text-xs mt-1">{errors.notes}</p>}
           </div>
           {status==="error"&&(
             <p className="text-red-500 text-sm text-center">
-              Something went wrong. Please email us at info@teeshouse.org
+              {serverError || "Something went wrong. Please email us at info@teeshouse.org"}
             </p>
           )}
           <button onClick={handleSubmit} disabled={status==="loading"}
             className="btn-amber w-full justify-center text-base py-4">
             {status==="loading"
               ? <><Loader2 className="w-5 h-5 animate-spin"/>Submitting...</>
-              : "Submit Volunteer Interest Form"}
+              : "Submit"}
           </button>
         </div>
       </div>
