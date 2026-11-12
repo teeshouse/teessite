@@ -68,7 +68,7 @@ export const opportunities: Opportunity[] = [
     open: true,
     compensation: "Starting at $20/hour",
     timeCommitment: "Part-time, 10–20 hours per week",
-    description: "Lead or assist in pre-crafted curriculum focused on garden discovery, nutrition connections, environmental stewardship, and creative reflection.",
+    description: "Lead pre-crafted curriculum focused on garden discovery, nutrition connections, environmental stewardship, and creative reflection.",
     apply: { type: "form" },
   },
   {
