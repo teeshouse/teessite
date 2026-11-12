@@ -48,6 +48,20 @@ export interface FormOption {
 
 export const opportunities: Opportunity[] = [
   {
+    id: "community-engagement-marketing-intern",
+    title: "Community Engagement & Marketing Intern",
+    kind: "internship",
+    paidInternship: true,
+    open: true,
+    description: "Support our youth enrichment programs while expanding Tee’s House’s visibility through community outreach, program facilitation, and marketing. Weekday availability during school hours is required.",
+    compensation: "$18/hour equivalent, paid monthly based on documented hours",
+    timeCommitment: "Part-time, approximately 10–15 hours per week",
+    apply: {
+      type: "handshake",
+      url: "https://app.joinhandshake.com/public/jobs/11845796?utm_source=web&utm_campaign=job_share&utm_medium=copy_link&utm_content=emp-copy_link-all_jobs_page",
+    },
+  },
+  {
     id: "program-facilitator",
     title: "Program Facilitator",
     kind: "paid",
