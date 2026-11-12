@@ -20,7 +20,7 @@ const STATIC_ROUTES: Array<{
   { path: "/news",         priority: 0.8, changeFreq: "weekly"  },
   { path: "/gallery",      priority: 0.7, changeFreq: "weekly"  },
   { path: "/donate",       priority: 0.9, changeFreq: "monthly" },
-  { path: "/volunteer",    priority: 0.8, changeFreq: "monthly" },
+  { path: "/opportunities", priority: 0.8, changeFreq: "monthly" },
   { path: "/intake",       priority: 0.7, changeFreq: "monthly" },
   { path: "/partners",     priority: 0.6, changeFreq: "monthly" },
   { path: "/transparency", priority: 0.6, changeFreq: "monthly" },

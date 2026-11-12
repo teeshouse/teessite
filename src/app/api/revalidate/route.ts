@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
       "/events",
       "/gallery",
       "/donate",
-      "/volunteer",
+      "/opportunities",
       "/partners",
       "/faq",
       "/transparency",

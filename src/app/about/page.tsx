@@ -232,7 +232,7 @@ export default async function AboutPage() {
                 </div>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link href="/contact"   className="btn-primary">Contact Us <ArrowRight className="w-4 h-4" /></Link>
-                  <Link href="/volunteer" className="btn-outline">Volunteer <Heart className="w-4 h-4" /></Link>
+                  <Link href="/opportunities" className="btn-outline">Volunteer <Heart className="w-4 h-4" /></Link>
                 </div>
               </div>
               <div className="relative h-72 rounded-card overflow-hidden shadow-card-hover">

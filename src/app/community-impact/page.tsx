@@ -245,7 +245,7 @@ export default async function ProgramsPage() {
                   </a>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Link href="/volunteer" className="btn-amber">Get Involved <ArrowRight className="w-4 h-4" /></Link>
+                  <Link href="/opportunities" className="btn-amber">Get Involved <ArrowRight className="w-4 h-4" /></Link>
                   <Link href="/donate"    className="btn-outline-white">Support Programs <ArrowRight className="w-4 h-4" /></Link>
                 </div>
               </div>

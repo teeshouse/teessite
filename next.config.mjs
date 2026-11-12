@@ -17,6 +17,11 @@ const nextConfig = {
         destination: "/fundraising-offerings",
         permanent: true,
       },
+      {
+        source: "/volunteer",
+        destination: "/opportunities",
+        permanent: true,
+      },
     ]
   },
 }

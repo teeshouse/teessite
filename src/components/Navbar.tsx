@@ -25,7 +25,7 @@ export default async function Navbar() {
     {
       label: "Get Involved",
       children: [
-        { label: "Opportunities",      href: "/volunteer"   },
+        { label: "Opportunities",      href: "/opportunities"   },
         { label: "Client Intake",      href: "/intake"      },
         { label: "Mentorship Program", href: "/mentorship"  },
       ],

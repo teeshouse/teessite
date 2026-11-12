@@ -79,7 +79,7 @@ export default async function Footer() {
             <h4 className="text-white font-semibold mb-3 text-xs uppercase tracking-widest">Support</h4>
             <ul className="space-y-2">
               {[
-                { label: "Opportunities", href: "/volunteer"     },
+                { label: "Opportunities", href: "/opportunities"     },
                 { label: "Partners",      href: "/partners"      },
                 { label: "Transparency",  href: "/transparency"  },
                 { label: "FAQ",           href: "/faq"           },
@@ -152,7 +152,7 @@ export default async function Footer() {
                 { label: "Partners",     href: "/partners"     },
                 { label: "Transparency", href: "/transparency" },
                 { label: "FAQ",          href: "/faq"          },
-                { label: "Opportunities", href: "/volunteer"   },
+                { label: "Opportunities", href: "/opportunities"   },
                 { label: "Contact",      href: "/contact"      },
               ].map(l => (
                 <li key={l.href}>
