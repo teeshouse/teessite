@@ -22,7 +22,6 @@ export default async function Navbar() {
     { label: pages.about.navLabel,   href: "/about"            },
     { label: labels.navLabel,        href: "/community-impact"  },
     { label: pages.events.navLabel,  href: "/events"            },
-    { label: pages.news.navLabel,    href: "/news"              },
     {
       label: "Get Involved",
       children: [
@@ -34,13 +33,14 @@ export default async function Navbar() {
     {
       label: "More",
       children: [
+        { label: pages.news.navLabel,    href: "/news"          },
         { label: pages.gallery.navLabel, href: "/gallery"       },
         { label: "Fundraisers & Offerings", href: "/fundraising-offerings" },
         { label: "Partners & Sponsors",  href: "/partners"      },
         { label: "Transparency",         href: "/transparency"  },
         { label: "FAQ",                  href: "/faq"           },
-        { label: "Contact",             href: "/contact"       },
-      ],
+        { label: "Contact",              href: "/contact"       },
+      ].sort((a, b) => a.label.localeCompare(b.label)),
     },
   ]
 
