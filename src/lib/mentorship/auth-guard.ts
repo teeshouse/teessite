@@ -80,7 +80,7 @@ export async function requirePortalUser(): Promise<GuardResult<PortalUser>> {
     return { error: null, user: { authUserId: user.id, role: "mentee", profileId: mentee.id } }
   }
 
-  return { error: { message: "No mentor or mentee profile linked to this account", status: 403 }, user: null }
+  return { error: { message: "No mentor or intern profile linked to this account", status: 403 }, user: null }
 }
 
 /**

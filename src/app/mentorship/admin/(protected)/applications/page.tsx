@@ -13,7 +13,7 @@ export default async function AdminApplicationsPage() {
 
   return (
     <div>
-      <h1 className="text-green-dark mb-6">Mentee Applications</h1>
+      <h1 className="text-green-dark mb-6">Intern Applications</h1>
       <ApplicationsTable applications={(data as MentorshipApplication[]) || []} />
     </div>
   )

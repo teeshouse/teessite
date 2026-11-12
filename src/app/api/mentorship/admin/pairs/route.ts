@@ -37,14 +37,14 @@ export async function POST(req: NextRequest) {
     .maybeSingle()
 
   if (menteeError || !mentee) {
-    return NextResponse.json({ error: "Mentee not found" }, { status: 404 })
+    return NextResponse.json({ error: "Intern not found" }, { status: 404 })
   }
 
   if (mentee.is_minor) {
     const expired = !mentee.consent_expires_at || new Date(mentee.consent_expires_at) < new Date()
     if (!mentee.parent_consent || expired) {
       return NextResponse.json(
-        { error: "Cannot pair: parent consent has not been received or has expired for this mentee." },
+        { error: "Cannot pair: parent consent has not been received or has expired for this intern." },
         { status: 400 }
       )
     }
@@ -67,7 +67,7 @@ export async function POST(req: NextRequest) {
     .eq("status", "active")
 
   if ((activePairCount ?? 0) >= mentor.max_mentees) {
-    return NextResponse.json({ error: "This mentor is already at their max mentee capacity." }, { status: 400 })
+    return NextResponse.json({ error: "This mentor is already at their max intern capacity." }, { status: 400 })
   }
 
   const { data: pair, error: dbError } = await supabaseAdmin

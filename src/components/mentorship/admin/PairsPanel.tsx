@@ -65,7 +65,7 @@ export default function PairsPanel({
             {mentors.map(m => <option key={m.id} value={m.id}>{m.first_name} {m.last_name}</option>)}
           </select>
           <select className="form-input" value={menteeId} onChange={e => setMenteeId(e.target.value)}>
-            <option value="">Select mentee</option>
+            <option value="">Select intern</option>
             {mentees.map(m => (
               <option key={m.id} value={m.id}>
                 {m.first_name} {m.last_name}{m.is_minor ? (m.parent_consent ? " (minor, consented)" : " (minor, NO CONSENT)") : ""}
@@ -88,7 +88,7 @@ export default function PairsPanel({
           <thead>
             <tr className="border-b border-gray-border text-left">
               <th className="p-3 font-semibold text-green-dark">Mentor</th>
-              <th className="p-3 font-semibold text-green-dark">Mentee</th>
+              <th className="p-3 font-semibold text-green-dark">Intern</th>
               <th className="p-3 font-semibold text-green-dark">Status</th>
               <th className="p-3 font-semibold text-green-dark">Certificate</th>
             </tr>

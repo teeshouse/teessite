@@ -27,7 +27,7 @@ export default async function Navbar() {
       children: [
         { label: "Opportunities",      href: "/opportunities"   },
         { label: "Client Intake",      href: "/intake"      },
-        { label: "Mentorship Program", href: "/mentorship"  },
+        { label: "Internship Program",  href: "/mentorship"  },
       ],
     },
     {

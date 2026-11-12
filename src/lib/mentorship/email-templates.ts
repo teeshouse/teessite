@@ -90,12 +90,12 @@ export function mentorWeeklyNudge(args: {
     .join("")
   return {
     subject: "Your weekly mentorship check-in",
-    heading: "Your mentees this week",
+    heading: "Your interns this week",
     bodyHtml: `<p>Hi ${escapeHtml(args.mentorName)},</p>
-      <p>Here's where things stand with your mentee(s):</p>
+      <p>Here's where things stand with your intern(s):</p>
       <ul style="padding-left:20px;">${rows}</ul>
       <p>Log in to your portal to record a session or update goals.</p>`,
-    bodyText: `Hi ${args.mentorName},\n\nHere's where things stand with your mentee(s):\n\n${args.pairSummaries.map(p => `- ${p.menteeName}: ${p.status}${p.daysSinceLastSession !== null ? ` (last session ${p.daysSinceLastSession}d ago)` : " (no sessions logged yet)"}`).join("\n")}`,
+    bodyText: `Hi ${args.mentorName},\n\nHere's where things stand with your intern(s):\n\n${args.pairSummaries.map(p => `- ${p.menteeName}: ${p.status}${p.daysSinceLastSession !== null ? ` (last session ${p.daysSinceLastSession}d ago)` : " (no sessions logged yet)"}`).join("\n")}`,
     cta: { label: "Open Portal", href: `${SITE_URL}/mentorship/portal` },
   }
 }

@@ -102,7 +102,7 @@ export default function MentorApplyForm() {
         <div className="text-center mb-10">
           <span className="text-amber font-semibold text-sm uppercase tracking-widest">Apply Now</span>
           <h2 className="text-green-dark mt-3">Mentor Application</h2>
-          <p className="text-gray-muted mt-2">Share your background so we can pair you with the right mentee.</p>
+          <p className="text-gray-muted mt-2">Share your background so we can pair you with the right intern.</p>
         </div>
         <div className="card p-8 space-y-6">
           <div aria-hidden="true" style={{ position: "absolute", left: "-10000px", top: "auto", width: 1, height: 1, overflow: "hidden" }}>
@@ -212,7 +212,7 @@ export default function MentorApplyForm() {
               <span className="text-sm text-gray-body">
                 I certify that I have no criminal convictions involving violence, fraud, sexual
                 misconduct, or crimes against minors, and I understand Tee&rsquo;s House may
-                request additional background verification before I&rsquo;m paired with a mentee. *
+                request additional background verification before I&rsquo;m paired with an intern. *
               </span>
             </label>
             {errors.backgroundSelfCert && <p className="text-red-500 text-xs mt-1">{errors.backgroundSelfCert}</p>}
@@ -224,7 +224,7 @@ export default function MentorApplyForm() {
                 checked={form.agreedToTerms} onChange={e => set("agreedToTerms", e.target.checked)} />
               <span className="text-sm text-gray-body">
                 I agree to participate respectfully in the Tee&rsquo;s House mentorship program, many
-                of whose mentees are minors, and to communicate only through the program. *
+                of whose interns are minors, and to communicate only through the program. *
               </span>
             </label>
             {errors.agreedToTerms && <p className="text-red-500 text-xs mt-1">{errors.agreedToTerms}</p>}

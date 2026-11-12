@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
 
   if (role === "mentee" && profile.is_minor && !profile.parent_consent) {
     return NextResponse.json(
-      { error: "Cannot activate: this mentee is a minor without confirmed parental consent." },
+      { error: "Cannot activate: this intern is a minor without confirmed parental consent." },
       { status: 400 }
     )
   }

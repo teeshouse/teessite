@@ -4,7 +4,7 @@ import MentorApplyForm from "@/components/mentorship/MentorApplyForm"
 
 export const metadata = {
   title: "Become a Mentor | Tee's House",
-  description: "Apply to become a mentor with Tee's House and help shape the next generation of Pensacola youth.",
+  description: "Apply to become a mentor in the Tee's House internship program and help shape the next generation of Pensacola youth.",
 }
 
 export default function MentorApplyPage() {

@@ -98,7 +98,7 @@ export async function POST(req: NextRequest) {
     }
 
     await notifyInfo({
-      subject: `New mentee application: ${firstName} ${lastName}`,
+      subject: `New intern application: ${firstName} ${lastName}`,
       intro: "A new mentorship applicant was submitted.",
       fields: [
         { label: "Name", value: `${firstName} ${lastName}` },

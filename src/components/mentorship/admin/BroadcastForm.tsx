@@ -34,7 +34,7 @@ export default function BroadcastForm() {
         <label className="form-label">Audience</label>
         <select className="form-input" value={audience} onChange={e => setAudience(e.target.value as typeof audience)}>
           <option value="mentors">Active Mentors</option>
-          <option value="mentees">Matched/Active Mentees</option>
+          <option value="mentees">Matched/Active Interns</option>
           <option value="both">Both</option>
         </select>
       </div>

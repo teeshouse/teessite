@@ -1,11 +1,11 @@
 import Link from "next/link"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
-import { Users, HandHeart, Sprout, ShieldCheck } from "lucide-react"
+import { Users, HandHeart, Sprout, ShieldCheck, GraduationCap } from "lucide-react"
 
 export const metadata = {
-  title: "Mentorship Program | Tee's House",
-  description: "Tee's House's mentorship program pairs Pensacola youth with caring adult mentors for guided growth in agriculture, arts, and life skills.",
+  title: "Internship Program | Tee's House",
+  description: "Tee's House's internship program with mentoring pairs Pensacola youth interns with caring adult mentors for guided growth in agriculture, arts, and life skills. Apply as an intern or as a mentor.",
 }
 
 export default function MentorshipPage() {
@@ -16,11 +16,53 @@ export default function MentorshipPage() {
         <section className="relative text-white py-28 px-4 overflow-hidden bg-green-dark">
           <div className="container-max relative text-center z-10">
             <span className="text-amber font-semibold text-sm uppercase tracking-widest">Growing Together</span>
-            <h1 className="text-white mt-3 mb-4 text-4xl md:text-5xl">Mentorship Program</h1>
+            <h1 className="text-white mt-3 mb-4 text-4xl md:text-5xl">Internship Program</h1>
             <p className="text-green-light text-lg max-w-2xl mx-auto">
-              We pair Pensacola youth with caring adult mentors for guided growth through
-              agriculture, arts, and life skills — one season, and one relationship, at a time.
+              Our internship program comes with mentoring built in. We pair Pensacola youth interns with
+              caring adult mentors for guided growth through agriculture, arts, and life skills &mdash; one
+              season, and one relationship, at a time.
             </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+              <Link href="/mentorship/apply" className="btn-amber">Apply as an Intern</Link>
+              <Link href="/mentorship/apply-mentor" className="btn-outline-white">Apply as a Mentor</Link>
+            </div>
+          </div>
+        </section>
+
+        <section className="section-padding bg-green-light">
+          <div className="container-max max-w-4xl">
+            <div className="text-center mb-10">
+              <span className="text-amber font-semibold text-sm uppercase tracking-widest">Two Ways to Join</span>
+              <h2 className="text-green-dark mt-3">Intern or Mentor</h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="card p-6 flex flex-col">
+                <div className="inline-flex p-2 bg-green-light rounded-lg mb-3 self-start">
+                  <GraduationCap className="w-5 h-5 text-green-mid" />
+                </div>
+                <h3 className="text-green-dark text-lg font-semibold mb-2">Apply as an Intern</h3>
+                <p className="text-gray-muted text-sm leading-relaxed mb-5">
+                  Join the program as an intern, set goals with your mentor, and build hands-on experience
+                  in agriculture, arts, and life skills. Parental consent is required for anyone under 18.
+                </p>
+                <div className="mt-auto">
+                  <Link href="/mentorship/apply" className="btn-amber">Apply as an Intern</Link>
+                </div>
+              </div>
+              <div className="card p-6 flex flex-col">
+                <div className="inline-flex p-2 bg-green-light rounded-lg mb-3 self-start">
+                  <HandHeart className="w-5 h-5 text-green-mid" />
+                </div>
+                <h3 className="text-green-dark text-lg font-semibold mb-2">Apply as a Mentor</h3>
+                <p className="text-gray-muted text-sm leading-relaxed mb-5">
+                  Share your time and experience by guiding an intern through the season. Mentors meet
+                  regularly, set goals together, and help celebrate progress at program completion.
+                </p>
+                <div className="mt-auto">
+                  <Link href="/mentorship/apply-mentor" className="btn-outline">Apply as a Mentor</Link>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -32,9 +74,9 @@ export default function MentorshipPage() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
               {[
-                { icon: Users, title: "Apply", desc: "Youth and mentors each submit an application. Parental consent is required for anyone under 18." },
+                { icon: Users, title: "Apply", desc: "Interns and mentors each submit an application. Parental consent is required for anyone under 18." },
                 { icon: ShieldCheck, title: "Review", desc: "Our team reviews every application and confirms all required safeguards are in place." },
-                { icon: HandHeart, title: "Pair Up", desc: "We match mentors and mentees within a cohort based on interests and goals." },
+                { icon: HandHeart, title: "Pair Up", desc: "We match mentors and interns within a cohort based on interests and goals." },
                 { icon: Sprout, title: "Grow", desc: "Pairs meet regularly, set goals together, and celebrate progress at program completion." },
               ].map(step => (
                 <div key={step.title} className="card p-5">
@@ -54,7 +96,7 @@ export default function MentorshipPage() {
             <span className="text-amber font-semibold text-sm uppercase tracking-widest">Youth Safety</span>
             <h2 className="text-green-dark mt-3 mb-4">Built With Safeguards</h2>
             <p className="text-gray-muted leading-relaxed">
-              Because most of our mentees are minors, every application from someone under 18
+              Because most of our interns are minors, every application from someone under 18
               requires a parent or guardian&rsquo;s consent before we&rsquo;ll pair them with a
               mentor. All communication happens through the program, session activity is visible
               to our team, and consent is renewed annually.
@@ -66,9 +108,13 @@ export default function MentorshipPage() {
           <div className="container-max text-center">
             <h2 className="text-green-dark mb-4">Ready to Get Involved?</h2>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
-              <Link href="/mentorship/apply" className="btn-amber">Apply as a Mentee</Link>
+              <Link href="/mentorship/apply" className="btn-amber">Apply as an Intern</Link>
               <Link href="/mentorship/apply-mentor" className="btn-outline">Apply as a Mentor</Link>
             </div>
+            <p className="text-gray-muted text-sm mt-8">
+              Looking for a paid internship, a paid position, or a volunteer role?{" "}
+              <Link href="/opportunities" className="text-green-mid underline">See all opportunities</Link>.
+            </p>
           </div>
         </section>
       </main>

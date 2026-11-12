@@ -123,7 +123,7 @@ export default function MentorshipApplyForm() {
       <div className="container-max max-w-3xl">
         <div className="text-center mb-10">
           <span className="text-amber font-semibold text-sm uppercase tracking-widest">Apply Now</span>
-          <h2 className="text-green-dark mt-3">Mentee Application</h2>
+          <h2 className="text-green-dark mt-3">Intern Application</h2>
           <p className="text-gray-muted mt-2">
             Tell us about yourself so we can find the right mentor for you.
           </p>
