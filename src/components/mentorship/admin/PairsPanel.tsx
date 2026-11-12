@@ -8,10 +8,11 @@ interface PairRow {
   certificate_token: string | null
   mentor: { id: string; first_name: string; last_name: string } | null
   mentee: { id: string; first_name: string; last_name: string; is_minor: boolean } | null
+  cohort: { name: string } | null
 }
 
 interface SimpleMentor { id: string; first_name: string; last_name: string }
-interface SimpleMentee { id: string; first_name: string; last_name: string; is_minor: boolean; parent_consent: boolean }
+interface SimpleMentee { id: string; first_name: string; last_name: string; is_minor: boolean; parent_consent: boolean; status: string }
 interface SimpleCohort { id: string; name: string }
 
 export default function PairsPanel({
@@ -68,7 +69,7 @@ export default function PairsPanel({
             <option value="">Select intern</option>
             {mentees.map(m => (
               <option key={m.id} value={m.id}>
-                {m.first_name} {m.last_name}{m.is_minor ? (m.parent_consent ? " (minor, consented)" : " (minor, NO CONSENT)") : ""}
+                {m.first_name} {m.last_name} [{m.status}]{m.is_minor ? (m.parent_consent ? " (minor, consented)" : " (minor, NO CONSENT)") : ""}
               </option>
             ))}
           </select>
@@ -77,6 +78,9 @@ export default function PairsPanel({
             {cohorts.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
           </select>
         </div>
+        {!mentees.length && (
+          <p className="text-gray-muted text-xs mt-3">No interns are available to pair. Interns who are declined, completed, or already in an active pair are not listed.</p>
+        )}
         {errorMsg && <p className="text-red-500 text-sm mt-3">{errorMsg}</p>}
         <button onClick={createPair} disabled={creating || !mentorId || !menteeId} className="btn-amber mt-4 py-2 text-sm">
           {creating ? "Creating..." : "Create Pair"}
@@ -89,6 +93,7 @@ export default function PairsPanel({
             <tr className="border-b border-gray-border text-left">
               <th className="p-3 font-semibold text-green-dark">Mentor</th>
               <th className="p-3 font-semibold text-green-dark">Intern</th>
+              <th className="p-3 font-semibold text-green-dark">Cohort</th>
               <th className="p-3 font-semibold text-green-dark">Status</th>
               <th className="p-3 font-semibold text-green-dark">Certificate</th>
             </tr>
@@ -98,6 +103,7 @@ export default function PairsPanel({
               <tr key={p.id} className="border-b border-gray-border last:border-0">
                 <td className="p-3">{p.mentor ? `${p.mentor.first_name} ${p.mentor.last_name}` : "—"}</td>
                 <td className="p-3">{p.mentee ? `${p.mentee.first_name} ${p.mentee.last_name}` : "—"}</td>
+                <td className="p-3">{p.cohort?.name || "—"}</td>
                 <td className="p-3">
                   {p.status}{p.flagged && <span className="ml-2 text-red-500 text-xs font-semibold">FLAGGED</span>}
                 </td>

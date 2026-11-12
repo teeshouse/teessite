@@ -22,20 +22,29 @@ export default function MentorsTable({ mentors }: { mentors: Mentor[] }) {
     setBusyId(null)
   }
 
-  async function activate(id: string) {
+  async function activate(id: string, resend = false) {
     setBusyId(id)
     setMsg(m => ({ ...m, [id]: "" }))
-    const res = await fetch("/api/mentorship/admin/mentors/activate", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id, role: "mentor" }),
-    })
-    const data = await res.json()
-    if (res.ok) {
-      setRows(rs => rs.map(r => (r.id === id ? { ...r, status: "active" } : r)))
-      setMsg(m => ({ ...m, [id]: "Invite sent" }))
-    } else {
-      setMsg(m => ({ ...m, [id]: data.error || "Failed" }))
+    try {
+      const res = await fetch("/api/mentorship/admin/mentors/activate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, role: "mentor", resend }),
+      })
+      const data = await res.json()
+      if (res.ok) {
+        setRows(rs => rs.map(r => (r.id === id ? { ...r, status: resend ? r.status : "active", auth_user_id: data.authUserId ?? r.auth_user_id } : r)))
+        setMsg(m => ({
+          ...m,
+          [id]: data.emailSent
+            ? "Invite email sent"
+            : "Account is set up, but the email could not be sent. Click Resend Invite to try again.",
+        }))
+      } else {
+        setMsg(m => ({ ...m, [id]: data.error || "Failed" }))
+      }
+    } catch {
+      setMsg(m => ({ ...m, [id]: "Network error. Please try again." }))
     }
     setBusyId(null)
   }
@@ -66,7 +75,13 @@ export default function MentorsTable({ mentors }: { mentors: Mentor[] }) {
               </td>
               <td className="p-3">
                 {m.auth_user_id ? (
-                  <span className="text-green-mid text-xs font-medium">Account created</span>
+                  <div className="flex items-center gap-3">
+                    <span className="text-green-mid text-xs font-medium">Account created</span>
+                    <button onClick={() => activate(m.id, true)} disabled={busyId === m.id}
+                      className="btn-outline text-xs py-1.5 px-3">
+                      {busyId === m.id ? "Sending..." : "Resend Invite"}
+                    </button>
+                  </div>
                 ) : (
                   <button onClick={() => activate(m.id)} disabled={busyId === m.id}
                     className="btn-outline text-xs py-1.5 px-3">
