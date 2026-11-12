@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
     if (!name || !email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return fail("Name and a valid email are required")
     }
-    if (!statement || !days.length || !times.length) {
+    if (!days.length || !times.length) {
       return fail("Please complete all required fields.")
     }
 
@@ -134,7 +134,7 @@ export async function POST(req: NextRequest) {
         email,
         phone:              phone || null,
         roles:              [roleTitle],
-        skills:             statement,
+        skills:             statement || null,
         education:          education || null,
         days,
         times,
@@ -152,7 +152,7 @@ export async function POST(req: NextRequest) {
     }
 
     const statementAndNotes = [
-      `Statement of interest:\n${statement}`,
+      statement ? `Statement of interest:\n${statement}` : "",
       notes ? `Additional notes:\n${notes}` : "",
     ].filter(Boolean).join("\n\n")
 
@@ -172,7 +172,7 @@ export async function POST(req: NextRequest) {
         { label: "Times",       value: times.join(", ") },
         { label: "Screening",   value: screening || "(not asked)" },
       ],
-      body: statementAndNotes,
+      body: statementAndNotes || undefined,
       attachments: resume ? [resume] : undefined,
     })
     if (resume && !emailed) {

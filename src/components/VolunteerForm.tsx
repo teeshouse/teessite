@@ -87,7 +87,6 @@ export default function VolunteerForm({ options }: { options: FormOption[] }) {
     else if (!emailPattern.test(form.email.trim())) e.email = "Enter a valid email address"
     if (!form.days.length)                e.days = "Select at least one day"
     if (!form.times.length)               e.times = "Select at least one time"
-    if (!form.statement.trim())           e.statement = "Required"
     if (showEducation && !form.education) e.education = "Required"
     if (showCredit && !form.academicCredit) e.academicCredit = "Required"
     if (showScreening && !form.backgroundCheck) e.backgroundCheck = "Required"
@@ -240,11 +239,10 @@ export default function VolunteerForm({ options }: { options: FormOption[] }) {
           </div>
           {/* Statement of interest */}
           <div>
-            <h3 className="text-green-dark mb-4 pb-2 border-b border-gray-border">Statement of Interest *</h3>
-            <textarea className={`form-input min-h-[100px] ${errors.statement?"border-red-400":""}`}
+            <h3 className="text-green-dark mb-4 pb-2 border-b border-gray-border">Statement of Interest (optional)</h3>
+            <textarea className="form-input min-h-[100px]"
               placeholder="Tell us briefly why you are interested and share any relevant skills or experience."
               value={form.statement} onChange={e=>set("statement",e.target.value)}/>
-            {errors.statement&&<p className="text-red-500 text-xs mt-1">{errors.statement}</p>}
           </div>
           {/* Role-specific questions */}
           {(showEducation || showCredit || showResume || showScreening) && (
