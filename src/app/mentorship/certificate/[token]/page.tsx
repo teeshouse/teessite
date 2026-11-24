@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation"
 import { supabaseAdmin } from "@/lib/supabase"
 import PrintButton from "@/components/mentorship/PrintButton"
+import { formatCentralDate } from "@/lib/mentorship/central-time"
 
 export const revalidate = 0
 export const metadata = { title: "Mentorship Certificate | Tee's House" }
@@ -33,9 +34,7 @@ export default async function CertificatePage({ params }: { params: { token: str
     .eq("pair_id", pair.id)
     .eq("status", "completed")
 
-  const completionDate = pair.ended_at
-    ? new Date(pair.ended_at).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })
-    : ""
+  const completionDate = pair.ended_at ? formatCentralDate(pair.ended_at, { long: true }) : ""
 
   return (
     <>

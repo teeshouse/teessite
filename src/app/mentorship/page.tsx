@@ -26,6 +26,9 @@ export default function MentorshipPage() {
               <Link href="/mentorship/apply" className="btn-amber">Apply as an Intern</Link>
               <Link href="/mentorship/apply-mentor" className="btn-outline-white">Apply as a Mentor</Link>
             </div>
+            <div className="mt-4">
+              <Link href="/mentorship/portal/login" className="btn-outline-white">Mentorship Portal Login</Link>
+            </div>
           </div>
         </section>
 
@@ -110,6 +113,9 @@ export default function MentorshipPage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
               <Link href="/mentorship/apply" className="btn-amber">Apply as an Intern</Link>
               <Link href="/mentorship/apply-mentor" className="btn-outline">Apply as a Mentor</Link>
+            </div>
+            <div className="mt-4">
+              <Link href="/mentorship/portal/login" className="btn-outline">Mentorship Portal Login</Link>
             </div>
             <p className="text-gray-muted text-sm mt-8">
               Looking for a paid internship, a paid position, or a volunteer role?{" "}

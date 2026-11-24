@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { supabaseAdmin } from "@/lib/supabase"
 import { requirePortalUser } from "@/lib/mentorship/auth-guard"
 import { getPairForPortalUser } from "@/lib/mentorship/portal-data"
+import { centralLocalToISO } from "@/lib/mentorship/central-time"
 
 function googleCalendarLink(args: { title: string; startISO: string; durationMins: number; details?: string }) {
   const start = new Date(args.startISO)
@@ -41,13 +42,15 @@ export async function POST(req: NextRequest) {
   if (!pair) return NextResponse.json({ error: "No active pairing" }, { status: 400 })
 
   const { scheduledDate, durationMins, format, agenda, meetLink } = await req.json()
-  if (!scheduledDate) return NextResponse.json({ error: "scheduledDate is required" }, { status: 400 })
+  // The browser sends the time exactly as picked ("2026-12-01T10:00"); it is Central Time.
+  const startsAt = centralLocalToISO(scheduledDate)
+  if (!startsAt) return NextResponse.json({ error: "Please choose a valid date and time" }, { status: 400 })
 
   const { data, error: dbError } = await supabaseAdmin
     .from("mentorship_scheduled_sessions")
     .insert([{
       pair_id: pair.id,
-      scheduled_date: scheduledDate,
+      scheduled_date: startsAt,
       duration_mins: durationMins || 60,
       format: format || null,
       agenda: agenda || null,
@@ -61,7 +64,7 @@ export async function POST(req: NextRequest) {
 
   const calendarLink = googleCalendarLink({
     title: "Tee's House Mentorship Session",
-    startISO: scheduledDate,
+    startISO: startsAt,
     durationMins: durationMins || 60,
     details: agenda,
   })

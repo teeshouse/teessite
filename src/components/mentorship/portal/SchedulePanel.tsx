@@ -1,6 +1,7 @@
 "use client"
 import { useState } from "react"
 import type { MentorshipScheduledSession } from "@/lib/mentorship/types"
+import { formatCentralDateTime } from "@/lib/mentorship/central-time"
 
 export default function SchedulePanel({ scheduledSessions }: { scheduledSessions: MentorshipScheduledSession[] }) {
   const [rows, setRows] = useState(scheduledSessions)
@@ -28,7 +29,8 @@ export default function SchedulePanel({ scheduledSessions }: { scheduledSessions
   return (
     <div className="space-y-6">
       <div className="card p-6">
-        <h2 className="text-green-dark text-sm font-semibold mb-4">Schedule a Session</h2>
+        <h2 className="text-green-dark text-sm font-semibold mb-1">Schedule a Session</h2>
+        <p className="text-xs text-gray-muted mb-4">All times are Central Time (Pensacola, FL).</p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           <input className="form-input" type="datetime-local" value={form.scheduledDate}
             onChange={e => setForm(f => ({ ...f, scheduledDate: e.target.value }))} />
@@ -51,7 +53,7 @@ export default function SchedulePanel({ scheduledSessions }: { scheduledSessions
         {rows.map(s => (
           <div key={s.id} className="card p-4 flex justify-between items-center">
             <div>
-              <p className="text-sm font-medium text-green-dark">{new Date(s.scheduled_date).toLocaleString()}</p>
+              <p className="text-sm font-medium text-green-dark">{formatCentralDateTime(s.scheduled_date)}</p>
               {s.agenda && <p className="text-xs text-gray-muted">{s.agenda}</p>}
             </div>
             <span className="text-xs text-gray-muted">{s.status}</span>

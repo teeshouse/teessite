@@ -1,6 +1,7 @@
 "use client"
 import { useState } from "react"
 import type { MentorshipSession } from "@/lib/mentorship/types"
+import { formatCentralDate } from "@/lib/mentorship/central-time"
 
 export default function SessionsPanel({ sessions }: { sessions: MentorshipSession[] }) {
   const [rows, setRows] = useState(sessions)
@@ -49,7 +50,7 @@ export default function SessionsPanel({ sessions }: { sessions: MentorshipSessio
         {rows.map(s => (
           <div key={s.id} className="card p-4">
             <div className="flex justify-between items-baseline">
-              <span className="font-semibold text-green-dark text-sm">{new Date(s.session_date).toLocaleDateString()}</span>
+              <span className="font-semibold text-green-dark text-sm">{formatCentralDate(s.session_date)}</span>
               <span className="text-xs text-gray-muted">{s.format} · {s.duration_mins} min</span>
             </div>
             {s.summary && <p className="text-sm text-gray-body mt-2">{s.summary}</p>}

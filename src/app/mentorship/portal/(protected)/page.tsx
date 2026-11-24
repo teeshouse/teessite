@@ -1,5 +1,6 @@
 import { requirePortalUser } from "@/lib/mentorship/auth-guard"
 import { getPairForPortalUser } from "@/lib/mentorship/portal-data"
+import { formatCentralDate } from "@/lib/mentorship/central-time"
 
 export const revalidate = 0
 export const metadata = { title: "Portal | Tee's House Mentorship" }
@@ -35,7 +36,7 @@ export default async function PortalDashboardPage() {
             </div>
             <div>
               <div className="text-2xl font-bold text-green-dark">
-                {pair.last_session_at ? new Date(pair.last_session_at).toLocaleDateString() : "—"}
+                {formatCentralDate(pair.last_session_at)}
               </div>
               <div className="text-xs text-gray-muted uppercase tracking-wide">Last Session</div>
             </div>
