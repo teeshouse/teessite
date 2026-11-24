@@ -38,6 +38,7 @@ export default function MentorApplyForm() {
   const [form, setForm] = useState<FormData>(empty)
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({})
+  const [serverError, setServerError] = useState("")
 
   function set<K extends keyof FormData>(key: K, value: FormData[K]) {
     setForm(f => ({ ...f, [key]: value }))
@@ -67,13 +68,18 @@ export default function MentorApplyForm() {
   async function handleSubmit() {
     if (!validate()) return
     setStatus("loading")
+    setServerError("")
     try {
       const res = await fetch("/api/mentorship/apply-mentor", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       })
-      if (!res.ok) throw new Error()
+      if (!res.ok) {
+        const data = await res.json().catch(() => null)
+        setServerError(typeof data?.error === "string" ? data.error : "")
+        throw new Error()
+      }
       setStatus("success")
       setForm(empty)
     } catch {
@@ -232,7 +238,9 @@ export default function MentorApplyForm() {
 
           {status === "error" && (
             <p className="text-red-500 text-sm text-center">
-              Something went wrong. Please email us at info@teeshouse.org
+              {serverError
+                ? <>{serverError} If you need help, email us at info@teeshouse.org.</>
+                : "Something went wrong. Please email us at info@teeshouse.org"}
             </p>
           )}
           <button onClick={handleSubmit} disabled={status === "loading"}
