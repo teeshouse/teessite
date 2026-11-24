@@ -3,6 +3,7 @@ import { supabaseAdmin } from "@/lib/supabase"
 import { requirePortalUser } from "@/lib/mentorship/auth-guard"
 import { getPairForPortalUser } from "@/lib/mentorship/portal-data"
 import { centralLocalToISO } from "@/lib/mentorship/central-time"
+import { cleanText, cleanHttpUrl, cleanInt } from "@/lib/mentorship/input"
 
 function googleCalendarLink(args: { title: string; startISO: string; durationMins: number; details?: string }) {
   const start = new Date(args.startISO)
@@ -41,7 +42,13 @@ export async function POST(req: NextRequest) {
   const pair = await getPairForPortalUser(user.role, user.profileId)
   if (!pair) return NextResponse.json({ error: "No active pairing" }, { status: 400 })
 
-  const { scheduledDate, durationMins, format, agenda, meetLink } = await req.json()
+  const body = await req.json()
+  const { scheduledDate } = body
+  const durationMins = cleanInt(body.durationMins, 5, 600) ?? 60
+  const format = cleanText(body.format, 60)
+  const agenda = cleanText(body.agenda, 2000)
+  const meetLink = cleanHttpUrl(body.meetLink)
+  if (meetLink === undefined) return NextResponse.json({ error: "Meeting link must start with http:// or https://" }, { status: 400 })
   // The browser sends the time exactly as picked ("2026-12-01T10:00"); it is Central Time.
   const startsAt = centralLocalToISO(scheduledDate)
   if (!startsAt) return NextResponse.json({ error: "Please choose a valid date and time" }, { status: 400 })
@@ -51,10 +58,10 @@ export async function POST(req: NextRequest) {
     .insert([{
       pair_id: pair.id,
       scheduled_date: startsAt,
-      duration_mins: durationMins || 60,
+      duration_mins: durationMins,
       format: format || null,
       agenda: agenda || null,
-      meet_link: meetLink || null,
+      meet_link: meetLink,
       scheduled_by: user.authUserId,
     }])
     .select("*")
@@ -65,7 +72,7 @@ export async function POST(req: NextRequest) {
   const calendarLink = googleCalendarLink({
     title: "Tee's House Mentorship Session",
     startISO: startsAt,
-    durationMins: durationMins || 60,
+    durationMins,
     details: agenda,
   })
 

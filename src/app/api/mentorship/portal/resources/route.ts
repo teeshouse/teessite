@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { supabaseAdmin } from "@/lib/supabase"
 import { requirePortalUser } from "@/lib/mentorship/auth-guard"
 import { getPairForPortalUser } from "@/lib/mentorship/portal-data"
+import { cleanText, cleanHttpUrl } from "@/lib/mentorship/input"
 
 export async function GET() {
   const { error, user } = await requirePortalUser()
@@ -27,12 +28,17 @@ export async function POST(req: NextRequest) {
   const pair = await getPairForPortalUser(user.role, user.profileId)
   if (!pair) return NextResponse.json({ error: "No active pairing" }, { status: 400 })
 
-  const { title, url, description, category } = await req.json()
+  const body = await req.json()
+  const title = cleanText(body.title, 200)
   if (!title) return NextResponse.json({ error: "title is required" }, { status: 400 })
+  const url = cleanHttpUrl(body.url)
+  if (url === undefined) return NextResponse.json({ error: "Link must start with http:// or https://" }, { status: 400 })
+  const description = cleanText(body.description, 2000)
+  const category = cleanText(body.category, 60)
 
   const { data, error: dbError } = await supabaseAdmin
     .from("mentorship_resources")
-    .insert([{ pair_id: pair.id, title, url: url || null, description: description || null, category: category || "General", added_by: user.authUserId }])
+    .insert([{ pair_id: pair.id, title, url, description: description || null, category: category || "General", added_by: user.authUserId }])
     .select("*")
     .single()
 
@@ -48,7 +54,7 @@ export async function DELETE(req: NextRequest) {
   if (!pair) return NextResponse.json({ error: "No active pairing" }, { status: 400 })
 
   const { id } = await req.json()
-  if (!id) return NextResponse.json({ error: "id is required" }, { status: 400 })
+  if (!id || typeof id !== "string") return NextResponse.json({ error: "id is required" }, { status: 400 })
 
   const { error: dbError } = await supabaseAdmin.from("mentorship_resources").delete().eq("id", id).eq("pair_id", pair.id)
   if (dbError) return NextResponse.json({ error: "Failed to delete resource" }, { status: 500 })

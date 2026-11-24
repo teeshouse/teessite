@@ -122,12 +122,15 @@ export async function PATCH(req: NextRequest) {
 
   const { id, status, flagged, flagReason } = await req.json()
   if (!id) return NextResponse.json({ error: "id is required" }, { status: 400 })
+  if (status && !["active", "completed", "ended_early"].includes(status)) {
+    return NextResponse.json({ error: "Invalid status" }, { status: 400 })
+  }
 
   const updates: Record<string, unknown> = { updated_at: new Date().toISOString() }
   if (status) updates.status = status
   if (status === "completed" || status === "ended_early") updates.ended_at = new Date().toISOString()
   if (typeof flagged === "boolean") updates.flagged = flagged
-  if (flagReason !== undefined) updates.flag_reason = flagReason
+  if (flagReason !== undefined) updates.flag_reason = typeof flagReason === "string" ? flagReason.slice(0, 1000) : null
 
   const { error: dbError } = await supabaseAdmin.from("mentorship_pairs").update(updates).eq("id", id)
 

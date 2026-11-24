@@ -48,6 +48,7 @@ export async function PATCH(req: NextRequest) {
 
   const { id, status } = await req.json()
   if (!id || !status) return NextResponse.json({ error: "id and status are required" }, { status: 400 })
+  if (!["upcoming", "active", "completed"].includes(status)) return NextResponse.json({ error: "Invalid status" }, { status: 400 })
 
   const { error: dbError } = await supabaseAdmin
     .from("mentorship_cohorts")

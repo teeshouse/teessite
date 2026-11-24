@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { supabaseAdmin } from "@/lib/supabase"
 import { requirePortalUser } from "@/lib/mentorship/auth-guard"
 import { getPairForPortalUser } from "@/lib/mentorship/portal-data"
+import { cleanText, cleanDate, cleanInt, cleanList } from "@/lib/mentorship/input"
 
 export async function GET() {
   const { error, user } = await requirePortalUser()
@@ -27,19 +28,27 @@ export async function POST(req: NextRequest) {
   const pair = await getPairForPortalUser(user.role, user.profileId)
   if (!pair) return NextResponse.json({ error: "No active pairing" }, { status: 400 })
 
-  const { sessionDate, durationMins, format, topics, summary, nextSessionDate, actionItems } = await req.json()
-  if (!sessionDate) return NextResponse.json({ error: "sessionDate is required" }, { status: 400 })
+  const body = await req.json()
+  const sessionDate = cleanDate(body.sessionDate)
+  if (!sessionDate) return NextResponse.json({ error: "Please choose a valid session date" }, { status: 400 })
+  const nextSessionDate = body.nextSessionDate ? cleanDate(body.nextSessionDate) : null
+  if (body.nextSessionDate && !nextSessionDate) return NextResponse.json({ error: "Please choose a valid next session date" }, { status: 400 })
+  const durationMins = cleanInt(body.durationMins, 1, 600)
+  const format = cleanText(body.format, 60)
+  const topics = cleanList(body.topics, 20, 80)
+  const summary = cleanText(body.summary, 5000)
+  const actionItems = cleanText(body.actionItems, 3000)
 
   const { data, error: dbError } = await supabaseAdmin
     .from("mentorship_sessions")
     .insert([{
       pair_id: pair.id,
       session_date: sessionDate,
-      duration_mins: durationMins || null,
+      duration_mins: durationMins,
       format: format || null,
-      topics: topics || [],
+      topics,
       summary: summary || null,
-      next_session_date: nextSessionDate || null,
+      next_session_date: nextSessionDate,
       action_items: actionItems || null,
       logged_by: user.authUserId,
     }])

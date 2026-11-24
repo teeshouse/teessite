@@ -17,6 +17,8 @@ interface CheckinPayload {
 }
 
 function sign(data: string): string {
+  // An empty key would let anyone forge valid links, so refuse to run without a secret.
+  if (!SECRET) throw new Error("CHECKIN_SIGNING_SECRET (or CRON_SECRET) must be set")
   return crypto.createHmac("sha256", SECRET).update(data).digest("hex")
 }
 
@@ -43,8 +45,10 @@ export function verifyCheckinToken(
 
     if (Date.now() > Number(expStr)) return { valid: false }
     if (role !== "mentor" && role !== "mentee") return { valid: false }
+    const rating = Number(ratingStr)
+    if (!Number.isInteger(rating) || rating < 1 || rating > 5) return { valid: false }
 
-    return { valid: true, pairId, role, rating: Number(ratingStr) }
+    return { valid: true, pairId, role, rating }
   } catch {
     return { valid: false }
   }

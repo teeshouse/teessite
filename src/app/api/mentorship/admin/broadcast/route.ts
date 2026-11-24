@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { supabaseAdmin } from "@/lib/supabase"
 import { requireAdmin } from "@/lib/mentorship/auth-guard"
-import { sendUserEmail } from "@/lib/resend"
+import { sendUserEmail, escapeHtml } from "@/lib/resend"
 import { broadcastMessage } from "@/lib/mentorship/email-templates"
 
 export async function POST(req: NextRequest) {
@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
     recipients.push(...(data || []).map(a => a.email))
   }
 
-  const bodyHtml = message.split("\n").map((line: string) => `<p style="margin:0 0 12px;">${line}</p>`).join("")
+  const bodyHtml = message.split("\n").map((line: string) => `<p style="margin:0 0 12px;">${escapeHtml(line)}</p>`).join("")
   const content = broadcastMessage({ heading: subject, bodyHtml, bodyText: message })
 
   // Sequential sends with no artificial delay — fine for a nonprofit cohort

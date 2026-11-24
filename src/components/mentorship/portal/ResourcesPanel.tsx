@@ -49,7 +49,7 @@ export default function ResourcesPanel({ resources }: { resources: MentorshipRes
           <div key={r.id} className="card p-4 flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-body font-medium">{r.title}</p>
-              {r.url && <a href={r.url} target="_blank" rel="noopener noreferrer" className="text-xs text-green-mid hover:underline">{r.url}</a>}
+              {r.url && /^https?:\/\//i.test(r.url) && <a href={r.url} target="_blank" rel="noopener noreferrer" className="text-xs text-green-mid hover:underline">{r.url}</a>}
             </div>
             <button onClick={() => remove(r.id)} className="text-xs text-red-500 hover:underline">Remove</button>
           </div>

@@ -38,6 +38,13 @@ export async function POST(req: NextRequest) {
       )
     }
 
+    if (minor && String(parentEmail).trim().toLowerCase() === String(email).trim().toLowerCase()) {
+      return NextResponse.json(
+        { error: "The parent/guardian email must be different from the applicant's own email." },
+        { status: 400 }
+      )
+    }
+
     const ip = getClientIp(req)
     const gate = checkRateLimit(`mentee-apply:${ip}`, { limit: 3, windowMs: 10 * 60_000 })
     if (!gate.ok) {
