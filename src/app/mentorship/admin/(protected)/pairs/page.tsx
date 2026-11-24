@@ -8,7 +8,7 @@ export default async function AdminPairsPage() {
   const [{ data: pairs }, { data: mentors }, { data: mentees }, { data: cohorts }] = await Promise.all([
     supabaseAdmin
       .from("mentorship_pairs")
-      .select(`id, status, flagged, certificate_token, mentor:mentors(id, first_name, last_name), mentee:mentorship_applications(id, first_name, last_name, is_minor), cohort:mentorship_cohorts(name)`)
+      .select(`id, status, flagged, certificate_token, mentor:mentors(id, first_name, last_name, auth_user_id), mentee:mentorship_applications(id, first_name, last_name, is_minor, auth_user_id), cohort:mentorship_cohorts(name)`)
       .order("created_at", { ascending: false }),
     supabaseAdmin.from("mentors").select("id, first_name, last_name").in("status", ["approved", "active"]),
     supabaseAdmin.from("mentorship_applications").select("id, first_name, last_name, is_minor, parent_consent, status").not("status", "in", "(declined,completed)").order("created_at", { ascending: false }),

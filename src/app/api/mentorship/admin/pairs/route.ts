@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server"
 import { supabaseAdmin } from "@/lib/supabase"
 import { requireAdmin } from "@/lib/mentorship/auth-guard"
+import { sendUserEmail } from "@/lib/resend"
+import { pairingAnnouncement } from "@/lib/mentorship/email-templates"
+import { pairingError } from "@/lib/mentorship/pairing-rules"
 
 export async function GET() {
   const { error } = await requireAdmin()
@@ -27,47 +30,44 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "mentorId and menteeId are required" }, { status: 400 })
   }
 
-  // Explicit app-level check ahead of the DB trigger (supabase/migrations/
-  // 0001_mentorship_schema.sql: enforce_minor_consent) so an unconsented
-  // minor gets a clear 400 instead of a raw Postgres error.
-  const { data: mentee, error: menteeError } = await supabaseAdmin
-    .from("mentorship_applications")
-    .select("is_minor, parent_consent, consent_expires_at")
-    .eq("id", menteeId)
-    .maybeSingle()
+  // App-level checks ahead of the DB trigger (supabase/migrations/
+  // 0001_mentorship_schema.sql: enforce_minor_consent) so the admin gets a
+  // clear 400 instead of a raw Postgres error. The rules live in
+  // pairing-rules.ts so they can be tested without a database.
+  const [{ data: mentee }, { data: mentor }] = await Promise.all([
+    supabaseAdmin
+      .from("mentorship_applications")
+      .select("first_name, last_name, email, status, is_minor, parent_name, parent_email, parent_consent, consent_expires_at")
+      .eq("id", menteeId)
+      .maybeSingle(),
+    supabaseAdmin
+      .from("mentors")
+      .select("first_name, last_name, email, status, max_mentees")
+      .eq("id", mentorId)
+      .maybeSingle(),
+  ])
 
-  if (menteeError || !mentee) {
-    return NextResponse.json({ error: "Intern not found" }, { status: 404 })
-  }
+  const [mentorPairs, internPairs, cohortRow, cohortPairs] = await Promise.all([
+    supabaseAdmin.from("mentorship_pairs").select("*", { count: "exact", head: true }).eq("mentor_id", mentorId).eq("status", "active"),
+    supabaseAdmin.from("mentorship_pairs").select("*", { count: "exact", head: true }).eq("mentee_id", menteeId).eq("status", "active"),
+    cohortId
+      ? supabaseAdmin.from("mentorship_cohorts").select("name, status, max_pairs").eq("id", cohortId).maybeSingle()
+      : Promise.resolve({ data: undefined }),
+    cohortId
+      ? supabaseAdmin.from("mentorship_pairs").select("*", { count: "exact", head: true }).eq("cohort_id", cohortId).eq("status", "active")
+      : Promise.resolve({ count: 0 }),
+  ])
 
-  if (mentee.is_minor) {
-    const expired = !mentee.consent_expires_at || new Date(mentee.consent_expires_at) < new Date()
-    if (!mentee.parent_consent || expired) {
-      return NextResponse.json(
-        { error: "Cannot pair: parent consent has not been received or has expired for this intern." },
-        { status: 400 }
-      )
-    }
-  }
-
-  const { data: mentor, error: mentorError } = await supabaseAdmin
-    .from("mentors")
-    .select("max_mentees")
-    .eq("id", mentorId)
-    .maybeSingle()
-
-  if (mentorError || !mentor) {
-    return NextResponse.json({ error: "Mentor not found" }, { status: 404 })
-  }
-
-  const { count: activePairCount } = await supabaseAdmin
-    .from("mentorship_pairs")
-    .select("*", { count: "exact", head: true })
-    .eq("mentor_id", mentorId)
-    .eq("status", "active")
-
-  if ((activePairCount ?? 0) >= mentor.max_mentees) {
-    return NextResponse.json({ error: "This mentor is already at their max intern capacity." }, { status: 400 })
+  const rule = pairingError({
+    mentor,
+    intern: mentee,
+    mentorActivePairs: mentorPairs.count ?? 0,
+    internActivePairs: internPairs.count ?? 0,
+    cohort: cohortId ? (cohortRow.data ?? null) : undefined,
+    cohortActivePairs: cohortPairs.count ?? 0,
+  })
+  if (rule || !mentee || !mentor) {
+    return NextResponse.json({ error: rule?.message ?? "Mentor or intern not found" }, { status: rule?.status ?? 404 })
   }
 
   const { data: pair, error: dbError } = await supabaseAdmin
@@ -95,7 +95,25 @@ export async function POST(req: NextRequest) {
     .update({ status: "matched", matched_at: new Date().toISOString() })
     .eq("id", menteeId)
 
-  return NextResponse.json({ pair })
+  // Tell everyone involved. sendUserEmail never throws, so a failure here
+  // must not undo the pair; report it so the admin can follow up.
+  const cohortName = cohortRow.data?.name ?? null
+  const mentorName = `${mentor.first_name} ${mentor.last_name}`
+  const internName = `${mentee.first_name} ${mentee.last_name}`
+  const sends = [
+    sendUserEmail({ to: mentor.email, ...pairingAnnouncement({ recipientName: mentor.first_name, partnerName: internName, partnerRole: "intern", cohortName }) }),
+    sendUserEmail({ to: mentee.email, ...pairingAnnouncement({ recipientName: mentee.first_name, partnerName: mentorName, partnerRole: "mentor", cohortName }) }),
+  ]
+  if (mentee.is_minor && mentee.parent_email) {
+    sends.push(sendUserEmail({
+      to: mentee.parent_email,
+      ...pairingAnnouncement({ recipientName: mentee.parent_name || "there", partnerName: mentorName, partnerRole: "mentor", cohortName, onBehalfOf: mentee.first_name }),
+    }))
+  }
+  const emailsSent = (await Promise.all(sends)).every(Boolean)
+  if (!emailsSent) console.error(`Pairing notification emails were not all delivered for pair ${pair.id}`)
+
+  return NextResponse.json({ pair, emailsSent })
 }
 
 export async function PATCH(req: NextRequest) {

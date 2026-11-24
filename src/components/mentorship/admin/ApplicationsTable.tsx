@@ -7,6 +7,7 @@ const statuses = ["pending", "reviewing", "matched", "active", "completed", "dec
 export default function ApplicationsTable({ applications }: { applications: MentorshipApplication[] }) {
   const [rows, setRows] = useState(applications)
   const [savingId, setSavingId] = useState<string | null>(null)
+  const [msg, setMsg] = useState<Record<string, string>>({})
 
   async function updateStatus(id: string, status: string) {
     setSavingId(id)
@@ -17,6 +18,31 @@ export default function ApplicationsTable({ applications }: { applications: Ment
     })
     if (res.ok) {
       setRows(rs => rs.map(r => (r.id === id ? { ...r, status: status as MentorshipApplication["status"] } : r)))
+    }
+    setSavingId(null)
+  }
+
+  async function invite(id: string, resend: boolean) {
+    setSavingId(id)
+    setMsg(m => ({ ...m, [id]: "" }))
+    try {
+      const res = await fetch("/api/mentorship/admin/mentors/activate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, role: "mentee", resend }),
+      })
+      const data = await res.json()
+      if (res.ok) {
+        setRows(rs => rs.map(r => (r.id === id ? { ...r, auth_user_id: data.authUserId ?? r.auth_user_id, status: resend ? r.status : "active" } : r)))
+        setMsg(m => ({
+          ...m,
+          [id]: data.emailSent ? "Invite email sent" : "Account is set up, but the email could not be sent. Click Resend Invite to try again.",
+        }))
+      } else {
+        setMsg(m => ({ ...m, [id]: data.error || "Failed" }))
+      }
+    } catch {
+      setMsg(m => ({ ...m, [id]: "Network error. Please try again." }))
     }
     setSavingId(null)
   }
@@ -35,6 +61,7 @@ export default function ApplicationsTable({ applications }: { applications: Ment
             <th className="p-3 font-semibold text-green-dark">Minor?</th>
             <th className="p-3 font-semibold text-green-dark">Consent</th>
             <th className="p-3 font-semibold text-green-dark">Status</th>
+            <th className="p-3 font-semibold text-green-dark">Portal</th>
             <th className="p-3 font-semibold text-green-dark">Applied</th>
           </tr>
         </thead>
@@ -56,6 +83,23 @@ export default function ApplicationsTable({ applications }: { applications: Ment
                   onChange={e => updateStatus(a.id, e.target.value)}>
                   {statuses.map(s => <option key={s} value={s}>{s}</option>)}
                 </select>
+              </td>
+              <td className="p-3">
+                {a.auth_user_id ? (
+                  <div className="flex items-center gap-3">
+                    <span className="text-green-mid text-xs font-medium">Account created</span>
+                    <button onClick={() => invite(a.id, true)} disabled={savingId === a.id}
+                      className="btn-outline text-xs py-1.5 px-3">
+                      {savingId === a.id ? "Sending..." : "Resend Invite"}
+                    </button>
+                  </div>
+                ) : (
+                  <button onClick={() => invite(a.id, false)} disabled={savingId === a.id}
+                    className="btn-outline text-xs py-1.5 px-3">
+                    {savingId === a.id ? "Sending..." : "Send Invite"}
+                  </button>
+                )}
+                {msg[a.id] && <p className="text-xs text-gray-muted mt-1">{msg[a.id]}</p>}
               </td>
               <td className="p-3 text-gray-muted whitespace-nowrap">{new Date(a.created_at).toLocaleDateString()}</td>
             </tr>

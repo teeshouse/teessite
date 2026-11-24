@@ -119,6 +119,36 @@ export function leadershipCohortDigest(args: {
   }
 }
 
+export function pairingAnnouncement(args: {
+  recipientName: string
+  partnerName: string
+  partnerRole: "mentor" | "intern"
+  cohortName?: string | null
+  /** Set when the email goes to a parent/guardian instead of the intern. */
+  onBehalfOf?: string
+}): EmailContent {
+  const who = args.onBehalfOf ? `${args.onBehalfOf} has` : "You have"
+  const cohort = args.cohortName ? ` in the ${args.cohortName} cohort` : ""
+  const next = args.onBehalfOf
+    ? `${args.onBehalfOf} can sign in to the portal to see the pairing, set goals together, and log sessions.`
+    : "Sign in to your portal to see your pairing, set goals together, and log sessions."
+  return {
+    subject: args.onBehalfOf
+      ? `${args.onBehalfOf} has been paired with a mentor`
+      : `You've been paired with your ${args.partnerRole}`,
+    heading: "You've been paired",
+    bodyHtml: `<p>Hi ${escapeHtml(args.recipientName)},</p>
+      <p>${escapeHtml(who)} been paired with ${escapeHtml(args.partnerName)} as ${args.partnerRole === "mentor" ? "their mentor" : "their intern"}${escapeHtml(cohort)} in the Tee's House Internship Program.</p>
+      <p>${escapeHtml(next)} If you haven't received your portal invitation yet, contact us at info@teeshouse.org.</p>`,
+    bodyText: `Hi ${args.recipientName},
+
+${who} been paired with ${args.partnerName} as ${args.partnerRole === "mentor" ? "their mentor" : "their intern"}${cohort} in the Tee's House Internship Program.
+
+${next} If you haven't received your portal invitation yet, contact us at info@teeshouse.org.`,
+    cta: { label: "Open Portal", href: `${SITE_URL}/mentorship/portal` },
+  }
+}
+
 export function certificateReady(args: { recipientName: string; certificateUrl: string }): EmailContent {
   return {
     subject: "Your mentorship certificate is ready",

@@ -14,7 +14,7 @@ export default async function PortalDashboardPage() {
   return (
     <div>
       <h1 className="text-green-dark mb-2">Welcome back</h1>
-      <p className="text-gray-muted mb-6">You're signed in as a {user.role}.</p>
+      <p className="text-gray-muted mb-6">You're signed in as {user.role === "mentor" ? "a mentor" : "an intern"}.</p>
 
       {!pair ? (
         <div className="card p-8 text-center">
