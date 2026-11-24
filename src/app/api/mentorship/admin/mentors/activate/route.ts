@@ -49,12 +49,23 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "id and role ('mentor'|'mentee') are required" }, { status: 400 })
   }
 
+  // Only intern applications have is_minor/parent_consent; selecting them on
+  // the mentors table fails the whole query.
   const table = role === "mentor" ? "mentors" : "mentorship_applications"
-  const { data: profile, error: fetchError } = await supabaseAdmin
+  const columns = role === "mentor"
+    ? "id, first_name, email, auth_user_id, status"
+    : "id, first_name, email, auth_user_id, status, is_minor, parent_consent"
+  const { data, error: fetchError } = await supabaseAdmin
     .from(table)
-    .select("id, first_name, email, auth_user_id, status, is_minor, parent_consent")
+    .select(columns)
     .eq("id", id)
     .maybeSingle()
+
+  if (fetchError) console.error("Activate profile lookup error:", JSON.stringify(fetchError))
+  const profile = data as unknown as {
+    id: string; first_name: string; email: string; auth_user_id: string | null; status: string
+    is_minor?: boolean; parent_consent?: boolean
+  } | null
 
   if (fetchError || !profile) {
     return NextResponse.json({ error: "Profile not found" }, { status: 404 })
