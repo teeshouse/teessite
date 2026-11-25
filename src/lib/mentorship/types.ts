@@ -1,5 +1,5 @@
 export type ApplicationStatus =
-  | "pending" | "reviewing" | "matched" | "active" | "completed" | "declined"
+  | "pending" | "reviewing" | "matched" | "active" | "completed" | "declined" | "archived"
 
 export interface MentorshipApplication {
   id: string
@@ -34,7 +34,7 @@ export interface MentorshipApplication {
   updated_at: string
 }
 
-export type MentorStatus = "pending" | "approved" | "active" | "inactive"
+export type MentorStatus = "pending" | "approved" | "active" | "inactive" | "archived"
 
 export interface Mentor {
   id: string
@@ -117,17 +117,36 @@ export interface MentorshipSession {
   created_at: string
 }
 
-export interface MentorshipGoal {
+export interface TaskFile {
+  id: string
+  note_id: string
+  task_id: string
+  file_name: string
+  content_type: string
+  size_bytes: number
+  created_at: string
+}
+
+export interface TaskNote {
+  id: string
+  task_id: string
+  author_role: "mentor" | "mentee"
+  body: string
+  created_at: string
+  files: TaskFile[]
+}
+
+export interface MentorshipTask {
   id: string
   pair_id: string
   title: string
   description: string | null
-  target_date: string | null
-  created_by: string | null
-  status: "in_progress" | "completed" | "dropped"
+  due_date: string | null
+  status: "open" | "submitted" | "completed"
   completed_at: string | null
   created_at: string
   updated_at: string
+  notes: TaskNote[]
 }
 
 export interface MentorshipResource {

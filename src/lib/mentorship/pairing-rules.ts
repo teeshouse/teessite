@@ -23,7 +23,7 @@ export function pairingError(c: PairingCheck): PairingError | null {
   if (!c.intern) return { message: "Intern not found", status: 404 }
   if (!c.mentor) return { message: "Mentor not found", status: 404 }
 
-  if (c.intern.status === "declined" || c.intern.status === "completed") {
+  if (c.intern.status === "declined" || c.intern.status === "completed" || c.intern.status === "archived") {
     return { message: `Cannot pair: this intern's application is ${c.intern.status}.`, status: 400 }
   }
 

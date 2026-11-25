@@ -65,3 +65,8 @@ export function formatCentralDateTime(value: string | null | undefined): string 
     hour: "numeric", minute: "2-digit", timeZoneName: "short",
   })
 }
+
+/** Today's calendar date in Central Time, as YYYY-MM-DD. */
+export function todayCentral(now: Date = new Date()): string {
+  return now.toLocaleDateString("en-CA", { timeZone: CENTRAL_TZ })
+}

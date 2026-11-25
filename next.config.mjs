@@ -37,6 +37,11 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: "/mentorship/portal/goals",
+        destination: "/mentorship/portal/tasks",
+        permanent: true,
+      },
+      {
         source: "/volunteer",
         destination: "/opportunities",
         permanent: true,

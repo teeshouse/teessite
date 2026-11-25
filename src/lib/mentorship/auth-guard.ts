@@ -69,8 +69,8 @@ export async function requirePortalUser(): Promise<GuardResult<PortalUser>> {
   }
 
   const [{ data: mentor }, { data: mentee }] = await Promise.all([
-    supabaseAdmin.from("mentors").select("id").eq("auth_user_id", user.id).maybeSingle(),
-    supabaseAdmin.from("mentorship_applications").select("id").eq("auth_user_id", user.id).maybeSingle(),
+    supabaseAdmin.from("mentors").select("id").eq("auth_user_id", user.id).neq("status", "archived").maybeSingle(),
+    supabaseAdmin.from("mentorship_applications").select("id").eq("auth_user_id", user.id).neq("status", "archived").maybeSingle(),
   ])
 
   if (mentor) {

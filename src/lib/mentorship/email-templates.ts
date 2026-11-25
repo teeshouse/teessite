@@ -94,7 +94,7 @@ export function mentorWeeklyNudge(args: {
     bodyHtml: `<p>Hi ${escapeHtml(args.mentorName)},</p>
       <p>Here's where things stand with your intern(s):</p>
       <ul style="padding-left:20px;">${rows}</ul>
-      <p>Log in to your portal to record a session or update goals.</p>`,
+      <p>Log in to your portal to record a session or assign tasks.</p>`,
     bodyText: `Hi ${args.mentorName},\n\nHere's where things stand with your intern(s):\n\n${args.pairSummaries.map(p => `- ${p.menteeName}: ${p.status}${p.daysSinceLastSession !== null ? ` (last session ${p.daysSinceLastSession}d ago)` : " (no sessions logged yet)"}`).join("\n")}`,
     cta: { label: "Open Portal", href: `${SITE_URL}/mentorship/portal` },
   }
@@ -130,8 +130,8 @@ export function pairingAnnouncement(args: {
   const who = args.onBehalfOf ? `${args.onBehalfOf} has` : "You have"
   const cohort = args.cohortName ? ` in the ${args.cohortName} cohort` : ""
   const next = args.onBehalfOf
-    ? `${args.onBehalfOf} can sign in to the portal to see the pairing, set goals together, and log sessions.`
-    : "Sign in to your portal to see your pairing, set goals together, and log sessions."
+    ? `${args.onBehalfOf} can sign in to the portal to see the pairing, work through tasks together, and log sessions.`
+    : "Sign in to your portal to see your pairing, work through tasks together, and log sessions."
   return {
     subject: args.onBehalfOf
       ? `${args.onBehalfOf} has been paired with a mentor`

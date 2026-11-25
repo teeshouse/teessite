@@ -71,6 +71,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Profile not found" }, { status: 404 })
   }
 
+  if (profile.status === "archived") {
+    return NextResponse.json({ error: "This record is archived. Restore it before sending an invite." }, { status: 400 })
+  }
+
   if (role === "mentee" && profile.is_minor && !profile.parent_consent) {
     return NextResponse.json(
       { error: "Cannot activate: this intern is a minor without confirmed parental consent." },

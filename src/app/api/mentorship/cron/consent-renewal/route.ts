@@ -26,6 +26,7 @@ export async function GET(req: NextRequest) {
     .select("id, first_name, last_name, parent_name, parent_email, consent_expires_at")
     .eq("is_minor", true)
     .eq("parent_consent", true)
+    .neq("status", "archived")
     .not("consent_expires_at", "is", null)
     .lte("consent_expires_at", thirtyDaysOut)
 

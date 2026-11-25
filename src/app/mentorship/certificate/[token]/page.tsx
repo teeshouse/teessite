@@ -28,8 +28,9 @@ export default async function CertificatePage({ params }: { params: { token: str
   const mentee = Array.isArray(pair.mentee) ? pair.mentee[0] : pair.mentee
   const cohort = Array.isArray(pair.cohort) ? pair.cohort[0] : pair.cohort
 
-  const { count: goalsCompleted } = await supabaseAdmin
-    .from("mentorship_goals")
+  // Tasks replaced goals; a missing table (not set up yet) just counts as zero.
+  const { count: tasksCompleted } = await supabaseAdmin
+    .from("mentorship_tasks")
     .select("*", { count: "exact", head: true })
     .eq("pair_id", pair.id)
     .eq("status", "completed")
@@ -71,8 +72,8 @@ export default async function CertificatePage({ params }: { params: { token: str
               <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", color: "#6B7280" }}>Sessions</div>
             </div>
             <div>
-              <div style={{ fontSize: 22, fontWeight: 700, color: "#2D5016" }}>{goalsCompleted ?? 0}</div>
-              <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", color: "#6B7280" }}>Goals Completed</div>
+              <div style={{ fontSize: 22, fontWeight: 700, color: "#2D5016" }}>{tasksCompleted ?? 0}</div>
+              <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", color: "#6B7280" }}>Tasks Completed</div>
             </div>
           </div>
           {completionDate && (

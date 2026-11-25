@@ -5,7 +5,7 @@ import { usePathname, useRouter } from "next/navigation"
 const links = [
   { label: "Overview", href: "/mentorship/portal" },
   { label: "Sessions", href: "/mentorship/portal/sessions" },
-  { label: "Goals", href: "/mentorship/portal/goals" },
+  { label: "Tasks", href: "/mentorship/portal/tasks" },
   { label: "Resources", href: "/mentorship/portal/resources" },
   { label: "Schedule", href: "/mentorship/portal/schedule" },
 ]
